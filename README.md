@@ -190,12 +190,10 @@ var de = linkText.filter(streetName => streetName.includes('de'));
 
 In this portion of the exercise we will focus on list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats.
 
-## In VS Code
+### VS Code
 
 * An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
 * Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
-
-I do not expect you to master (or even use Emmet) to create your HTML but it is helpful to understand what VS Code offers in terms of shortcuts and how to start using them.
 
 Create a new `index.html` file in the `float-nav` folder.
 
