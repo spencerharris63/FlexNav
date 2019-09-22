@@ -2,7 +2,7 @@
 
 ## Homework
 
-Create an HTML page with tabs and style them using CSS and the [CSS Flexbox module](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). Create an array of objects and use it to set the HTML content of the page.
+Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` to it matches the goal. There are some notes for you to follow [here](https://github.com/front-end-foundations/4-flex-menu#design-with-flexbox).
 
 ## Reading
 
@@ -175,7 +175,17 @@ var de = linkText.filter(streetName => streetName.includes('de'));
 
 <img src="other/tabs-image.jpg">
 
-In this exercise we will focus on list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats and flexbox.
+Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare in order that we may focus on the technique.
+
+To begin, we will focus on navigation list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats and then flexbox.
+
+### Design Patterns
+
+In `other/floatNav-design-patterns`
+
+- `cuisines.html` server vs client side rendering
+- `index-spa-fragments` single page application with scroll
+- `index-spa-js.html` single page application with JavaScript
 
 ### VS Code
 
@@ -225,7 +235,6 @@ $ npm run start
 ```
 
 - did it work? (sudo)
--
 
 You have installed the software listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/)) and ran the command in package.json scripts.
 
@@ -235,7 +244,7 @@ The script (`"browser-sync start --server 'app' --files 'app'"`) was written by 
 
 Make a change to the HTML and note the hot reloading.
 
-Note the addition of the `node_modules` folder.
+Note the addition of the installation folder: `node_modules` and [package-lock.json](https://docs.npmjs.com/files/package-lock.json).
 
 Note the `.gitignore` file.
 
@@ -243,7 +252,13 @@ Use `ctrl-c` to shut down the server.
 
 Try editing the start script to specify the browser:
 
-"browser-sync start --browser chrome --server 'app' --files 'app'"
+```js
+"scripts": {
+  "start": "browser-sync start --browser \"google chrome\" --port 1234 --server 'app' --files 'app'"
+},
+```
+
+Restart the server with `$ npm run start`.
 
 ### CSS
 
@@ -1215,13 +1230,5 @@ function setUp() {
   window.location.hash = 'cuisines';
 }
 ```
-
-## Design Patterns
-
-In `other/floatNav-design-patterns`
-
-- `cuisines.html` server vs client side rendering
-- `index-spa-fragments` single page application with scroll
-- `index-spa-js.html` single page application with JavaScript
 
 ## Notes
