@@ -2,35 +2,35 @@
 
 ## Homework
 
+Create an HTML page with tabs and style them using CSS and the [CSS Flexbox module](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). Create an array of objects and use it to set the HTML content of the page.
+
 ## Reading
 
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
-- Read (and Practice) [Learning the Command Line](https://hellowebbooks.com/learn-command-line/). (Mac only, Windows users should use the copy of Git Bash that is installed along with [Git](https://git-scm.com/).)
 
 ## The Terminal
 
-There are many good reasons to aquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
+There are many good reasons to acquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
 
 <hr />
 
 ## For Windows Users
 
-The Windows equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences and you MAY NOT be able to run Python as shown below. Windows alternates to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell if you are on Windows.
+The Windows equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Windows alternates to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
 
 <hr />
 
-Some basic shell commands (the convention in documentation is to use '\$' to indicate a prompt - do NOT include it when copying and pasting a command):
+Some basic shell commands (the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
 
 ```sh
-$ pwd
-$ cd
+$ pwd  // print working directory
 $ cd <path-to-folder>
 $ cd .. // go up one level
 $ cd ~ // go to your home directory
-$ ls
-$ ls -l
-$ ls -al // flags expand the command
+$ ls  // list files
+$ ls -l  // flags expand the command
+$ ls -al
 ```
 
 Demo: tab completion, history and copy paste.
@@ -47,12 +47,12 @@ $ npm --version
 $ git --version
 $ node
 > var total = 12+12
-> var el = document.querySelector('.anything') // this makes no sense in the node universe
+> var el = document.querySelector('.anything') // error
 > .exit // or control + c to exit node
 $ clear // or command + k to clear the terminal
 ```
 
-Use `cd` or the copy and paste method to get into today's exercise folder in the terminal.
+Use `cd` or the copy and paste method to cd into today's exercise folder.
 
 ## Initialize GIT and Create a Branch
 
@@ -66,11 +66,11 @@ $ git checkout inclass
 
 Examine a branch in VS Code.
 
-## JavaScipt Review
+## JavaScipt Preview and Review
 
 Recall `document.querySelector('<css selector>')` returns the first selected item.
 
-Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article. Inspect one of the listed boulevards to find `.mw-category` in the code.
+Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
 
 Paste the following in the console:
 
@@ -83,6 +83,8 @@ While `document.querySelectorAll()` returns a collection (`nodeList`) of the ite
 ```js
 var test = document.querySelectorAll('a');
 ```
+
+Inspect one of the listed boulevards to find `.mw-category` in the code. Note: You can reference the currently selected element using `$0`.
 
 ```js
 var category = document.querySelector('.mw-category');
@@ -108,22 +110,32 @@ Our nodeList looks like an array but isn't. Let's convert the nodeList into an A
 var linksArray = Array.from(links);
 ```
 
-Try:
-
-- Examine the methods on the resulting Array.
+- Examine the methods on the resulting Array and compare them to the methods on a nodeList.
 - Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property.
+
+Here is a simple example showing how to call an array method and access an element from an array
+
+```js
+linksArray[0];
+linksArray[0].textContent;
+```
 
 ### Array Methods
 
-Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+We commonly use for loops to iterate through an array and perform some action.
 
-Here is a simple example showing how to call an array method:
+Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
 
 ```js
-fruits.reverse();
+var linkText = [];
+for (let i = 0; i < linksArray.length; i++) {
+  linkText.push(linksArray[i].textContent);
+}
 ```
 
-Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate just the text content from our linksArray:
+Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
 
 ```js
 var linkText = linksArray.map(function(link) {
@@ -159,11 +171,11 @@ Here's the same function as an arrow function:
 var de = linkText.filter(streetName => streetName.includes('de'));
 ```
 
-## Floats vs Flexbox
+## Exercise
 
 <img src="other/tabs-image.jpg">
 
-In this portion of the exercise we will focus on list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats.
+In this exercise we will focus on list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats and flexbox.
 
 ### VS Code
 
@@ -180,7 +192,7 @@ Emmet samples to try in `index.html`:
 
 `nav>ul>li.t-cuisines*4>a[href="cuisines.html"]{cuisines}`
 
-Then use multiple selections (`command-d`) to edit it as shown:
+Edit it as shown:
 
 ```html
 <nav>
@@ -212,13 +224,26 @@ $ npm install
 $ npm run start
 ```
 
+- did it work? (sudo)
+-
+
+You have installed the software listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/)) and ran the command in package.json scripts.
+
+Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync).
+
+The script (`"browser-sync start --server 'app' --files 'app'"`) was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
+
 Make a change to the HTML and note the hot reloading.
 
 Note the addition of the `node_modules` folder.
 
 Note the `.gitignore` file.
 
-(Don't forget to use `ctrl-c` to shut down the server when done.)
+Use `ctrl-c` to shut down the server.
+
+Try editing the start script to specify the browser:
+
+"browser-sync start --browser chrome --server 'app' --files 'app'"
 
 ### CSS
 
@@ -1191,6 +1216,12 @@ function setUp() {
 }
 ```
 
-To do: discussion of server vs client side rendering
+## Design Patterns
+
+In `other/floatNav-design-patterns`
+
+- `cuisines.html` server vs client side rendering
+- `index-spa-fragments` single page application with scroll
+- `index-spa-js.html` single page application with JavaScript
 
 ## Notes
