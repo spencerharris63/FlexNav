@@ -2,8 +2,6 @@
 
 ## Homework
 
-## Midterm
-
 ## Reading
 
 * [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
@@ -1185,37 +1183,20 @@ Add some CSS to capitalize the new header:
 
 Add the same property to the tab text.
 
-## Notes
+To do: initialize the header on first load.
 
-CHange the HTML to use page fragment links:
-
-```html
-<ul>
-  <li class="t-cuisines">
-    <a class="active" href="#index">cuisines</a>
-  </li>
-  <li class="t-chefs"><a href="#chefs">chefs</a></li>
-  <li class="t-reviews"><a href="#reviews">reviews</a></li>
-  <li class="t-delivery"><a href="#delivery">delivery</a></li>
-</ul>
-```
-
-Remove the preventDefault:
+`window.addEventListener('load', setUp);`
 
 ```js
-function makeActive() {
-  var contentRef = event.target.href;
-  makeInactive();
-  this.classList.add('active');
-  if (contentRef.includes('cuisines')) {
-    contentPara.innerHTML = cuisines;
-  } else if (contentRef.includes('chefs')) {
-    contentPara.innerHTML = chefs;
-  } else if (contentRef.includes('reviews')) {
-    contentPara.innerHTML = reviews;
-  } else if (contentRef.includes('delivery')) {
-    contentPara.innerHTML = delivery;
-  }
-  // event.preventDefault();
+function setUp() {
+  document.querySelector('nav a').classList.add('active');
+  contentPara.innerHTML = data[0].story;
+  makeHeader('Cuisines');
+  window.location.hash = 'cuisines';
 }
 ```
+
+To do: discussion of server vs client side rendering
+
+## Notes
+
