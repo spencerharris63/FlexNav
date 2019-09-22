@@ -671,7 +671,7 @@ nav a.active {
 }
 ```
 
-### Flexbox for the Nav
+## Flexbox for the Nav
 
 [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
 
@@ -679,6 +679,13 @@ nav a.active {
 - `flex` is a _display_ attribute like `block, inline, block-inline`
 - Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
 - Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
+
+### Flex in the Wild
+
+- nytimes.com main story on the front page
+- theguardian.com main story on the front page
+
+<hr />
 
 First - comment out the float properties in the CSS and add `display: flex` to the nav:
 
