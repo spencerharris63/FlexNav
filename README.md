@@ -56,29 +56,6 @@ $ clear // or command + k to clear the terminal
 
 Use `cd` or the copy and paste method to get into today's exercise folder in the terminal.
 
-## Node Package Manager
-
-In order to familiarize you with node packages and to test your installation we will attempt to initiate hot reloading without using VS Code's Go Live extension. 
-
-Note the presence of `package.json` in today's folder. Examine it in VS Code.
-
-[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is ubiquitious in web development.
-
-Use `cd` to navigate to today's directory. Then:
-
-```sh
-$ npm install
-$ npm run start
-```
-
-(Don't forget to use `ctrl-c` to shut down the server when done.)
-
-Make a change to the HTML and note the hot reloading. 
-
-Note the addition of the `node_modules` folder. 
-
-Note the `.gitignore` file.
-
 ## Initialize GIT and Create a Branch
 
 ```sh
@@ -203,13 +180,13 @@ Emmet samples to try in `index.html`:
 
 `ul>li*4>a[href="#"]{link}`
 
-`nav>ul.nav>li.t-cuisines*4>a[href="cuisines.html"]{cuisines}`
+`nav>ul>li.t-cuisines*4>a[href="cuisines.html"]{cuisines}`
 
 Then use multiple selections (`command-d`) to edit it as shown:
 
 ```html
 <nav>
-  <ul class="nav">
+  <ul>
     <li class="t-cuisines"><a href="index.html">cuisines</a></li>
     <li class="t-chefs"><a href="chefs.html">chefs</a></li>
     <li class="t-reviews"><a href="reviews.html">reviews</a></li>
@@ -222,6 +199,31 @@ Add a link to `styles.css` in `index.html`:
 
 `<link rel="stylesheet" href="css/styles.css">`
 
+## Node Package Manager
+
+In order to familiarize you with node packages and to test your Node installation we will attempt to initiate hot reloading without using VS Code's Go Live extension. 
+
+Note the presence of `package.json` in today's folder. Examine it in VS Code.
+
+[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is ubiquitious in web development.
+
+Use `cd` to navigate to today's directory. Then:
+
+```sh
+$ npm install
+$ npm run start
+```
+
+Make a change to the HTML and note the hot reloading. 
+
+Note the addition of the `node_modules` folder. 
+
+Note the `.gitignore` file.
+
+(Don't forget to use `ctrl-c` to shut down the server when done.)
+
+### CSS
+
 Open the file in Chrome and examine the default user agent styles using the inspector.
 
 Add and review some basic formatting in `styles.css`:
@@ -233,44 +235,51 @@ body {
   "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.nav {
-  background: #ffcb2d;
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
   margin: 0;
-  padding: 0 0 0 46px;
+  padding: 0;
+}
+nav ul {
   list-style: none;
+  background-color: #ffcb2d;
+  padding: 0 0 0 46px;
 }
 ```
 
-Note the complex looking `font-family` value. (In the future you will be able to write just `font-family: system-ui;`.)
+Note the complex looking `font-family` value. You could use `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
 
-It is quite common today to use a _system font stack_ that allows each operating system to use its native font. You can learn more about it at [this blog post](https://flaviocopes.com/css-system-fonts/).
+It is quite common today to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
 
 Float the list items to the left:
 
 ```css
-li {
+nav li {
   float: left;
 }
 ```
 
-Notice what happened to the `<ul>`'s height. 
+Notice what happened to the yellow color. 
 
 The `<li>` items no longer force the parent `<ul>` element to expand to contain them. We can see this by virtue of the fact that the yellow background color has disappeared.
 
-This behavior, know as collapsing, occurs whenever all the direct children of a container element are floated. In this case the `<ul>` has collapsed. This behavior is important as "collapsing" is a common design issue when using floats.
+This behavior, know as collapsing, occurs whenever all the direct children of a container element are floated. In this case the `<ul>` has collapsed. This behavior is known as "collapsing" and is a common design issue when using floats.
 
-There are a number of methods in use to prevent this:
+Traditionally, there are a number of methods in use to prevent this:
 
 - float a float (or "FNE" - float nearly everything) - apply a float to the collapsed element
 - the clearfix hack - this entails creating a utility class and will be covered later
 - adding a clearing div - this entails adding an HTML element to the page solely for the purpose of visual formatting and so is discouraged
 
-For our current example let's use the second FNE method.
+For our current example let's use the second - FNE - method.
 
 Try adding a float to the 'collapsed' `ul` element:
 
 ```css
-.nav {
+nav ul {
   ... 
   float: left;
 }
@@ -281,38 +290,20 @@ Note that the width has changed. Boxes are 100% width by default (they stretch t
 Since we want the `<ul>` to extend the width of the window let's fix the width and add a touch of space above.
 
 ```css
-.nav {
+nav ul {
   ... 
-  width: 100%;
   padding: 1rem 0 0 46px;
+  width: 100%;
 }
 ```
 
 Note: when you float an element you usually have to specify a width.
 
-Note the horizontal scrollbar.
-
-```css
-.nav {
-  ...
-  box-sizing: border-box;
-}
-```
-
-We could also apply it to the entire project:
-
-```css
-* {
-  box-sizing: border-box;
-}
-```
-
 Extend the [background property](https://www.w3schools.com/css/css_background.asp) to add a background color and image to the `<ul>`.
 
 ```css
-.nav {
+nav ul {
   ... 
-  background-color: #ffcb2d;
   background-image: url(../img/nav_bg.gif);
 }
 ```
@@ -322,9 +313,8 @@ Aside: demo the background property using `img/pattern.gif`.
 Add positioning to the background.
 
 ```css
-.nav {
+nav {
   ... 
-  background-color: #ffcb2d;
   background-image: url(../img/nav_bg.gif);
   background-repeat: repeat-x;
   background-position: bottom left;
@@ -333,18 +323,10 @@ Add positioning to the background.
 
 Next we'll tackle the `<a>` tags. Add the following to our CSS block.
 
-```css
-a {
-  text-decoration: none;
-  color: #333;
-}
-```
-
 Adding padding, margins to separate, and a border to make them more tab-like:
 
 ```css
-a {
-  ... 
+nav a {
   padding: 4px 8px;
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
@@ -355,7 +337,7 @@ a {
 The same issue we had with collapsing earlier has occurred here as well with the anchor tags. The padding and border is hanging below the yellow area. We will use the same float method as before to make the container expand to fit its floated children. Let's remove the redundant border while we're at it.
 
 ```css
-a {
+nav a {
   ... 
   border-bottom: none;
   float: left;
@@ -367,7 +349,7 @@ Now we add a background image to the `<a>`. Note the use of the background short
 
 ```css
 
-a {
+nav a {
   ...
   background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
 }
@@ -381,7 +363,7 @@ Note:
 Now we create hover states for our tabs by swapping out the background image:
 
 ```css
-a:hover {
+nav a:hover {
   background: #fff url(i/on_bg.gif) repeat-x top left;
 }
 ```
@@ -393,17 +375,27 @@ We will use padding to show or hide the background graphic running along the bot
 Recall that the padding on the bottom of the anchor tags was 4px. Let's increase the padding on the hover state to 5px.
 
 ```css
-a:hover {
+nav a:hover {
   ... 
   padding-bottom: 5px;
 }
 ```
 
-If you roll over the tabs now the height of the anchor increases by one pixel causing the `<ul>` to expand as well and thus showing the border along the bottom under the inactive tabs.
+If you roll over the tabs now the height of the anchor increases by one pixel causing the containing `<ul>` to expand as well and thus showing the border along the bottom under the inactive tabs.
 
 Due to the fact that there is no selected tab (only hovered) the height of the ul jumps 1 pixel. Let's assume that one of the tabs will always be highlighted.
 
-Create a second selector to highlight one of the anchors by adding `.t-cuisines a` as a second selector to the hover rule.
+Add a `active` class to the first link in the HTML.
+
+```css
+nav a:hover,
+nav a.active {
+  background: #fff url(../img/on_bg.gif) repeat-x top left;
+  padding-bottom: 5px;
+}
+```
+
+<!-- Create a second selector to highlight one of the anchors by adding `.t-cuisines a` as a second selector to the hover rule.
 
 Multiple selectors must be separated by a comma. Most prefer to keep the multiple selectors on separate lines like so:
 
@@ -464,23 +456,89 @@ a:hover,
 
 ```
 
-Now when you navigate between the two pages you should see a friendly reminder of what page you are on courtesy of the CSS file.
+Now when you navigate between the two pages you should see a friendly reminder of what page you are on courtesy of the CSS file. -->
+
+Note the horizontal scrollbar.
+
+```css
+nav {
+  ...
+  box-sizing: border-box;
+}
+```
+
+We could also apply it to the entire project:
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+Here is the CSS complete using images:
+
+```css
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+  background-image: url(../img/nav_bg.gif);
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  float: left;
+  padding: 1rem 0 0 46px;
+  width: 100%;
+}
+nav li {
+  float: left;
+}
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  margin: 0 6px 0 0;
+  border-bottom: none;
+  float: left;
+  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
+}
+nav a:hover,
+nav a.active {
+  background: #fff url(../img/on_bg.gif) repeat-x top left;
+  padding-bottom: 5px;
+}
+
+```
+
 
 ### Removing the Images
 
-Images and externally linked assets are an important factor contributing to the time it takes to download and render your page. It is considered a best practice to minimize the number of images where ever possible.
-
-Aside: [Hex color vs. RGB vs. RGBA](https://www.w3schools.com/colors/colors_converter.asp)
+Images and externally linked assets are a factor contributing to the time it takes to download and render your page. It is considered a best practice to minimize the number of images whereever possible.
 
 - [Intro to gradients in css](https://css-tricks.com/css3-gradients/) has more information than you'll ever need
-- The [Gradient editor](http://www.colorzilla.com/gradient-editor/) is a useful tool
+- [Gradient editor](http://www.colorzilla.com/gradient-editor/) is the tool I used to create the gradients below
 
 Edit the background properties for the tabs:
 
 Normal anchor (eg. non-hovered) state:
 
 ```css
-a {
+nav a {
   ...
   background-color: #f9eaa9;
   background-image: linear-gradient(
@@ -493,25 +551,92 @@ a {
 }
 ```
 
-Highlighted (eg. hovered) state:
+Active and hovered states:
 
 ```css
-background-image: linear-gradient(
-  to bottom,
-  rgba(255, 255, 255, 1) 0%,
-  rgba(224, 226, 240, 1) 6%,
-  rgba(254, 254, 254, 1) 53%
-);
+nav a:hover,
+nav a.active {
+  padding-bottom: 5px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+}
 ```
 
-We cannot use `border` for the underline on the `<ul>` so let's use a very thin gradient:
+And nav:
 
 ```css
-a:hover,
-.p-cuisines .t-cuisines a,
-.p-chefs .t-chefs a {
+nav {
   ...
-  background: #fff;
+  background-color: #ffcb2d;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+```
+
+Here is the float-based CSS without images complete up to this point:
+
+```css
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+  float: left;
+  padding: 1rem 0 0 46px;
+  width: 100%;
+}
+nav li {
+  float: left;
+}
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  margin: 0 6px 0 0;
+  border-bottom: none;
+  float: left;
+  background-color: #f9eaa9;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 236, 165, 1) 0%,
+    rgba(232, 213, 149, 1) 6%,
+    rgba(253, 233, 162, 1) 94%,
+    rgba(253, 233, 162, 1) 100%
+  );
+}
+nav a:hover,
+nav a.active {
+  padding-bottom: 5px;
   background-image: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 0%,
@@ -520,20 +645,6 @@ a:hover,
   );
 }
 ```
-
-<!-- Underline:
-
-```css
-.nav {
-  margin: 0;
-  padding: 10px 0 0 46px;
-  list-style: none;
-  float: left;
-  width: 100%;
-  /*background: #ffcb2d url(i/nav_bg.gif) repeat-x bottom left;*/
-  background-image: linear-gradient(to bottom, #ffcb2d 0%, #ffcb2d 96%, #9b8748 100%);
-}
-``` -->
 
 ### Flexbox for the Nav
 
@@ -544,14 +655,11 @@ a:hover,
 * Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
 * Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
 
-First - comment out the float properties in the CSS.
-
-Add `display: flex` to the nav:
+First - comment out the float properties in the CSS and add `display: flex` to the nav:
 
 ```css
-.nav {
+nav {
   /* float: left; */
-  display: flex;
   ...
 }
 
@@ -563,14 +671,25 @@ li {
 
 ```css
 a {
-  /* border-bottom: none; */
+  /* float: left; */
   ...
 }
-a:hover,
-#p-cuisines .t-cuisines a,
-#p-chefs .t-chefs a {
+```
+
+And add the flex display property:
+
+```css
+nav {
+  /* float: left; */
+  display: flex;
   ...
-  border-bottom: none;
+}
+```
+
+```css
+nav li {
+  display: flex;
+  margin: 0 6px 0 0;
 }
 ```
 
@@ -586,66 +705,130 @@ Expand the tabs on small screens:
 
 ```css
 @media (max-width: 768px) {
-  li {
+  nav li {
     flex-grow: 1;
   }
-  a {
+  nav a {
     flex-grow: 1;
   }
 }
 ```
 
-Flex order property (demo only):
+<!-- Flex order property (demo only):
 
 ```css
 ...
-.nav .t-cuisines {
+nav .t-cuisines {
   order: 3;
 }
+``` -->
+
+Here's the final CSS with flexbox:
+
+```css
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+nav ul {
+  display: flex;
+  padding: 1rem 0 0 46px;
+  background-color: #ffcb2d;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+li {
+  display: flex;
+  margin: 0 6px 0 0;
+}
+a {
+  color: #333;
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 236, 165, 1) 0%,
+    rgba(232, 213, 149, 1) 6%,
+    rgba(253, 233, 162, 1) 94%,
+    rgba(253, 233, 162, 1) 100%
+  );
+}
+a:hover,
+a.active {
+  padding-bottom: 5px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  nav li {
+    flex-grow: 1;
+  }
+  nav a {
+    flex-grow: 1;
+  }
+}
+
 ```
 
 ## Scripting the Navbar
 
-Examine the other demos in the `done` folder.
+Link the empty JavaScript file to index.html.
 
-Change the CSS selector to reference an active class and add that class to the HTML for the cuisines link, e.g.:
+`<script src="js/scripts.js"></script>`
 
-```html
-<li class="t-cuisines"><a class="active" href="cuisines.html">Cuisines</a></li>
-```
+Add to scripts.js:
 
-and:
-
-```css
-a:hover,
-a.active {
-  ...
-}
-```
-
-Create a script tag at the bottom of the document and add:
-
-```html
-<script>
-  var tabs = document.querySelector('.nav a');
-  console.log(tabs);
-</script>
+```js
+var tabs = document.querySelector('nav a');
+console.log(tabs);
 ```
 
 We need to use `querySelectorAll` because we are gathering more than one item:
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
+var tabs = document.querySelectorAll('nav a');
 console.log(tabs);
+console.log(tabs.length);
 ```
 
-Now we need to attach an eventListener to each of the tabs:
+Now we need to attach an eventListener to each of the tabs. `addEventListener()`  requires you to pass in a specific, individual element to listen to. You cannot pass in an array or node list of matching elements. 
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
-tabs.forEach(function(tab) {
-  tab.addEventListener('click', makeActive);
-});
+var tabs = document.querySelectorAll('nav a');
+
+for (let i = 0; i < tabs.length; i++) {
+  tabs[i].addEventListener('click', makeActive);
+}
+
+// Since NodeLists have a forEach method we can also do this:
+// tabs.forEach(function(tab) {
+//   tab.addEventListener('click', makeActive);
+// });
 
 function makeActive() {
   console.log(this);
@@ -656,7 +839,8 @@ function makeActive() {
 Using an Arrow function shortcut (for anonymous functions):
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
+var tabs = document.querySelectorAll('nav a');
+
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
 function makeActive() {
@@ -665,12 +849,13 @@ function makeActive() {
 }
 ```
 
-Note the use of `this` to refer to the thing clicked on. `This` is very powerful. The value of `this` is usually determined by a functions execution context. Execution context simply means how a function is called. Our function is called by clicking on a link so `this` shows as a link in the console when we log it.
+Note the use of `this` to refer to the thing clicked on. `this` is very powerful and pretty complex in JavaScript. The value of `this` is usually determined by a function's execution context. Execution context simply means how a function is called. Our function is called by clicking on a link so `this` shows as a link in the console when we log it. Here `this` is equal to `tab`.
 
 Let's use `classList` again to add a class to the link we click on:
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
+var tabs = document.querySelectorAll('nav a');
+
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
 function makeActive() {
@@ -682,7 +867,8 @@ function makeActive() {
 Lets remove the class from all tabs before we add it so that only one is active at a time:
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
+var tabs = document.querySelectorAll('nav a');
+
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
 function makeActive() {
@@ -695,7 +881,8 @@ function makeActive() {
 We can separate the class removal out into its own function and then call that function (`makeInactive();`):
 
 ```js
-var tabs = document.querySelectorAll('.nav a');
+var tabs = document.querySelectorAll('nav a');
+
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
 function makeActive() {
@@ -709,7 +896,19 @@ function makeInactive() {
 }
 ```
 
-Add some variables with content. It is usually a good idea to declare your variables at the top of the script so that they are available to the code that comes after.
+Finally, rather than using `this` it is customary to use `event.target`:
+
+```js
+function makeActive() {
+  console.log(event);
+  console.log(event.target);
+  makeInactive();
+  event.target.classList.add('active');
+  event.preventDefault();
+}
+```
+
+Add some variables with content:
 
 ```js
 var cuisines =
@@ -735,6 +934,7 @@ Create a reference to it and initialize our page with some text using `innerHTML
 
 ```js
 var contentPara = document.querySelector('.content');
+document.querySelector('nav a').classList.add('active');
 contentPara.innerHTML = cuisines;
 ```
 
@@ -746,242 +946,276 @@ Style it using CSS:
 }
 ```
 
-Note that we can access the value of the link's href by using `this.href`:
+Note that we can access the value of the link's href by using `this.href` _or_ `event.target.href`:
 
 ```js
 function makeActive() {
   console.log(this.href)
+  console.log(event.target.href);
   ...
 }
 ```
 
-So let's make the content of the `.content` div depend on the link's href. We will use `includes` as a test for simple equality will fail:
+So let's make the content of the `.content` div depend on the link's href. We will use the string method `includes` as a test for simple equality will fail:
 
 ```js
 function makeActive() {
-  console.log(this.href);
+  console.log(event.target.href);
   makeInactive();
-  this.classList.add('active');
-  if (this.href.includes('cuisines')) {
+  event.target.classList.add('active');
+  if (event.target.href.includes('cuisines')) {
     contentPara.innerHTML = cuisines;
-  } else if (this.href.includes('chefs')) {
+  } else if (event.target.href.includes('chefs')) {
     contentPara.innerHTML = chefs;
-  } else if (this.href.includes('reviews')) {
+  } else if (event.target.href.includes('reviews')) {
     contentPara.innerHTML = reviews;
-  } else if (this.href.includes('delivery')) {
+  } else if (event.target.href.includes('delivery')) {
     contentPara.innerHTML = delivery;
   }
   event.preventDefault();
 }
 ```
 
-In JavaScript parlance this is something akin to what is known as `routing`, but its not quite there yet.
+In JavaScript parlance this is something akin to what is known as a Single Page Application or "SPA" with `routing`, but its not quite there yet.
 
-One of the big problems with what we've built might be termed _maintaining state_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab.
+One of the big problems with what we've built is _maintaining state_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab.
 
-To correct this we need to change the URL shown in the address bar of the browser to something unique. We would then use that information to make sure the appropriate content is shown.
+## Event Delegation
 
-## III - Using Flexbox to Create a Navbar
+Instead of listening for clicks on each individual tab:
 
-<img src="other/hero-1.png">
+`tabs.forEach(tab => tab.addEventListener('click', makeActive));`
 
-FlexBox:
+We are going to use event delegation.
 
-* CSS Flexible Box Layout Module
-* A simple guide to the various CSS properties on [CSS Tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+`document.addEventListener('click', makeActive);`
 
-We will use [Font Awesome](http://fontawesome.io/) for the icons in this exercise.
+Everything works but ty clicking on the paragraph. 
 
-In `index.html`:
-
-```
-<link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
-```
-
-For the logo:
-
-```html
-<a href="#0" class="logo"><i class="fa fa-bullseye fa-3x"></i></a>
-```
-
-Gear:
-
-```html
-<i class="fa fa-gear"></i>
-```
-
-A font stack that ensures the [device's default font](https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/) will be used (native font):
-
-```css
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-```
-
-```css
-header {
-  background: #0D1313;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  padding:0.5rem;
-}
-```
-
-Hide the account dropdown:
-
-```css
-.account-dropdown ul {
-    display: none;
-}
-```
-
-Format the logo:
-
-```css
-.logo {
-  text-decoration: none;
-  color: white;
-  padding: 10px;
-}
-```
-
-Format the unordered list and links:
-
-```css
-.site-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.site-nav  a {
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #CDD0D0;
-  padding: 20px;
-  display: inline-block;
-}
-```
-
-Set up an active state:
-
-```css
-.site-nav .active a {
-  font-weight: bold;
-  color: #62DEBE;
-  background: #444;
-}
-```
-
-Note the margin left auto setting for the actions section:
-
-```css
-.account-actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.sign-out-link {
-  color: #62DEBE;
-  font-size: 0.8rem;
-  margin-left: 10px;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-```
-
-Add [the responsive meta tag](https://css-tricks.com/snippets/html/responsive-meta-tag/):
-
-```html
-<meta name="viewport" content="width=device-width">
-```
-
-In a media query, turn wrapping on and set the order of the site nav to second place to improve the layout:
-
-```css
-@media (max-width: 600px) {
-  header {
-    flex-wrap: wrap;
-  }
-  .site-nav {
-    order: 2;
-    background: #333;
-    width: 100%;
-  }
-}
-```
-
-<!-- Refactor CSS for `text-decoration`, `text-transform` ... -->
-
-### Interactivity
-
-See `index-done.html` for a demo.
-
-Part ONE - get the gear icon to expose the options
+We will run a test to see if the user has clicked on a link in the navbar before running our code:
 
 ```js
-
-var gear = document.querySelector('.fa-gear')
-var options = document.querySelector('.account-dropdown ul')
-
-gear.addEventListener('click', showOptions)
-
-function showOptions(){
-  options.classList.toggle('active')
+function makeActive() {
+  if (event.target.matches('nav ul a')) {
+    makeInactive();
+    event.target.classList.add('active');
+    if (event.target.href.includes('cuisines')) {
+      contentPara.innerHTML = cuisines;
+    } else if (event.target.href.includes('chefs')) {
+      contentPara.innerHTML = chefs;
+    } else if (event.target.href.includes('reviews')) {
+      contentPara.innerHTML = reviews;
+    } else if (event.target.href.includes('delivery')) {
+      contentPara.innerHTML = delivery;
+    }
+    event.preventDefault();
+  }
 }
 ```
 
-Note - requires corresponding CSS (see `index-done.html`)
-
-```css
-.active {
-  display: flex !important;
-}
-
-.account-dropdown {
-  position: relative;
-  display: flex;
-}
-
-.account-dropdown ul {
-  padding: 4px;
-  margin: 0;
-  list-style: none;
-  position: absolute;
-  top: 20px; 
-  left: 10px;
-  color: #333;
-  background: #fff;
-  font-size: 0.875rem;
-}
-```
-
-Add an active class to the navigation.
-
-Introduces for loops and 'this' 
+## Working with Objects
 
 ```js
+const data = {
+  cuisines:
+    'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
 
-var mainNav = document.querySelectorAll('.site-nav li')
+  chefs:
+    'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
 
-for ( var i = 0; i < mainNav.length; i++){
-  mainNav[i].addEventListener('click', setActive)
-}
+  reviews:
+    'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
 
-function setActive(){
-  for ( var i = 0; i < mainNav.length; i++){
-    mainNav[i].classList.remove('active')
+  delivery:
+    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+};
+
+```
+
+Reinitialize using dot accessor method:
+
+```js
+var contentPara = document.querySelector('.content');
+document.querySelector('nav a').classList.add('active');
+contentPara.innerHTML = data.cuisines;
+```
+
+Add data attributes tot he HTML:
+
+```html
+<ul>
+  <li class="t-cuisines">
+    <a data-story="cuisines" href="#cuisines">cuisines</a>
+  </li>
+  <li class="t-chefs">
+    <a data-story="chefs" href="#chefs">chefs</a>
+  </li>
+  <li class="t-reviews">
+    <a data-story="reviews" href="#reviews">reviews</a>
+  </li>
+  <li class="t-delivery">
+    <a data-story="delivery" href="#delivery">delivery</a>
+  </li>
+</ul>
+```
+
+Use bracket notation when accessing an object's property via a variable:
+
+```js
+function makeActive() {
+  if (event.target.matches('nav ul a')) {
+    makeInactive();
+    event.target.classList.add('active');
+    let activePage = document.querySelector('.active');
+    let storyRef = activePage.dataset.story;
+    contentPara.innerHTML = data[storyRef];
+
+    // event.preventDefault();
   }
-  this.classList.add('active')
-  event.preventDefault()
 }
 ```
+
+Note that because we are using hashes as the href value for our links we not longer need to prevent the default behavior of the links since hashes always refer to the current page.
+
+## An Array of Objects
+
+This is the most common format for data sent over the wire.
+
+```js
+const data = [
+  {
+    section: 'cuisines',
+    story:
+      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
+  },
+  {
+    section: 'chefs',
+    story:
+      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+  },
+  {
+    section: 'reviews',
+    story:
+      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
+  },
+  {
+    section: 'delivery',
+    story:
+      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+  },
+];
+```
+
+An array is commonly used in conjunction with loops:
+
+```js
+function makeActive() {
+  if (event.target.matches('nav ul a')) {
+    makeInactive();
+    event.target.classList.add('active');
+    let activePage = document.querySelector('.active');
+    let storyRef = activePage.dataset.story;
+    // NEW
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].section === storyRef) {
+        // console.log(data[i].story);
+        contentPara.innerHTML = data[i].story;
+      }
+    }
+  }
+}
+```
+
+We could also use the array's forEach method instead of a for loop:
+
+```js
+function makeActive() {
+  if (event.target.matches('nav ul a')) {
+    makeInactive();
+    event.target.classList.add('active');
+    let activePage = document.querySelector('.active');
+    let storyRef = activePage.dataset.story;
+    data.forEach(function(item) {
+      if (item.section === storyRef) {
+        contentPara.innerHTML = item.story;
+      }
+    });
+  }
+}
+```
+
+Here is the forEach callback function as an arrow function:
+
+```js
+function makeActive() {
+  if (event.target.matches('nav ul a')) {
+    makeInactive();
+    event.target.classList.add('active');
+    let activePage = document.querySelector('.active');
+    let storyRef = activePage.dataset.story;
+    data.forEach(item => {
+      if (item.section === storyRef) {
+        contentPara.innerHTML = item.story;
+      }
+    });
+  }
+}
+```
+
+Finally, let's create a header for the content.
+
+`makeHeader(storyRef);`
+
+```js
+function makeHeader(head) {
+  const myHeader = document.createElement('h3');
+  myHeader.innerText = head;
+  console.log(myHeader);
+  contentPara.prepend(myHeader);
+}
+```
+
+Add some CSS to capitalize the new header:
+
+```css
+.content h3 {
+  text-transform: capitalize;
+}
+```
+
+Add the same property to the tab text.
 
 ## Notes
 
-http://info.cern.ch/
+CHange the HTML to use page fragment links:
 
+```html
+<ul>
+  <li class="t-cuisines">
+    <a class="active" href="#index">cuisines</a>
+  </li>
+  <li class="t-chefs"><a href="#chefs">chefs</a></li>
+  <li class="t-reviews"><a href="#reviews">reviews</a></li>
+  <li class="t-delivery"><a href="#delivery">delivery</a></li>
+</ul>
+```
+
+Remove the preventDefault:
+
+```js
+function makeActive() {
+  var contentRef = event.target.href;
+  makeInactive();
+  this.classList.add('active');
+  if (contentRef.includes('cuisines')) {
+    contentPara.innerHTML = cuisines;
+  } else if (contentRef.includes('chefs')) {
+    contentPara.innerHTML = chefs;
+  } else if (contentRef.includes('reviews')) {
+    contentPara.innerHTML = reviews;
+  } else if (contentRef.includes('delivery')) {
+    contentPara.innerHTML = delivery;
+  }
+  // event.preventDefault();
+}
+```
