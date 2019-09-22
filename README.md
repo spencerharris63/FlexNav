@@ -4,9 +4,9 @@
 
 ## Reading
 
-* [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
-* See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
-* Read (and Practice) [Learning the Command Line](https://hellowebbooks.com/learn-command-line/). (Mac only, Windows users should use the copy of Git Bash that is installed along with [Git](https://git-scm.com/).)
+- [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
+- See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
+- Read (and Practice) [Learning the Command Line](https://hellowebbooks.com/learn-command-line/). (Mac only, Windows users should use the copy of Git Bash that is installed along with [Git](https://git-scm.com/).)
 
 ## The Terminal
 
@@ -20,7 +20,7 @@ The Windows equivalent to Mac's Terminal app is [Powershell](https://docs.micros
 
 <hr />
 
-Some basic shell commands (the convention in documentation is to use '$' to indicate a prompt - do NOT include it when copying and pasting a command):
+Some basic shell commands (the convention in documentation is to use '\$' to indicate a prompt - do NOT include it when copying and pasting a command):
 
 ```sh
 $ pwd
@@ -29,7 +29,7 @@ $ cd <path-to-folder>
 $ cd .. // go up one level
 $ cd ~ // go to your home directory
 $ ls
-$ ls -l 
+$ ls -l
 $ ls -al // flags expand the command
 ```
 
@@ -120,13 +120,13 @@ Let's look at a couple important [array methods](https://developer.mozilla.org/e
 Here is a simple example showing how to call an array method:
 
 ```js
-fruits.reverse()
+fruits.reverse();
 ```
 
 Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate just the text content from our linksArray:
 
 ```js
-var linkText = linksArray.map(function (link){
+var linkText = linksArray.map(function(link) {
   return link.textContent;
 });
 ```
@@ -134,20 +134,20 @@ var linkText = linksArray.map(function (link){
 Here's an alternative form of the same thing using an arrow function:
 
 ```js
-var linkText = linksArray.map( (link) => link.textContent);
+var linkText = linksArray.map(link => link.textContent);
 ```
 
 Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
 
 ```js
-var linkText = linksArray.map( link => link.textContent);
+var linkText = linksArray.map(link => link.textContent);
 ```
 
 Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
 
 ```js
-var de = linkText.filter(function (streetName) {
-  return streetName.includes('de')
+var de = linkText.filter(function(streetName) {
+  return streetName.includes('de');
 });
 ```
 
@@ -167,8 +167,8 @@ In this portion of the exercise we will focus on list styling but instead of usi
 
 ### VS Code
 
-* An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
-* Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
+- An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
+- Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
 
 Create a new `index.html` file in the `float-nav` folder.
 
@@ -185,10 +185,10 @@ Then use multiple selections (`command-d`) to edit it as shown:
 ```html
 <nav>
   <ul>
-    <li class="t-cuisines"><a href="index.html">cuisines</a></li>
-    <li class="t-chefs"><a href="chefs.html">chefs</a></li>
-    <li class="t-reviews"><a href="reviews.html">reviews</a></li>
-    <li class="t-delivery"><a href="delivery.html">delivery</a></li>
+    <li><a href="index.html">cuisines</a></li>
+    <li><a href="chefs.html">chefs</a></li>
+    <li><a href="reviews.html">reviews</a></li>
+    <li><a href="delivery.html">delivery</a></li>
   </ul>
 </nav>
 ```
@@ -199,7 +199,7 @@ Add a link to `styles.css` in `index.html`:
 
 ## Node Package Manager
 
-In order to familiarize you with node packages and to test your Node installation we will attempt to initiate hot reloading without using VS Code's Go Live extension. 
+In order to familiarize you with node packages and to test your Node installation we will attempt to initiate hot reloading without using VS Code's Go Live extension.
 
 Note the presence of `package.json` in today's folder. Examine it in VS Code.
 
@@ -212,9 +212,9 @@ $ npm install
 $ npm run start
 ```
 
-Make a change to the HTML and note the hot reloading. 
+Make a change to the HTML and note the hot reloading.
 
-Note the addition of the `node_modules` folder. 
+Note the addition of the `node_modules` folder.
 
 Note the `.gitignore` file.
 
@@ -229,9 +229,9 @@ Add and review some basic formatting in `styles.css`:
 ```css
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-  "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 a {
   text-decoration: none;
@@ -260,7 +260,7 @@ nav li {
 }
 ```
 
-Notice what happened to the yellow color. 
+Notice what happened to the yellow color.
 
 The `<li>` items no longer force the parent `<ul>` element to expand to contain them. We can see this by virtue of the fact that the yellow background color has disappeared.
 
@@ -278,8 +278,7 @@ Try adding a float to the 'collapsed' `ul` element:
 
 ```css
 nav ul {
-  ... 
-  float: left;
+  ... float: left;
 }
 ```
 
@@ -289,8 +288,7 @@ Since we want the `<ul>` to extend the width of the window let's fix the width a
 
 ```css
 nav ul {
-  ... 
-  padding: 1rem 0 0 46px;
+  ... padding: 1rem 0 0 46px;
   width: 100%;
 }
 ```
@@ -301,8 +299,7 @@ Extend the [background property](https://www.w3schools.com/css/css_background.as
 
 ```css
 nav ul {
-  ... 
-  background-image: url(../img/nav_bg.gif);
+  ... background-image: url(../img/nav_bg.gif);
 }
 ```
 
@@ -312,8 +309,7 @@ Add positioning to the background.
 
 ```css
 nav {
-  ... 
-  background-image: url(../img/nav_bg.gif);
+  ... background-image: url(../img/nav_bg.gif);
   background-repeat: repeat-x;
   background-position: bottom left;
 }
@@ -336,8 +332,7 @@ The same issue we had with collapsing earlier has occurred here as well with the
 
 ```css
 nav a {
-  ... 
-  border-bottom: none;
+  ... border-bottom: none;
   float: left;
 }
 ```
@@ -346,14 +341,12 @@ By floating the anchors we cause the `<li>`s to expand to contain their floated 
 Now we add a background image to the `<a>`. Note the use of the background shortcut and that the image has a gradient and transparency.
 
 ```css
-
 nav a {
-  ...
-  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
+  ... background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
 }
 ```
 
-Note: 
+Note:
 
 - We are using the background shortcut
 - the background graphic we placed in the `<ul>` is obscured by the tabs.
@@ -374,8 +367,7 @@ Recall that the padding on the bottom of the anchor tags was 4px. Let's increase
 
 ```css
 nav a:hover {
-  ... 
-  padding-bottom: 5px;
+  ... padding-bottom: 5px;
 }
 ```
 
@@ -460,8 +452,7 @@ Note the horizontal scrollbar.
 
 ```css
 nav {
-  ...
-  box-sizing: border-box;
+  ... box-sizing: border-box;
 }
 ```
 
@@ -481,9 +472,9 @@ Here is the CSS complete using images:
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 a {
   text-decoration: none;
@@ -520,9 +511,7 @@ nav a.active {
   background: #fff url(../img/on_bg.gif) repeat-x top left;
   padding-bottom: 5px;
 }
-
 ```
-
 
 ### Removing the Images
 
@@ -537,8 +526,7 @@ Normal anchor (eg. non-hovered) state:
 
 ```css
 nav a {
-  ...
-  background-color: #f9eaa9;
+  ... background-color: #f9eaa9;
   background-image: linear-gradient(
     to bottom,
     rgba(255, 236, 165, 1) 0%,
@@ -569,8 +557,7 @@ And nav:
 
 ```css
 nav {
-  ...
-  background-color: #ffcb2d;
+  ... background-color: #ffcb2d;
   background-image: linear-gradient(
     to bottom,
     #ffcb2d 0%,
@@ -588,9 +575,9 @@ Here is the float-based CSS without images complete up to this point:
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 a {
   text-decoration: none;
@@ -648,17 +635,17 @@ nav a.active {
 
 [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
 
-* A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
-* `flex` is a _display_ attribute like `block, inline, block-inline`
-* Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
-* Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
+- A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
+- `flex` is a _display_ attribute like `block, inline, block-inline`
+- Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
+- Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
 
 First - comment out the float properties in the CSS and add `display: flex` to the nav:
 
 ```css
 nav {
   /* float: left; */
-  ...
+  ...;
 }
 
 li {
@@ -670,7 +657,7 @@ li {
 ```css
 a {
   /* float: left; */
-  ...
+  ...;
 }
 ```
 
@@ -680,7 +667,7 @@ And add the flex display property:
 nav {
   /* float: left; */
   display: flex;
-  ...
+  ...;
 }
 ```
 
@@ -696,7 +683,7 @@ See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on
 We have a meta tag:
 
 ```html
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width" />
 ```
 
 Expand the tabs on small screens:
@@ -729,9 +716,9 @@ Here's the final CSS with flexbox:
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 ul {
   margin: 0;
@@ -790,7 +777,6 @@ a.active {
     flex-grow: 1;
   }
 }
-
 ```
 
 ## Scripting the Navbar
@@ -814,7 +800,7 @@ console.log(tabs);
 console.log(tabs.length);
 ```
 
-Now we need to attach an eventListener to each of the tabs. `addEventListener()`  requires you to pass in a specific, individual element to listen to. You cannot pass in an array or node list of matching elements. 
+Now we need to attach an eventListener to each of the tabs. `addEventListener()` requires you to pass in a specific, individual element to listen to. You cannot pass in an array or node list of matching elements.
 
 ```js
 var tabs = document.querySelectorAll('nav a');
@@ -988,7 +974,7 @@ We are going to use event delegation.
 
 `document.addEventListener('click', makeActive);`
 
-Everything works but ty clicking on the paragraph. 
+Everything works but ty clicking on the paragraph.
 
 We will run a test to see if the user has clicked on a link in the navbar before running our code:
 
@@ -1025,9 +1011,8 @@ const data = {
     'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
 
   delivery:
-    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
 };
-
 ```
 
 Reinitialize using dot accessor method:
@@ -1035,23 +1020,23 @@ Reinitialize using dot accessor method:
 ```js
 var contentPara = document.querySelector('.content');
 document.querySelector('nav a').classList.add('active');
-contentPara.innerHTML = data.cuisines;
+contentPara.innerHTML = data.cuisines; // NEW
 ```
 
-Add data attributes tot he HTML:
+Add data attributes to the HTML:
 
 ```html
 <ul>
-  <li class="t-cuisines">
+  <li>
     <a data-story="cuisines" href="#cuisines">cuisines</a>
   </li>
-  <li class="t-chefs">
+  <li>
     <a data-story="chefs" href="#chefs">chefs</a>
   </li>
-  <li class="t-reviews">
+  <li>
     <a data-story="reviews" href="#reviews">reviews</a>
   </li>
-  <li class="t-delivery">
+  <li>
     <a data-story="delivery" href="#delivery">delivery</a>
   </li>
 </ul>
@@ -1084,23 +1069,23 @@ const data = [
   {
     section: 'cuisines',
     story:
-      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
+      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.'
   },
   {
     section: 'chefs',
     story:
-      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
   },
   {
     section: 'reviews',
     story:
-      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
+      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.'
   },
   {
     section: 'delivery',
     story:
-      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
-  },
+      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
+  }
 ];
 ```
 
@@ -1162,16 +1147,26 @@ function makeActive() {
 
 Finally, let's create a header for the content.
 
+Use the `document.createElement()` method to create an element. You can manipulate an element created with createElement() like you would any other element in the DOM. Add classes, attributes, styles, and more.
+
 `makeHeader(storyRef);`
 
 ```js
 function makeHeader(head) {
   const myHeader = document.createElement('h3');
   myHeader.innerText = head;
-  console.log(myHeader);
   contentPara.prepend(myHeader);
 }
 ```
+
+To insert the content we can use:
+
+- before() - insert an element before another one
+- after() - inserts an element in the DOM after another one
+- prepend() -inserts an element at the beginning of a selection
+- append() - inserts an element at the end
+
+To remove an element you can use `remove()`.
 
 Add some CSS to capitalize the new header:
 
@@ -1183,7 +1178,7 @@ Add some CSS to capitalize the new header:
 
 Add the same property to the tab text.
 
-To do: initialize the header on first load.
+Initialize the header on first load using the `load` event (or the `DOMContentLoaded` event).
 
 `window.addEventListener('load', setUp);`
 
@@ -1199,4 +1194,3 @@ function setUp() {
 To do: discussion of server vs client side rendering
 
 ## Notes
-
