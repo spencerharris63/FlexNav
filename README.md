@@ -221,6 +221,8 @@ Add a link to `styles.css` in `index.html`:
 
 ## Node Package Manager
 
+[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install
+
 In order to familiarize you with node packages and to test your Node installation we will attempt to initiate hot reloading without using VS Code's Go Live extension.
 
 Note the presence of `package.json` in today's folder. Examine it in VS Code.
