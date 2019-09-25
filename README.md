@@ -1,5 +1,33 @@
 # FlexNav
 
+- [FlexNav](#flexnav)
+  - [Homework](#homework)
+  - [Reading](#reading)
+  - [The Terminal](#the-terminal)
+    - [A Note For Windows Users](#a-note-for-windows-users)
+  - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
+  - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
+      - [Array Methods](#array-methods)
+  - [Exercise: FlexNav](#exercise-flexnav)
+    - [Design Patterns](#design-patterns)
+    - [VS Code - Emmet](#vs-code---emmet)
+    - [VS Code - Prettier](#vs-code---prettier)
+  - [Node Package Manager](#node-package-manager)
+  - [FlexNav CSS](#flexnav-css)
+    - [Floats](#floats)
+    - [Box Sizing](#box-sizing)
+    - [Float CSS with Images](#float-css-with-images)
+    - [Removing the Images](#removing-the-images)
+    - [Float CSS without Images](#float-css-without-images)
+  - [Flexbox](#flexbox)
+    - [Flexbox in the Wild](#flexbox-in-the-wild)
+    - [Final Flexbox CSS](#final-flexbox-css)
+  - [JavaScript Navigation](#javascript-navigation)
+  - [Event Delegation](#event-delegation)
+  - [Working with Objects](#working-with-objects)
+  - [An Array of Objects](#an-array-of-objects)
+  - [Notes](#notes)
+
 ## Homework
 
 Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` to it matches the goal. There are some notes for you to follow [here](https://github.com/front-end-foundations/4-flex-menu#design-with-flexbox).
@@ -15,7 +43,7 @@ There are many good reasons to acquire a basic understanding of the command line
 
 <hr />
 
-## For Windows Users
+### A Note For Windows Users
 
 The Windows equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Windows alternates to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
 
@@ -36,10 +64,6 @@ $ ls -al
 Demo: tab completion, history and copy paste.
 
 Demo: on a mac you can `cd` into a folder via drag and drop or by copying and pasting a folder into the terminal.
-
-Demo: you can use ssh to connect to your account on `oit2.scps.nyu.edu`
-
-Demo: you can use VIM - a text editor `vi`, `:view index.html`, and `:q!`
 
 ```sh
 $ node --version
@@ -66,7 +90,9 @@ $ git checkout inclass
 
 Examine a branch in VS Code.
 
-## JavaScipt Preview and Review
+## JavaScipt Preview and Review - Boulevards de Paris
+
+See `other/ARRAYS.js` (use Quokka extension for VS Code).
 
 Recall `document.querySelector('<css selector>')` returns the first selected item.
 
@@ -98,12 +124,6 @@ var links = category.querySelectorAll('a');
 
 Examine the methods on the resulting nodeList. Try `links.length` in the console.
 
-An array is a list of values that might look like this:
-
-```js
-var fruits = ['Apple', 'Banana'];
-```
-
 Our nodeList looks like an array but isn't. Let's convert the nodeList into an Array:
 
 ```js
@@ -120,7 +140,7 @@ linksArray[0];
 linksArray[0].textContent;
 ```
 
-### Array Methods
+#### Array Methods
 
 We commonly use for loops to iterate through an array and perform some action.
 
@@ -171,7 +191,7 @@ Here's the same function as an arrow function:
 var de = linkText.filter(streetName => streetName.includes('de'));
 ```
 
-## Exercise
+## Exercise: FlexNav
 
 <img src="other/tabs-image.jpg">
 
@@ -187,7 +207,7 @@ In `other/floatNav-design-patterns`
 - `index-spa-fragments` single page application with scroll
 - `index-spa-js.html` single page application with JavaScript
 
-### VS Code
+### VS Code - Emmet
 
 - An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
 - Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
@@ -218,6 +238,28 @@ Edit it as shown:
 Add a link to `styles.css` in `index.html`:
 
 `<link rel="stylesheet" href="css/styles.css">`
+
+### VS Code - Prettier
+
+Install the Prettier Code Formatter extension in VS Code.
+
+Here are some sample VS Code configurations:
+
+```js
+"editor.formatOnSave": true,
+"[javascript]": {
+  "editor.formatOnSave": true
+},
+"[html]": {
+  "editor.formatOnSave": true
+},
+"[css]": {
+  "editor.formatOnSave": true
+},
+"prettier.singleQuote": true,
+"prettier.trailingComma": "all",
+"editor.wordWrap": "on",
+```
 
 ## Node Package Manager
 
@@ -262,7 +304,7 @@ Try editing the start script to specify the browser:
 
 Restart the server with `$ npm run start`.
 
-### CSS
+## FlexNav CSS
 
 Open the file in Chrome and examine the default user agent styles using the inspector.
 
@@ -293,6 +335,8 @@ nav ul {
 Note the complex looking `font-family` value. You could use `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
 
 It is quite common today to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
+
+### Floats
 
 Float the list items to the left:
 
@@ -401,8 +445,6 @@ nav a:hover {
 }
 ```
 
-### Finishing touches
-
 We will use padding to show or hide the background graphic running along the bottom of the `<ul>` - increasing the height by one pixel on hover to hide the image.
 
 Recall that the padding on the bottom of the anchor tags was 4px. Let's increase the padding on the hover state to 5px.
@@ -490,11 +532,16 @@ a:hover,
 
 Now when you navigate between the two pages you should see a friendly reminder of what page you are on courtesy of the CSS file. -->
 
+### Box Sizing
+
 Note the horizontal scrollbar.
+
+Add:
 
 ```css
 nav {
-  ... box-sizing: border-box;
+  box-sizing: border-box;
+  ...
 }
 ```
 
@@ -505,6 +552,10 @@ We could also apply it to the entire project:
   box-sizing: border-box;
 }
 ```
+
+See [this article](https://dev.to/hankchizljaw/bite-sized-basics-box-sizing-4al2) on dev.to for a simple explanation of box sizing in HTML.
+
+### Float CSS with Images
 
 Here is the CSS complete using images:
 
@@ -609,6 +660,8 @@ nav {
 }
 ```
 
+### Float CSS without Images
+
 Here is the float-based CSS without images complete up to this point:
 
 ```css
@@ -673,7 +726,7 @@ nav a.active {
 }
 ```
 
-## Flexbox for the Nav
+## Flexbox 
 
 [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
 
@@ -682,7 +735,7 @@ nav a.active {
 - Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
 - Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
 
-### Flex in the Wild
+### Flexbox in the Wild
 
 - nytimes.com main story on the front page
 - theguardian.com main story on the front page
@@ -748,14 +801,16 @@ Expand the tabs on small screens:
 }
 ```
 
-<!-- Flex order property (demo only):
+Flex order property (demo only):
 
 ```css
 ...
 nav .t-cuisines {
   order: 3;
 }
-``` -->
+```
+
+### Final Flexbox CSS 
 
 Here's the final CSS with flexbox:
 
@@ -828,7 +883,7 @@ a.active {
 }
 ```
 
-## Scripting the Navbar
+## JavaScript Navigation
 
 Link the empty JavaScript file to index.html.
 
@@ -1011,7 +1066,7 @@ function makeActive() {
 
 In JavaScript parlance this is something akin to what is known as a Single Page Application or "SPA" with `routing`, but its not quite there yet.
 
-One of the big problems with what we've built is _maintaining state_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab.
+The  problems with what we've built might be called _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. Not only is the refresh broken but the back and forward buttons don't work as expected either.
 
 ## Event Delegation
 
@@ -1021,11 +1076,13 @@ Instead of listening for clicks on each individual tab:
 
 We are going to use event delegation.
 
+Use:
+
 `document.addEventListener('click', makeActive);`
 
-Everything works but ty clicking on the paragraph.
+Everything works but try clicking on the paragraph.
 
-We will run a test to see if the user has clicked on a link in the navbar before running our code:
+We will use an if statement to ensure that the user has clicked on a link in the navbar before running our code:
 
 ```js
 function makeActive() {
@@ -1047,6 +1104,8 @@ function makeActive() {
 ```
 
 ## Working with Objects
+
+(See `other/OBJECTS.js` using Quokka in VS Code.)
 
 ```js
 const data = {
@@ -1072,7 +1131,7 @@ document.querySelector('nav a').classList.add('active');
 contentPara.innerHTML = data.cuisines; // NEW
 ```
 
-Add data attributes to the HTML:
+Add [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) to the HTML:
 
 ```html
 <ul>
@@ -1091,7 +1150,7 @@ Add data attributes to the HTML:
 </ul>
 ```
 
-Use bracket notation when accessing an object's property via a variable:
+Use dataset and bracket notation when accessing an object's property via a variable:
 
 ```js
 function makeActive() {
@@ -1107,11 +1166,11 @@ function makeActive() {
 }
 ```
 
-Note that because we are using hashes as the href value for our links we not longer need to prevent the default behavior of the links since hashes always refer to the current page.
+Note that because we are using hashes as the href value for our links we no longer need to prevent the default behavior of the links since hashes always refer to the current page.
 
 ## An Array of Objects
 
-This is the most common format for data sent over the wire.
+This is an extemmely common format for data.
 
 ```js
 const data = [
