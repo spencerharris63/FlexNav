@@ -37,6 +37,7 @@ Examine the files in the `other/homework` folder. `index.html` is your starting 
 
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
+- Pimp out your terminal with [this tutorial](https://wesbos.com/command-line-video-tutorials/)
 
 ## The Terminal
 
@@ -1398,3 +1399,9 @@ function makeActive() {
 and
 
 `document.addEventListener('click', clickHandler);`
+
+Git - remove existing origin:
+
+```sh
+git remote rm origin
+```
