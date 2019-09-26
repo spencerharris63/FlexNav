@@ -37,6 +37,7 @@ Examine the files in the `other/homework` folder. `index.html` is your starting 
 
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
+- Pimp out your terminal with [this tutorial](https://wesbos.com/command-line-video-tutorials/)
 
 ## The Terminal
 
@@ -759,7 +760,6 @@ nav {
 
 li {
   /*float: left;*/
-  display: flex;
 }
 ```
 
@@ -789,6 +789,8 @@ nav li {
 
 `/* border-bottom: none; */`
 
+`opacity: 0.8;`
+
 See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
 
 We have a meta tag:
@@ -813,9 +815,8 @@ We have a meta tag:
 Flex order property (demo only):
 
 ```css
-nav .t-cuisines {
-  order: 3;
-  ...;
+nav :nth-child(2) {
+  order: 1;
 }
 ```
 
@@ -879,6 +880,7 @@ nav a {
     rgba(253, 233, 162, 1) 94%,
     rgba(253, 233, 162, 1) 100%
   );
+  opacity: 0.8;
 }
 
 nav a:hover,
@@ -891,6 +893,7 @@ nav .active {
     rgba(254, 254, 254, 1) 53%
   );
   border-bottom: none;
+  opacity: 1;
 }
 
 @media (min-width: 460px) {
@@ -1008,7 +1011,7 @@ function makeInactive() {
 }
 ```
 
-Finally, rather than using `this` it is customary to use `event.target`:
+Finally, rather than using `this` it is more customary to use `event.target`:
 
 ```js
 function makeActive() {
@@ -1088,7 +1091,7 @@ function makeActive() {
 }
 ```
 
-In web development parlance this is something akin to what is known as a Single Page Application or "SPA", but its not quite there yet.
+In web development parlance this is something akin to what is known as a Single Page Application or "SPA", but its not quite there - yet.
 
 The problems with what we've built might be called _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. Not only is the refresh broken but the back and forward buttons don't work as expected either.
 
@@ -1163,17 +1166,17 @@ const data = {
     'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
 
   delivery:
-    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
 };
 ```
 
 Reinitialize using dot accessor method:
 
 ```js
-var contentPara = document.querySelector('.content');
-document.querySelector('nav a').classList.add('active');
 contentPara.innerHTML = data.cuisines; // NEW
 ```
+
+And use the accessor in the makeActive function:
 
 ```js
 function makeActive() {
@@ -1193,7 +1196,7 @@ function makeActive() {
 }
 ```
 
-`<li><a class="active" href="cuisines.html">cuisines</a></li>`
+<!-- `<li><a class="active" href="cuisines.html">cuisines</a></li>` -->
 
 Add [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) to the HTML:
 
@@ -1239,23 +1242,23 @@ const data = [
   {
     section: 'cuisines',
     story:
-      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
+      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.'
   },
   {
     section: 'chefs',
     story:
-      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
   },
   {
     section: 'reviews',
     story:
-      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
+      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.'
   },
   {
     section: 'delivery',
     story:
-      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
-  },
+      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
+  }
 ];
 ```
 
@@ -1319,6 +1322,8 @@ function makeActive() {
 Finally, let's create a header for the content.
 
 Use the `document.createElement()` method to create an element. You can manipulate an element created with createElement() like you would any other element in the DOM. Add classes, attributes, styles, and more.
+
+At the bottom of makeActive:
 
 `makeHeader(storyRef);`
 
@@ -1398,3 +1403,17 @@ function makeActive() {
 and
 
 `document.addEventListener('click', clickHandler);`
+
+Git - remove existing origin:
+
+```sh
+git remote rm origin
+```
+
+Ternary
+
+```js
+data.forEach(item => {
+  item.section === storyRef ? (contentPara.innerHTML = item.story) : '';
+});
+```
