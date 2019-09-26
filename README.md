@@ -26,6 +26,7 @@
   - [Event Delegation](#event-delegation)
   - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
+    - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
 
 ## Homework
@@ -395,9 +396,10 @@ Add positioning to the background.
 
 ```css
 nav {
-  ... background-image: url(../img/nav_bg.gif);
+  background-image: url(../img/nav_bg.gif);
   background-repeat: repeat-x;
   background-position: bottom left;
+  ...;
 }
 ```
 
@@ -410,6 +412,11 @@ nav a {
   padding: 4px 8px;
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
+}
+```
+
+```css
+nav li {
   margin: 0 6px 0 0;
 }
 ```
@@ -418,8 +425,9 @@ The same issue we had with collapsing earlier has occurred here as well with the
 
 ```css
 nav a {
-  ... border-bottom: none;
+  border-bottom: none;
   float: left;
+  ...;
 }
 ```
 
@@ -428,7 +436,8 @@ Now we add a background image to the `<a>`. Note the use of the background short
 
 ```css
 nav a {
-  ... background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
+  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
+  ...;
 }
 ```
 
@@ -541,7 +550,7 @@ Add:
 ```css
 nav {
   box-sizing: border-box;
-  ...
+  ...;
 }
 ```
 
@@ -594,7 +603,6 @@ nav a {
   padding: 4px 8px;
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
-  margin: 0 6px 0 0;
   border-bottom: none;
   float: left;
   background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
@@ -702,7 +710,6 @@ nav a {
   padding: 4px 8px;
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
-  margin: 0 6px 0 0;
   border-bottom: none;
   float: left;
   background-color: #f9eaa9;
@@ -726,7 +733,7 @@ nav a.active {
 }
 ```
 
-## Flexbox 
+## Flexbox
 
 [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
 
@@ -780,6 +787,8 @@ nav li {
 }
 ```
 
+`/* border-bottom: none; */`
+
 See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
 
 We have a meta tag:
@@ -788,7 +797,7 @@ We have a meta tag:
 <meta name="viewport" content="width=device-width" />
 ```
 
-Expand the tabs on small screens:
+<!-- Expand the tabs on small screens:
 
 ```css
 @media (max-width: 768px) {
@@ -799,43 +808,49 @@ Expand the tabs on small screens:
     flex-grow: 1;
   }
 }
-```
+``` -->
 
 Flex order property (demo only):
 
 ```css
-...
 nav .t-cuisines {
   order: 3;
+  ...;
 }
 ```
 
-### Final Flexbox CSS 
+### Final Flexbox CSS
 
-Here's the final CSS with flexbox:
+Here's the final CSS with flexbox. I have left commented code in for comparison.
+
+Note the use of justify-content in the responsive deisgn.
 
 ```css
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-ul {
-  margin: 0;
-  list-style: none;
-  padding: 0;
+  font-family: system-ui;
 }
 a {
   text-decoration: none;
+  color: #333;
 }
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 nav ul {
+  list-style: none;
+  padding-top: 1rem;
   display: flex;
-  padding: 1rem 0 0 46px;
-  background-color: #ffcb2d;
+  justify-content: space-around;
+  /* float: left; */
+  /* width: 100%; */
+  /* background-color: #ffcb2d; */
   background-image: linear-gradient(
     to bottom,
     #ffcb2d 0%,
@@ -843,15 +858,19 @@ nav ul {
     #9b8748 100%
   );
 }
-li {
+
+nav li {
+  /* float: left; */
   display: flex;
-  margin: 0 6px 0 0;
+  /* margin: 0 6px 0 0; */
 }
-a {
-  color: #333;
+
+nav a {
   padding: 4px 8px;
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
+  /* float: left; */
+  /* border-bottom: none; */
   background-color: #f9eaa9;
   background-image: linear-gradient(
     to bottom,
@@ -861,8 +880,9 @@ a {
     rgba(253, 233, 162, 1) 100%
   );
 }
-a:hover,
-a.active {
+
+nav a:hover,
+nav .active {
   padding-bottom: 5px;
   background-image: linear-gradient(
     to bottom,
@@ -873,12 +893,13 @@ a.active {
   border-bottom: none;
 }
 
-@media (max-width: 768px) {
-  nav li {
-    flex-grow: 1;
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
   }
-  nav a {
-    flex-grow: 1;
+  nav li {
+    margin-right: 1rem;
   }
 }
 ```
@@ -913,15 +934,18 @@ for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener('click', makeActive);
 }
 
-// Since NodeLists have a forEach method we can also do this:
-// tabs.forEach(function(tab) {
-//   tab.addEventListener('click', makeActive);
-// });
-
 function makeActive() {
   console.log(this);
   event.preventDefault();
 }
+```
+
+Since NodeLists have a forEach method we can also do this:
+
+```js
+tabs.forEach(function(tab) {
+  tab.addEventListener('click', makeActive);
+});
 ```
 
 Using an Arrow function shortcut (for anonymous functions):
@@ -1064,9 +1088,9 @@ function makeActive() {
 }
 ```
 
-In JavaScript parlance this is something akin to what is known as a Single Page Application or "SPA" with `routing`, but its not quite there yet.
+In web development parlance this is something akin to what is known as a Single Page Application or "SPA", but its not quite there yet.
 
-The  problems with what we've built might be called _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. Not only is the refresh broken but the back and forward buttons don't work as expected either.
+The problems with what we've built might be called _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. Not only is the refresh broken but the back and forward buttons don't work as expected either.
 
 ## Event Delegation
 
@@ -1103,6 +1127,26 @@ function makeActive() {
 }
 ```
 
+Returning if the event target doesn't match our selector is a bit cleaner:
+
+```js
+function makeActive() {
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  if (event.target.href.includes('cuisines')) {
+    contentPara.innerHTML = cuisines;
+  } else if (event.target.href.includes('chefs')) {
+    contentPara.innerHTML = chefs;
+  } else if (event.target.href.includes('reviews')) {
+    contentPara.innerHTML = reviews;
+  } else if (event.target.href.includes('delivery')) {
+    contentPara.innerHTML = delivery;
+  }
+  event.preventDefault();
+}
+```
+
 ## Working with Objects
 
 (See `other/OBJECTS.js` using Quokka in VS Code.)
@@ -1119,7 +1163,7 @@ const data = {
     'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
 
   delivery:
-    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
+    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
 };
 ```
 
@@ -1130,6 +1174,26 @@ var contentPara = document.querySelector('.content');
 document.querySelector('nav a').classList.add('active');
 contentPara.innerHTML = data.cuisines; // NEW
 ```
+
+```js
+function makeActive() {
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  if (event.target.href.includes('cuisines')) {
+    contentPara.innerHTML = data.cuisines;
+  } else if (event.target.href.includes('chefs')) {
+    contentPara.innerHTML = data.chefs;
+  } else if (event.target.href.includes('reviews')) {
+    contentPara.innerHTML = data.reviews;
+  } else if (event.target.href.includes('delivery')) {
+    contentPara.innerHTML = data.delivery;
+  }
+  event.preventDefault();
+}
+```
+
+`<li><a class="active" href="cuisines.html">cuisines</a></li>`
 
 Add [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) to the HTML:
 
@@ -1154,15 +1218,13 @@ Use dataset and bracket notation when accessing an object's property via a varia
 
 ```js
 function makeActive() {
-  if (event.target.matches('nav ul a')) {
-    makeInactive();
-    event.target.classList.add('active');
-    let activePage = document.querySelector('.active');
-    let storyRef = activePage.dataset.story;
-    contentPara.innerHTML = data[storyRef];
-
-    // event.preventDefault();
-  }
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  let activePage = document.querySelector('.active');
+  let storyRef = activePage.dataset.story;
+  contentPara.innerHTML = data[storyRef];
+  // event.preventDefault();
 }
 ```
 
@@ -1177,23 +1239,23 @@ const data = [
   {
     section: 'cuisines',
     story:
-      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.'
+      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
   },
   {
     section: 'chefs',
     story:
-      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
+      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
   },
   {
     section: 'reviews',
     story:
-      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.'
+      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
   },
   {
     section: 'delivery',
     story:
-      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
-  }
+      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+  },
 ];
 ```
 
@@ -1201,37 +1263,39 @@ An array is commonly used in conjunction with loops:
 
 ```js
 function makeActive() {
-  if (event.target.matches('nav ul a')) {
-    makeInactive();
-    event.target.classList.add('active');
-    let activePage = document.querySelector('.active');
-    let storyRef = activePage.dataset.story;
-    // NEW
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].section === storyRef) {
-        // console.log(data[i].story);
-        contentPara.innerHTML = data[i].story;
-      }
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  let activePage = document.querySelector('.active');
+  let storyRef = activePage.dataset.story;
+  // NEW
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].section === storyRef) {
+      // console.log(data[i].story);
+      contentPara.innerHTML = data[i].story;
     }
   }
 }
 ```
 
+Reinitialize:
+
+`contentPara.innerHTML = data[0].story;`
+
 We could also use the array's forEach method instead of a for loop:
 
 ```js
 function makeActive() {
-  if (event.target.matches('nav ul a')) {
-    makeInactive();
-    event.target.classList.add('active');
-    let activePage = document.querySelector('.active');
-    let storyRef = activePage.dataset.story;
-    data.forEach(function(item) {
-      if (item.section === storyRef) {
-        contentPara.innerHTML = item.story;
-      }
-    });
-  }
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  let activePage = document.querySelector('.active');
+  let storyRef = activePage.dataset.story;
+  data.forEach(function(item) {
+    if (item.section === storyRef) {
+      contentPara.innerHTML = item.story;
+    }
+  });
 }
 ```
 
@@ -1239,17 +1303,16 @@ Here is the forEach callback function as an arrow function:
 
 ```js
 function makeActive() {
-  if (event.target.matches('nav ul a')) {
-    makeInactive();
-    event.target.classList.add('active');
-    let activePage = document.querySelector('.active');
-    let storyRef = activePage.dataset.story;
-    data.forEach(item => {
-      if (item.section === storyRef) {
-        contentPara.innerHTML = item.story;
-      }
-    });
-  }
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  event.target.classList.add('active');
+  let activePage = document.querySelector('.active');
+  let storyRef = activePage.dataset.story;
+  data.forEach(item => {
+    if (item.section === storyRef) {
+      contentPara.innerHTML = item.story;
+    }
+  });
 }
 ```
 
@@ -1284,7 +1347,9 @@ Add some CSS to capitalize the new header:
 }
 ```
 
-Add the same property to the tab text.
+Add the same CSS property to the tab text.
+
+### Initialize on Load
 
 Initialize the header on first load using the `load` event (or the `DOMContentLoaded` event).
 
@@ -1294,9 +1359,42 @@ Initialize the header on first load using the `load` event (or the `DOMContentLo
 function setUp() {
   document.querySelector('nav a').classList.add('active');
   contentPara.innerHTML = data[0].story;
-  makeHeader('Cuisines');
+  makeHeader(data[0].section);
   window.location.hash = 'cuisines';
 }
 ```
 
+Simulate a click on the first tab:
+
+```js
+function setUp() {
+  document.querySelector('nav a').click();
+}
+```
+
 ## Notes
+
+```js
+function clickHandler() {
+  if (!event.target.matches('nav ul a')) return;
+  makeInactive();
+  makeActive();
+  let activePage = document.querySelector('.active');
+  let storyRef = activePage.dataset.story;
+  data.forEach(item => {
+    if (item.section === storyRef) {
+      contentPara.innerHTML = item.story;
+    }
+  });
+  makeHeader(storyRef);
+}
+
+function makeActive() {
+  console.log(event.target);
+  event.target.classList.add('active');
+}
+```
+
+and
+
+`document.addEventListener('click', clickHandler);`
