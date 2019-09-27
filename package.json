@@ -1,0 +1,14 @@
+{
+  "name": "flexnav-fall2019-done",
+  "version": "1.0.0",
+  "description": "nav",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --port 1234 --server 'app' --files 'app' "
+  },
+  "author": "daniel",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
