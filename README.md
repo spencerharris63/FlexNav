@@ -12,6 +12,7 @@
   - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
+  - [Aside](#aside)
   - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
     - [Arrays](#arrays)
   - [JavaScript Navigation](#javascript-navigation)
@@ -256,12 +257,12 @@ nav ul {
   padding-top: 1rem;
   display: flex;
   justify-content: space-around;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to bottom,
     #ffcb2d 0%,
     #ffcb2d 95%,
     #9b8748 100%
-  );
+  ); */
 }
 
 nav a {
@@ -269,14 +270,15 @@ nav a {
   border: 1px solid #9b8748;
   border-radius: 3px 3px 0 0;
   background-color: #f9eaa9;
-  background-image: linear-gradient(
+  opacity: 0.8;
+  /* background-image: linear-gradient(
     to bottom,
     rgba(255, 236, 165, 1) 0%,
     rgba(232, 213, 149, 1) 6%,
     rgba(253, 233, 162, 1) 94%,
     rgba(253, 233, 162, 1) 100%
-  );
-  opacity: 0.8;
+  ); */
+
 }
 
 nav li {
@@ -316,13 +318,11 @@ We have a meta tag:
     margin-right: 1rem;
   }
 }
-
-.content {
-  padding: 1rem;
-}
 ```
 
 See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
+
+## Aside
 
 Flex order property (demo only):
 
@@ -331,6 +331,8 @@ nav :nth-child(2) {
   order: 1;
 }
 ```
+
+---
 
 ## JavaScipt Preview and Review - Boulevards de Paris
 
@@ -470,8 +472,8 @@ for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener('click', makeActive);
 }
 
-function makeActive() {
-  console.log(this);
+function makeActive(event) {
+  console.log(event.target);
   event.preventDefault();
 }
 ```
@@ -487,17 +489,8 @@ tabs.forEach(function(tab) {
 Using an Arrow function shortcut (for anonymous functions):
 
 ```js
-var tabs = document.querySelectorAll('nav a');
-
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
-
-function makeActive() {
-  console.log(this);
-  event.preventDefault();
-}
 ```
-
-Note the use of `this` to refer to the thing clicked on. `this` is very powerful and pretty complex in JavaScript. The value of `this` is usually determined by a function's execution context. Execution context simply means how a function is called. Our function is called by clicking on a link so `this` shows as a link in the console when we log it. Here `this` is equal to `tab`.
 
 Let's use `classList` again to add a class to the link we click on:
 
@@ -506,8 +499,8 @@ var tabs = document.querySelectorAll('nav a');
 
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
-function makeActive() {
-  this.classList.add('active');
+function makeActive(event) {
+  event.target.classList.add('active');
   event.preventDefault();
 }
 ```
@@ -519,9 +512,9 @@ var tabs = document.querySelectorAll('nav a');
 
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
-function makeActive() {
+function makeActive(event) {
   tabs.forEach(tab => tab.classList.remove('active'));
-  this.classList.add('active');
+  event.target.classList.add('active');
   event.preventDefault();
 }
 ```
@@ -533,9 +526,9 @@ var tabs = document.querySelectorAll('nav a');
 
 tabs.forEach(tab => tab.addEventListener('click', makeActive));
 
-function makeActive() {
+function makeActive(event) {
   makeInactive();
-  this.classList.add('active');
+  event.target.classList.add('active');
   event.preventDefault();
 }
 
@@ -544,23 +537,23 @@ function makeInactive() {
 }
 ```
 
-Finally, rather than using `this` it is more customary to use `event.target`:
-
-```js
-function makeActive() {
-  console.log(event);
-  console.log(event.target);
-  makeInactive();
-  event.target.classList.add('active');
-  event.preventDefault();
-}
-```
-
 ### Aside: Prettier
 
 Install the Prettier Code Formatter extension in VS Code.
 
-Here are some sample VS Code configurations:
+Create `.prettierrc` in the app folder:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
+```
+
+And test.
+
+You can also add prettier preferences in VS Code:
 
 ```js
 "editor.formatOnSave": true,
@@ -576,23 +569,6 @@ Here are some sample VS Code configurations:
 "editor.wordWrap": "on",
 "prettier.singleQuote": true,
 "prettier.trailingComma": "all",
-```
-Or, create `.prettierrc` in the app folder:
-
-```js
-{
-  "singleQuote": true,
-  "trailingComma": "none",
-  "semi": false
-}
-```
-
-And test:
-
-```html
-<script>
-  const test = 'boo'
-</script>
 ```
 
 ---
@@ -623,7 +599,7 @@ Create a reference to it and initialize our page with some text using `innerHTML
 
 ```js
 var contentPara = document.querySelector('.content');
-document.querySelector('nav a').classList.add('active');
+...
 contentPara.innerHTML = cuisines;
 ```
 
@@ -635,11 +611,10 @@ Style it using CSS:
 }
 ```
 
-Note that we can access the value of the link's href by using `this.href` _or_ `event.target.href`:
+Note that we can access the value of the link's href by using `event.target.href`:
 
 ```js
 function makeActive() {
-  console.log(this.href)
   console.log(event.target.href);
   ...
 }
@@ -649,7 +624,7 @@ So let's make the content of the `.content` div depend on the link's href. We wi
 
 ```js
 function makeActive() {
-  console.log(event.target.href);
+  console.log(event.target);
   makeInactive();
   event.target.classList.add('active');
   if (event.target.href.includes('cuisines')) {
@@ -665,9 +640,16 @@ function makeActive() {
 }
 ```
 
-In web development parlance this is something akin to what is known as a Single Page Application or "SPA", but its not quite there - yet.
+In web development parlance this is something akin to what is known as a Single Page Application or "SPA".
 
-The problems with what we've built might be called _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. Not only is the refresh broken but the back and forward buttons don't work as expected either.
+The problems with what we've built might be termed _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab it reinitializes the page to show the Cuisines tab. 
+
+Not only is the refresh broken but the back and forward buttons don't work as expected either.
+
+NB: we have a sneaky bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true. Try `console.log(event.target.href)` before the if statements. Can you spot it?
+
+<!-- ANSWER
+<li><a href="cuisines.html" class="active">cuisines</a></li> -->
 
 ## Event Delegation
 
@@ -675,7 +657,7 @@ Instead of listening for clicks on each individual tab:
 
 `tabs.forEach(tab => tab.addEventListener('click', makeActive));`
 
-We are going to use event delegation.
+We are going to use "event delegation."
 
 Use:
 
@@ -686,41 +668,21 @@ Everything works but try clicking on the paragraph.
 We will use an if statement to ensure that the user has clicked on a link in the navbar before running our code:
 
 ```js
-function makeActive() {
-  if (event.target.matches('nav ul a')) {
-    makeInactive();
-    event.target.classList.add('active');
-    if (event.target.href.includes('cuisines')) {
-      contentPara.innerHTML = cuisines;
-    } else if (event.target.href.includes('chefs')) {
-      contentPara.innerHTML = chefs;
-    } else if (event.target.href.includes('reviews')) {
-      contentPara.innerHTML = reviews;
-    } else if (event.target.href.includes('delivery')) {
-      contentPara.innerHTML = delivery;
-    }
-    event.preventDefault();
-  }
-}
-```
-
-Returning if the event target doesn't match our selector is a bit cleaner:
-
-```js
-function makeActive() {
-  if (!event.target.matches('nav ul a')) return;
-  makeInactive();
-  event.target.classList.add('active');
+function makeActive(event) {
+  if (!event.target.matches('a')) return
+  console.log(event.target)
+  makeInactive()
+  event.target.classList.add('active')
   if (event.target.href.includes('cuisines')) {
-    contentPara.innerHTML = cuisines;
+    contentPara.innerHTML = cuisines
   } else if (event.target.href.includes('chefs')) {
-    contentPara.innerHTML = chefs;
+    contentPara.innerHTML = chefs
   } else if (event.target.href.includes('reviews')) {
-    contentPara.innerHTML = reviews;
+    contentPara.innerHTML = reviews
   } else if (event.target.href.includes('delivery')) {
-    contentPara.innerHTML = delivery;
+    contentPara.innerHTML = delivery
   }
-  event.preventDefault();
+  event.preventDefault()
 }
 ```
 
@@ -731,20 +693,20 @@ function makeActive() {
 ```js
 const data = {
   cuisines:
-    'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
+    '<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>',
 
   chefs:
-    'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
+    '<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>',
 
   reviews:
-    'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
+    '<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>',
 
   delivery:
-    'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.'
-};
+    '<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>'
+}
 ```
 
-Reinitialize using dot accessor method:
+Reinitialize using "dot" accessor method - e.g. `data.cuisines`:
 
 ```js
 contentPara.innerHTML = data.cuisines; // NEW
@@ -770,14 +732,177 @@ function makeActive() {
 }
 ```
 
-<!-- `<li><a class="active" href="cuisines.html">cuisines</a></li>` -->
+IDEA
+Change the href values to use hashes.
+Remove the hardcoded active class and replace it with: `document.querySelector('nav a').classList.add('active');
+Remove `event.preventDefault()`
+Get the string from the URL: 
+`var type = window.location.hash`
+`var type = window.location.hash.substr(1)`
+
+PROBLEM WITH THIS - you have to click on the tab twice to get the right content
+1. The active / inactive class switching works
+
+
+```js
+function makeActive(event) {
+  if (!event.target.matches('a')) return
+  makeInactive()
+  event.target.classList.add('active')
+  const type = window.location.hash.substr(1)
+  contentPara.innerHTML = data[type]
+}
+```
+
+We can set the initial hash with `window.location.hash = 'cuisines'`
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event
+
+```js
+var contentPara = document.querySelector('.content')
+var tabs = document.querySelectorAll('nav a')
+
+function makeActive(event) {
+  if (!event.target.matches('a')) return
+  makeInactive()
+  event.target.classList.add('active')
+  setContentAccordingToHash()
+}
+
+function makeInactive() {
+  tabs.forEach(function (tab) {
+    tab.classList.remove('active')
+  })
+}
+
+function setContentAccordingToHash() {
+  const type = window.location.hash.substr(1)
+  contentPara.innerHTML = data[type]
+}
+
+function initializePage() {
+  document.querySelector('nav a').classList.add('active')
+  window.location.hash = 'cuisines'
+  setContentAccordingToHash()
+}
+
+document.addEventListener('click', makeActive)
+window.addEventListener('hashchange', setContentAccordingToHash)
+
+initializePage()
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#cuisines">cuisines</a></li>
+        <li><a href="#chefs">chefs</a></li>
+        <li><a href="#reviews">reviews</a></li>
+        <li><a href="#delivery">delivery</a></li>
+      </ul>
+    </nav>
+    <div class="content"></div>
+    <script src="js/data-object.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
+```
+
+```css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 1.25rem;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  opacity: 0.8;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(248, 236, 193) 0%,
+    rgb(245, 237, 213) 6%,
+    rgb(248, 219, 112) 94%,
+    rgb(247, 204, 51) 100%
+  );
+}
+
+nav li {
+  display: flex;
+}
+
+nav a:hover,
+nav .active {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+  opacity: 1;
+}
+
+.content {
+  padding: 1rem;
+}
+
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+  nav li {
+    margin-right: 1rem;
+  }
+}
+```
+
+
+<!-- ## Data Attributes
 
 Add [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) to the HTML:
 
 ```html
 <ul>
   <li>
-    <a data-story="cuisines" href="#cuisines">cuisines</a>
+    <a data-story="cuisines" href="#cuisines" class="active">cuisines</a>
   </li>
   <li>
     <a data-story="chefs" href="#chefs">chefs</a>
@@ -805,11 +930,13 @@ function makeActive() {
 }
 ```
 
-Note that because we are using hashes as the href value for our links we no longer need to prevent the default behavior of the links since hashes always refer to the current page.
+Note that because we are using hashes as the href value for our links we no longer need to prevent the default behavior of the links since hashes always refer to the current page. -->
 
 ## An Array of Objects
 
-This is an extemmely common format for data.
+This is an extemmely common format for data to be sent from a server for use in a page. 
+
+It's also very dangerous to send HTML from a server for use in your page as it opens possibilities for hacking. Accordingly I've removed the HTML tags here.
 
 ```js
 const data = [
