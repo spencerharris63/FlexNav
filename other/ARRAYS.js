@@ -30,11 +30,11 @@ console.log(uniqArr);
 uniqArr.splice(2, 1, 'boo');
 console.log(uniqArr);
 
-// remove from beginning
+// remove from end
 uniqArr.pop();
 console.log(uniqArr);
 
-// Add to beginning
+// Add to end
 uniqArr.push('l');
 console.log(uniqArr);
 

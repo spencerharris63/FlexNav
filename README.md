@@ -7,27 +7,17 @@
     - [A Note For Windows Users](#a-note-for-windows-users)
   - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
   - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
-      - [Array Methods](#array-methods)
-  - [Exercise: FlexNav](#exercise-flexnav)
-    - [Design Patterns](#design-patterns)
-    - [VS Code - Emmet](#vs-code---emmet)
-    - [VS Code - Prettier](#vs-code---prettier)
-  - [Node Package Manager](#node-package-manager)
-  - [FlexNav CSS](#flexnav-css)
-    - [Floats](#floats)
+      - [Arrays](#arrays)
     - [Box Sizing](#box-sizing)
     - [Float CSS with Images](#float-css-with-images)
     - [Removing the Images](#removing-the-images)
     - [Float CSS without Images](#float-css-without-images)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
-    - [Final Flexbox CSS](#final-flexbox-css)
-  - [JavaScript Navigation](#javascript-navigation)
-  - [Event Delegation](#event-delegation)
-  - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
     - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
+
 
 ## Homework
 
@@ -37,7 +27,7 @@ Examine the files in the `other/homework` folder. `index.html` is your starting 
 
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
-- Pimp out your terminal with [this tutorial](https://wesbos.com/command-line-video-tutorials/)
+<!-- - Pimp out your terminal with [this tutorial](https://wesbos.com/command-line-video-tutorials/) -->
 
 ## The Terminal
 
@@ -47,7 +37,7 @@ There are many good reasons to acquire a basic understanding of the command line
 
 ### A Note For Windows Users
 
-The Windows equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Windows alternates to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
+A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
 
 <hr />
 
@@ -73,6 +63,7 @@ $ npm --version
 $ git --version
 $ node
 > var total = 12+12
+> total
 > var el = document.querySelector('.anything') // error
 > .exit // or control + c to exit node
 $ clear // or command + k to clear the terminal
@@ -94,7 +85,7 @@ Examine a branch in VS Code.
 
 ## JavaScipt Preview and Review - Boulevards de Paris
 
-See `other/ARRAYS.js` (use Quokka extension for VS Code).
+<!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
 
 Recall `document.querySelector('<css selector>')` returns the first selected item.
 
@@ -103,7 +94,7 @@ Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_i
 Paste the following in the console:
 
 ```js
-var test = document.querySelector('a'); // returns the first anchor on the page
+var test = document.querySelector('a');
 ```
 
 While `document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
@@ -142,9 +133,9 @@ linksArray[0];
 linksArray[0].textContent;
 ```
 
-#### Array Methods
+#### Arrays
 
-We commonly use for loops to iterate through an array and perform some action.
+We commonly use loops to iterate through an array and perform some action.
 
 Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
 
@@ -160,22 +151,22 @@ Let's look at a couple important [array methods](https://developer.mozilla.org/e
 Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
 
 ```js
-var linkText = linksArray.map(function(link) {
+var linkTextTwo = linksArray.map(function(link) {
   return link.textContent;
 });
 ```
 
-Here's an alternative form of the same thing using an arrow function:
+<!-- Here's an alternative form of the same thing using an arrow function:
 
 ```js
 var linkText = linksArray.map(link => link.textContent);
-```
+``` -->
 
-Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
+<!-- Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
 
 ```js
 var linkText = linksArray.map(link => link.textContent);
-```
+``` -->
 
 Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
 
@@ -185,13 +176,13 @@ var de = linkText.filter(function(streetName) {
 });
 ```
 
-Note: `includes` is a string method. The `return` at the end of the function body ends the function and specifies the value(s) to be stored in `de`.
+<!-- Note: `includes` is a string method. The `return` at the end of the function body ends the function and specifies the value(s) to be stored in `de`. -->
 
-Here's the same function as an arrow function:
+<!-- Here's the same function as an arrow function:
 
 ```js
 var de = linkText.filter(streetName => streetName.includes('de'));
-```
+``` -->
 
 ## Exercise: FlexNav
 
