@@ -6,14 +6,15 @@
   - [The Terminal](#the-terminal)
     - [A Note For Windows Users](#a-note-for-windows-users)
   - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
-  - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
-      - [Arrays](#arrays)
-    - [Box Sizing](#box-sizing)
-    - [Float CSS with Images](#float-css-with-images)
-    - [Removing the Images](#removing-the-images)
-    - [Float CSS without Images](#float-css-without-images)
+  - [Exercise: FlexNav](#exercise-flexnav)
+    - [Design Patterns](#design-patterns)
+    - [VS Code - Emmet](#vs-code---emmet)
+  - [Node Package Manager](#node-package-manager)
+  - [FlexNav CSS](#flexnav-css)
+    - [Floats](#floats)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
+      - [Arrays](#arrays)
   - [An Array of Objects](#an-array-of-objects)
     - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
@@ -37,7 +38,7 @@ There are many good reasons to acquire a basic understanding of the command line
 
 ### A Note For Windows Users
 
-A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
+A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows for this exercise.
 
 <hr />
 
@@ -81,122 +82,19 @@ $ git branch inclass
 $ git checkout inclass
 ```
 
-Examine a branch in VS Code.
-
-## JavaScipt Preview and Review - Boulevards de Paris
-
-<!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
-
-Recall `document.querySelector('<css selector>')` returns the first selected item.
-
-Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
-
-Paste the following in the console:
-
-```js
-var test = document.querySelector('a');
-```
-
-While `document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
-
-```js
-var test = document.querySelectorAll('a');
-```
-
-Inspect one of the listed boulevards to find `.mw-category` in the code. Note: You can reference the currently selected element using `$0`.
-
-```js
-var category = document.querySelector('.mw-category');
-```
-
-We can use our `category` variable as the basis for a more targeted query:
-
-```js
-var links = category.querySelectorAll('a');
-```
-
-Examine the methods on the resulting nodeList. Try `links.length` in the console.
-
-Our nodeList looks like an array but isn't. Let's convert the nodeList into an Array:
-
-```js
-var linksArray = Array.from(links);
-```
-
-- Examine the methods on the resulting Array and compare them to the methods on a nodeList.
-- Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property.
-
-Here is a simple example showing how to call an array method and access an element from an array
-
-```js
-linksArray[0];
-linksArray[0].textContent;
-```
-
-#### Arrays
-
-We commonly use loops to iterate through an array and perform some action.
-
-Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
-
-```js
-var linkText = [];
-for (let i = 0; i < linksArray.length; i++) {
-  linkText.push(linksArray[i].textContent);
-}
-```
-
-Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-
-Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
-
-```js
-var linkTextTwo = linksArray.map(function(link) {
-  return link.textContent;
-});
-```
-
-<!-- Here's an alternative form of the same thing using an arrow function:
-
-```js
-var linkText = linksArray.map(link => link.textContent);
-``` -->
-
-<!-- Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
-
-```js
-var linkText = linksArray.map(link => link.textContent);
-``` -->
-
-Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
-
-```js
-var de = linkText.filter(function(streetName) {
-  return streetName.includes('de');
-});
-```
-
-<!-- Note: `includes` is a string method. The `return` at the end of the function body ends the function and specifies the value(s) to be stored in `de`. -->
-
-<!-- Here's the same function as an arrow function:
-
-```js
-var de = linkText.filter(streetName => streetName.includes('de'));
-``` -->
-
 ## Exercise: FlexNav
 
 <img src="other/tabs-image.jpg">
 
 Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare in order that we may focus on the technique.
 
-To begin, we will focus on navigation list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats and then flexbox.
+To begin, we will focus on navigation list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use flexbox.
 
 ### Design Patterns
 
 In `other/floatNav-design-patterns`
 
-- `cuisines.html` server vs client side rendering
+- `cuisines.html` static assets only
 - `index-spa-fragments` single page application with scroll
 - `index-spa-js.html` single page application with JavaScript
 
@@ -232,45 +130,6 @@ Add a link to `styles.css` in `index.html`:
 
 `<link rel="stylesheet" href="css/styles.css">`
 
-### VS Code - Prettier
-
-Install the Prettier Code Formatter extension in VS Code.
-
-Here are some sample VS Code configurations:
-
-```js
-"editor.formatOnSave": true,
-"[javascript]": {
-  "editor.formatOnSave": true
-},
-"[html]": {
-  "editor.formatOnSave": true
-},
-"[css]": {
-  "editor.formatOnSave": true
-},
-"editor.wordWrap": "on",
-"prettier.singleQuote": true,
-"prettier.trailingComma": "all",
-```
-Or `.prettierrc`:
-
-```js
-{
-  "singleQuote": true,
-  "trailingComma": "none",
-  "semi": false
-}
-```
-
-And test:
-
-```html
-<script>
-  const test = 'boo'
-</script>
-```
-
 ## Node Package Manager
 
 [Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install
@@ -280,6 +139,25 @@ In order to familiarize you with node packages and to test your Node installatio
 Note the presence of `package.json` in today's folder. Examine it in VS Code.
 
 [JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is ubiquitious in web development.
+
+```js
+{
+  "name": "flex-nav",
+  "version": "1.0.0",
+  "description": "A simple navbar",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server 'app' --files 'app'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.0"
+  }
+}
+
+```
 
 Use `cd` to navigate to today's directory. Then:
 
@@ -296,7 +174,7 @@ Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) tha
 
 The script (`"browser-sync start --server 'app' --files 'app'"`) was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
 
-Make a change to the HTML and note the hot reloading.
+Make a small change to the HTML and note the hot reloading.
 
 Note the addition of the installation folder: `node_modules` and [package-lock.json](https://docs.npmjs.com/files/package-lock.json).
 
@@ -342,6 +220,81 @@ nav ul {
 }
 ```
 
+```css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  list-style: none;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+
+nav li {
+  display: flex;
+}
+
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 236, 165, 1) 0%,
+    rgba(232, 213, 149, 1) 6%,
+    rgba(253, 233, 162, 1) 94%,
+    rgba(253, 233, 162, 1) 100%
+  );
+  opacity: 0.8;
+}
+
+nav a:hover,
+nav .active {
+  padding-bottom: 5px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+  opacity: 1;
+}
+
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+  nav li {
+    margin-right: 1rem;
+  }
+}
+
+.content {
+  padding: 1rem;
+}
+```
+
 Note the complex looking `font-family` value. You could use `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
 
 It is quite common today to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
@@ -374,7 +327,8 @@ Try adding a float to the 'collapsed' `ul` element:
 
 ```css
 nav ul {
-  ... float: left;
+  ... 
+  float: left;
 }
 ```
 
@@ -384,7 +338,8 @@ Since we want the `<ul>` to extend the width of the window let's fix the width a
 
 ```css
 nav ul {
-  ... padding: 1rem 0 0 46px;
+  ... 
+  padding: 1rem 0 0 46px;
   width: 100%;
 }
 ```
@@ -395,7 +350,8 @@ Extend the [background property](https://www.w3schools.com/css/css_background.as
 
 ```css
 nav ul {
-  ... background-image: url(../img/nav_bg.gif);
+  ... 
+  background-image: url(../img/nav_bg.gif);
 }
 ```
 
@@ -408,7 +364,7 @@ nav {
   background-image: url(../img/nav_bg.gif);
   background-repeat: repeat-x;
   background-position: bottom left;
-  ...;
+  ...
 }
 ```
 
@@ -436,7 +392,7 @@ The same issue we had with collapsing earlier has occurred here as well with the
 nav a {
   border-bottom: none;
   float: left;
-  ...;
+  ...
 }
 ```
 
@@ -445,8 +401,8 @@ Now we add a background image to the `<a>`. Note the use of the background short
 
 ```css
 nav a {
-  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
-  ...;
+  background: #f9eaa9 url(img/off_bg.gif) repeat-x top left;
+  ...
 }
 ```
 
@@ -469,7 +425,8 @@ Recall that the padding on the bottom of the anchor tags was 4px. Let's increase
 
 ```css
 nav a:hover {
-  ... padding-bottom: 5px;
+  ... 
+  padding-bottom: 5px;
 }
 ```
 
@@ -482,7 +439,7 @@ Add a `active` class to the first link in the HTML.
 ```css
 nav a:hover,
 nav a.active {
-  background: #fff url(../img/on_bg.gif) repeat-x top left;
+  background: #fff url(img/on_bg.gif) repeat-x top left;
   padding-bottom: 5px;
 }
 ```
@@ -550,198 +507,6 @@ a:hover,
 
 Now when you navigate between the two pages you should see a friendly reminder of what page you are on courtesy of the CSS file. -->
 
-### Box Sizing
-
-Note the horizontal scrollbar.
-
-Add:
-
-```css
-nav {
-  box-sizing: border-box;
-  ...;
-}
-```
-
-We could also apply it to the entire project:
-
-```css
-* {
-  box-sizing: border-box;
-}
-```
-
-See [this article](https://dev.to/hankchizljaw/bite-sized-basics-box-sizing-4al2) on dev.to for a simple explanation of box sizing in HTML.
-
-### Float CSS with Images
-
-Here is the CSS complete using images:
-
-```css
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-  background-image: url(../img/nav_bg.gif);
-  background-repeat: repeat-x;
-  background-position: bottom left;
-  float: left;
-  padding: 1rem 0 0 46px;
-  width: 100%;
-}
-nav li {
-  float: left;
-}
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  border-bottom: none;
-  float: left;
-  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
-}
-nav a:hover,
-nav a.active {
-  background: #fff url(../img/on_bg.gif) repeat-x top left;
-  padding-bottom: 5px;
-}
-```
-
-### Removing the Images
-
-Images and externally linked assets are a factor contributing to the time it takes to download and render your page. It is considered a best practice to minimize the number of images whereever possible.
-
-- [Intro to gradients in css](https://css-tricks.com/css3-gradients/) has more information than you'll ever need
-- [Gradient editor](http://www.colorzilla.com/gradient-editor/) is the tool I used to create the gradients below
-
-Edit the background properties for the tabs:
-
-Normal anchor (eg. non-hovered) state:
-
-```css
-nav a {
-  ... background-color: #f9eaa9;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-}
-```
-
-Active and hovered states:
-
-```css
-nav a:hover,
-nav a.active {
-  padding-bottom: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-  border-bottom: none;
-}
-```
-
-And nav:
-
-```css
-nav {
-  ... background-color: #ffcb2d;
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-}
-```
-
-### Float CSS without Images
-
-Here is the float-based CSS without images complete up to this point:
-
-```css
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-  float: left;
-  padding: 1rem 0 0 46px;
-  width: 100%;
-}
-nav li {
-  float: left;
-}
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  border-bottom: none;
-  float: left;
-  background-color: #f9eaa9;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-}
-nav a:hover,
-nav a.active {
-  padding-bottom: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-}
-```
-
 ## Flexbox
 
 [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
@@ -763,7 +528,7 @@ First - comment out the float properties in the CSS and add `display: flex` to t
 ```css
 nav {
   /* float: left; */
-  ...;
+  ...
 }
 
 li {
@@ -774,7 +539,7 @@ li {
 ```css
 a {
   /* float: left; */
-  ...;
+  ...
 }
 ```
 
@@ -784,7 +549,7 @@ And add the flex display property:
 nav {
   /* float: left; */
   display: flex;
-  ...;
+  ...
 }
 ```
 
@@ -915,6 +680,107 @@ nav .active {
 }
 ```
 
+## JavaScipt Preview and Review - Boulevards de Paris
+
+<!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
+
+Recall `document.querySelector('<css selector>')` returns the first selected item.
+
+Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
+
+Paste the following in the console:
+
+```js
+var test = document.querySelector('a');
+```
+
+While `document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
+
+```js
+var test = document.querySelectorAll('a');
+```
+
+Inspect one of the listed boulevards to find `.mw-category` in the code. Note: You can reference the currently selected element using `$0`.
+
+```js
+var category = document.querySelector('.mw-category');
+```
+
+We can use our `category` variable as the basis for a more targeted query:
+
+```js
+var links = category.querySelectorAll('a');
+```
+
+Examine the methods on the resulting nodeList. Try `links.length` in the console.
+
+Our nodeList looks like an array but isn't. Let's convert the nodeList into an Array:
+
+```js
+var linksArray = Array.from(links);
+```
+
+- Examine the methods on the resulting Array and compare them to the methods on a nodeList.
+- Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property.
+
+Here is a simple example showing how to call an array method and access an element from an array
+
+```js
+linksArray[0];
+linksArray[0].textContent;
+```
+
+#### Arrays
+
+We commonly use loops to iterate through an array and perform some action.
+
+Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
+
+```js
+var linkText = [];
+for (let i = 0; i < linksArray.length; i++) {
+  linkText.push(linksArray[i].textContent);
+}
+```
+
+Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
+
+```js
+var linkTextTwo = linksArray.map(function(link) {
+  return link.textContent;
+});
+```
+
+<!-- Here's an alternative form of the same thing using an arrow function:
+
+```js
+var linkText = linksArray.map(link => link.textContent);
+``` -->
+
+<!-- Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
+
+```js
+var linkText = linksArray.map(link => link.textContent);
+``` -->
+
+Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
+
+```js
+var de = linkText.filter(function(streetName) {
+  return streetName.includes('de');
+});
+```
+
+<!-- Note: `includes` is a string method. The `return` at the end of the function body ends the function and specifies the value(s) to be stored in `de`. -->
+
+<!-- Here's the same function as an arrow function:
+
+```js
+var de = linkText.filter(streetName => streetName.includes('de'));
+``` -->
+
 ## JavaScript Navigation
 
 Link the empty JavaScript file to index.html.
@@ -1031,20 +897,61 @@ function makeActive() {
 }
 ```
 
+### Aside: Prettier
+
+Install the Prettier Code Formatter extension in VS Code.
+
+Here are some sample VS Code configurations:
+
+```js
+"editor.formatOnSave": true,
+"[javascript]": {
+  "editor.formatOnSave": true
+},
+"[html]": {
+  "editor.formatOnSave": true
+},
+"[css]": {
+  "editor.formatOnSave": true
+},
+"editor.wordWrap": "on",
+"prettier.singleQuote": true,
+"prettier.trailingComma": "all",
+```
+Or, create `.prettierrc` in the app folder:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
+```
+
+And test:
+
+```html
+<script>
+  const test = 'boo'
+</script>
+```
+
+---
+
 Add some variables with content:
 
 ```js
 var cuisines =
-  'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.';
+  '<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>';
 
 var chefs =
-  'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.';
+  '<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>';
 
 var reviews =
-  'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.';
+  '<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>';
 
 var delivery =
-  'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.';
+  '<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>';
 ```
 
 Create an empty `div` with a class of `content` in the html:
