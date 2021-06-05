@@ -12,8 +12,8 @@
   - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
-  - [Aside](#aside)
-  - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
+    - [Aside: Flex Order](#aside-flex-order)
+  - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
   - [JavaScript Navigation](#javascript-navigation)
     - [Aside: Prettier](#aside-prettier)
@@ -322,7 +322,7 @@ We have a meta tag:
 
 See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
 
-## Aside
+### Aside: Flex Order
 
 Flex order property (demo only):
 
@@ -334,7 +334,7 @@ nav :nth-child(2) {
 
 ---
 
-## JavaScipt Preview and Review - Boulevards de Paris
+## JavaScript Preview & Review - Boulevards de Paris
 
 <!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
 
@@ -665,7 +665,7 @@ Use:
 
 Everything works but try clicking on the paragraph.
 
-We will use an if statement to ensure that the user has clicked on a link in the navbar before running our code:
+We will use an if statement and the JavaScript "not" (`!`) operator to ensure that the user has clicked on a link in the navbar before running our code:
 
 ```js
 function makeActive(event) {
@@ -732,17 +732,33 @@ function makeActive() {
 }
 ```
 
-IDEA
-Change the href values to use hashes.
-Remove the hardcoded active class and replace it with: `document.querySelector('nav a').classList.add('active');
-Remove `event.preventDefault()`
-Get the string from the URL: 
-`var type = window.location.hash`
-`var type = window.location.hash.substr(1)`
+Our page is pretty fragile. Hitting refresh always displays the cuisines page and the back button doesn't work. Let's fix it by getting the page contents based on the address in the browser's address bar.
 
-PROBLEM WITH THIS - you have to click on the tab twice to get the right content
-1. The active / inactive class switching works
+Remove the hardcoded active class and replace it with: 
 
+`document.querySelector('nav a').classList.add('active');`
+
+Change the href values to use hashes:
+
+```html
+<ul>
+   <li><a href="#cuisines">cuisines</a></li>
+   <li><a href="#chefs">chefs</a></li>
+   <li><a href="#reviews">reviews</a></li>
+   <li><a href="#delivery">delivery</a></li>
+</ul>
+```
+
+Remove `event.preventDefault()` from the script. We no longer need it.
+
+Now we'll get the string from the URL sing a bit of JavaScript string manipulation: 
+
+```js
+console.log(window.location)
+var type = window.location.hash
+var type = window.location.hash.substr(1)
+console.log(hash)
+```
 
 ```js
 function makeActive(event) {
@@ -754,9 +770,11 @@ function makeActive(event) {
 }
 ```
 
+You have to click on the tab twice to get the right content although the active / inactive class switching works.
+
 We can set the initial hash with `window.location.hash = 'cuisines'`
 
-https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event
+See [https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event)
 
 ```js
 var contentPara = document.querySelector('.content')
@@ -803,14 +821,14 @@ initializePage()
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a href="#cuisines">cuisines</a></li>
-        <li><a href="#chefs">chefs</a></li>
-        <li><a href="#reviews">reviews</a></li>
-        <li><a href="#delivery">delivery</a></li>
-      </ul>
-    </nav>
+   <nav>
+   <ul>
+     <li><a href="#cuisines">cuisines</a></li>
+     <li><a href="#chefs">chefs</a></li>
+     <li><a href="#reviews">reviews</a></li>
+     <li><a href="#delivery">delivery</a></li>
+   </ul>
+   </nav>
     <div class="content"></div>
     <script src="js/data-object.js"></script>
     <script src="js/scripts.js"></script>
@@ -935,6 +953,12 @@ Note that because we are using hashes as the href value for our links we no long
 ## An Array of Objects
 
 This is an extemmely common format for data to be sent from a server for use in a page. 
+
+```html
+https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0`;
+https://pokeapi.co/api/v2/pokemon/
+https://www.reddit.com/r/BudgetAudiophile.json
+```
 
 It's also very dangerous to send HTML from a server for use in your page as it opens possibilities for hacking. Accordingly I've removed the HTML tags here.
 
