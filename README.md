@@ -249,9 +249,26 @@ Here are some sample VS Code configurations:
 "[css]": {
   "editor.formatOnSave": true
 },
+"editor.wordWrap": "on",
 "prettier.singleQuote": true,
 "prettier.trailingComma": "all",
-"editor.wordWrap": "on",
+```
+Or `.prettierrc`:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
+```
+
+And test:
+
+```html
+<script>
+  const test = 'boo'
+</script>
 ```
 
 ## Node Package Manager
