@@ -6,14 +6,18 @@
   - [The Terminal](#the-terminal)
     - [A Note For Windows Users](#a-note-for-windows-users)
   - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
-  - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
-      - [Arrays](#arrays)
-    - [Box Sizing](#box-sizing)
-    - [Float CSS with Images](#float-css-with-images)
-    - [Removing the Images](#removing-the-images)
-    - [Float CSS without Images](#float-css-without-images)
+  - [Exercise: FlexNav](#exercise-flexnav)
+    - [Design Patterns](#design-patterns)
+    - [Aside - Emmet](#aside---emmet)
+  - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
+  - [JavaScipt Preview and Review - Boulevards de Paris](#javascipt-preview-and-review---boulevards-de-paris)
+    - [Arrays](#arrays)
+  - [JavaScript Navigation](#javascript-navigation)
+    - [Aside: Prettier](#aside-prettier)
+  - [Event Delegation](#event-delegation)
+  - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
     - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
@@ -37,7 +41,7 @@ There are many good reasons to acquire a basic understanding of the command line
 
 ### A Note For Windows Users
 
-A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows.
+A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows for this exercise.
 
 <hr />
 
@@ -81,7 +85,252 @@ $ git branch inclass
 $ git checkout inclass
 ```
 
-Examine a branch in VS Code.
+## Exercise: FlexNav
+
+<img src="other/tabs-image.jpg">
+
+Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare in order that we may focus on the technique.
+
+### Design Patterns
+
+In `other/floatNav-design-patterns`
+
+- `cuisines.html` - uses static HTML pages
+- `index-spa-fragments` - a single page application with scrolling
+- `index-spa-js.html` - a single page application with JavaScript
+
+All three approaches are valid. For pedagogical purposes we will be modeling our design after the last one - a single page application with JavaScript.
+
+### Aside - Emmet
+
+- An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
+- Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
+
+Create a new `index.html` file in the `float-nav` folder.
+
+Emmet samples to try in `index.html`:
+
+`html:5`
+
+`ul>li*4>a[href="#"]{link}`
+
+`nav>ul>li.t-cuisines*4>a[href="cuisines.html"]{cuisines}`
+
+---
+
+Add a link to `styles.css` in `index.html`:
+
+```html
+<link rel="stylesheet" href="css/styles.css">
+```
+
+And the following to your HTML page:
+
+```html
+<nav>
+  <ul>
+    <li><a href="index.html">cuisines</a></li>
+    <li><a href="chefs.html">chefs</a></li>
+    <li><a href="reviews.html">reviews</a></li>
+    <li><a href="delivery.html">delivery</a></li>
+  </ul>
+</nav>
+```
+
+## Node Package Manager (NPM)
+
+[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install
+
+In order to familiarize you with node packages and to test your Node installation we will install a server with hot reloading - as opposed to using VS Code's GoLive extension.
+
+Note the presence of `package.json` in today's folder. Examine it in VS Code.
+
+[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a file format often used for transmitting data. It is ubiquitious in web development.
+
+```js
+{
+  "name": "flex-nav",
+  "version": "1.0.0",
+  "description": "A simple navbar",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server 'app' --files 'app'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.0"
+  }
+}
+
+```
+
+We are going to recreate this file. 
+
+1. Delete `package.json`
+2. `cd` to navigate to today's directory
+3. Then initialize npm and install browser sync
+
+```sh
+$ npm init
+$ npm install browser-sync
+```
+
+Note the installed the software listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/)).
+
+Note the addition of the installation folder: `node_modules` and [package-lock.json](https://docs.npmjs.com/files/package-lock.json).
+
+Examine the contents of `node_modules`.
+
+Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync).
+
+Note the `.gitignore` file.
+
+Add the script (`"browser-sync start --server 'app' --files 'app'"`) to package.json.
+
+This script is a command line. It was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
+
+Make a small change to the HTML and note the hot reloading.
+
+Use `ctrl-c` to shut down the server.
+
+Try editing the start script to specify the browser and port:
+
+```js
+"scripts": {
+  "start": "browser-sync start --browser \"google chrome\" --port 1234 --server 'app' --files 'app'"
+},
+```
+
+Restart the server with `$ npm run start`.
+
+## Flexbox
+
+[What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
+
+- A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
+- `flex` is a _display_ attribute like `block, none, inline`
+- Do not confuse it with _positioning_ which we have looked at for absolute, relative, static and fixed positioning
+- Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
+
+### Flexbox in the Wild
+
+- nytimes.com main story on the front page
+- theguardian.com main story on the front page
+
+<hr />
+
+Open the file in Chrome and examine the default user agent styles using the inspector.
+
+Add and review some basic formatting in `styles.css`:
+
+```css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+}
+```
+
+Note the complex looking `font-family` value. It is quite common to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it. 
+
+You could try `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
+
+```css
+nav ul {
+  ...
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 236, 165, 1) 0%,
+    rgba(232, 213, 149, 1) 6%,
+    rgba(253, 233, 162, 1) 94%,
+    rgba(253, 233, 162, 1) 100%
+  );
+  opacity: 0.8;
+}
+
+nav li {
+  display: flex;
+}
+```
+
+Add a `active` class to the first link in the HTML.
+
+```css
+nav a:hover,
+nav .active {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+  opacity: 1;
+}
+```
+
+We have a meta tag:
+
+```html
+<meta name="viewport" content="width=device-width" />
+```
+
+```css
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+  nav li {
+    margin-right: 1rem;
+  }
+}
+
+.content {
+  padding: 1rem;
+}
+```
+
+See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
+
+Flex order property (demo only):
+
+```css
+nav :nth-child(2) {
+  order: 1;
+}
+```
 
 ## JavaScipt Preview and Review - Boulevards de Paris
 
@@ -103,7 +352,8 @@ While `document.querySelectorAll()` returns a collection (`nodeList`) of the ite
 var test = document.querySelectorAll('a');
 ```
 
-Inspect one of the listed boulevards to find `.mw-category` in the code. Note: You can reference the currently selected element using `$0`.
+Inspect one of the listed boulevards to find `.mw-category` in the code. 
+Note: You can reference the currently selected element using `$0` in the console.
 
 ```js
 var category = document.querySelector('.mw-category');
@@ -133,7 +383,7 @@ linksArray[0];
 linksArray[0].textContent;
 ```
 
-#### Arrays
+### Arrays
 
 We commonly use loops to iterate through an array and perform some action.
 
@@ -156,17 +406,23 @@ var linkTextTwo = linksArray.map(function(link) {
 });
 ```
 
-<!-- Here's an alternative form of the same thing using an arrow function:
+```js
+var linkTextTwo = linksArray.map(function(link) {
+  return `${link.textContent} is in paree`;
+}).join(' AND ');
+```
+
+Here's an alternative form of the same thing using an arrow function:
 
 ```js
 var linkText = linksArray.map(link => link.textContent);
-``` -->
+```
 
-<!-- Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
+Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
 
 ```js
 var linkText = linksArray.map(link => link.textContent);
-``` -->
+```
 
 Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
 
@@ -176,729 +432,15 @@ var de = linkText.filter(function(streetName) {
 });
 ```
 
-<!-- Note: `includes` is a string method. The `return` at the end of the function body ends the function and specifies the value(s) to be stored in `de`. -->
-
-<!-- Here's the same function as an arrow function:
+Here's the same function as an arrow function:
 
 ```js
 var de = linkText.filter(streetName => streetName.includes('de'));
-``` -->
-
-## Exercise: FlexNav
-
-<img src="other/tabs-image.jpg">
-
-Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare in order that we may focus on the technique.
-
-To begin, we will focus on navigation list styling but instead of using `display: inline` or `display: inline-block` to create horizontal navigation we will use floats and then flexbox.
-
-### Design Patterns
-
-In `other/floatNav-design-patterns`
-
-- `cuisines.html` server vs client side rendering
-- `index-spa-fragments` single page application with scroll
-- `index-spa-js.html` single page application with JavaScript
-
-### VS Code - Emmet
-
-- An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
-- Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
-
-Create a new `index.html` file in the `float-nav` folder.
-
-Emmet samples to try in `index.html`:
-
-`html:5`
-
-`ul>li*4>a[href="#"]{link}`
-
-`nav>ul>li.t-cuisines*4>a[href="cuisines.html"]{cuisines}`
-
-Edit it as shown:
-
-```html
-<nav>
-  <ul>
-    <li><a href="index.html">cuisines</a></li>
-    <li><a href="chefs.html">chefs</a></li>
-    <li><a href="reviews.html">reviews</a></li>
-    <li><a href="delivery.html">delivery</a></li>
-  </ul>
-</nav>
-```
-
-Add a link to `styles.css` in `index.html`:
-
-`<link rel="stylesheet" href="css/styles.css">`
-
-### VS Code - Prettier
-
-Install the Prettier Code Formatter extension in VS Code.
-
-Here are some sample VS Code configurations:
-
-```js
-"editor.formatOnSave": true,
-"[javascript]": {
-  "editor.formatOnSave": true
-},
-"[html]": {
-  "editor.formatOnSave": true
-},
-"[css]": {
-  "editor.formatOnSave": true
-},
-"prettier.singleQuote": true,
-"prettier.trailingComma": "all",
-"editor.wordWrap": "on",
-```
-
-## Node Package Manager
-
-[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install
-
-In order to familiarize you with node packages and to test your Node installation we will attempt to initiate hot reloading without using VS Code's Go Live extension.
-
-Note the presence of `package.json` in today's folder. Examine it in VS Code.
-
-[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is ubiquitious in web development.
-
-Use `cd` to navigate to today's directory. Then:
-
-```sh
-$ npm install
-$ npm run start
-```
-
-- did it work? (sudo)
-
-You have installed the software listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/)) and ran the command in package.json scripts.
-
-Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync).
-
-The script (`"browser-sync start --server 'app' --files 'app'"`) was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
-
-Make a change to the HTML and note the hot reloading.
-
-Note the addition of the installation folder: `node_modules` and [package-lock.json](https://docs.npmjs.com/files/package-lock.json).
-
-Note the `.gitignore` file.
-
-Use `ctrl-c` to shut down the server.
-
-Try editing the start script to specify the browser:
-
-```js
-"scripts": {
-  "start": "browser-sync start --browser \"google chrome\" --port 1234 --server 'app' --files 'app'"
-},
-```
-
-Restart the server with `$ npm run start`.
-
-## FlexNav CSS
-
-Open the file in Chrome and examine the default user agent styles using the inspector.
-
-Add and review some basic formatting in `styles.css`:
-
-```css
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-  padding: 0 0 0 46px;
-}
-```
-
-Note the complex looking `font-family` value. You could use `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
-
-It is quite common today to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
-
-### Floats
-
-Float the list items to the left:
-
-```css
-nav li {
-  float: left;
-}
-```
-
-Notice what happened to the yellow color.
-
-The `<li>` items no longer force the parent `<ul>` element to expand to contain them. We can see this by virtue of the fact that the yellow background color has disappeared.
-
-This behavior, know as collapsing, occurs whenever all the direct children of a container element are floated. In this case the `<ul>` has collapsed. This behavior is known as "collapsing" and is a common design issue when using floats.
-
-Traditionally, there are a number of methods in use to prevent this:
-
-- float a float (or "FNE" - float nearly everything) - apply a float to the collapsed element
-- the clearfix hack - this entails creating a utility class and will be covered later
-- adding a clearing div - this entails adding an HTML element to the page solely for the purpose of visual formatting and so is discouraged
-
-For our current example let's use the second - FNE - method.
-
-Try adding a float to the 'collapsed' `ul` element:
-
-```css
-nav ul {
-  ... float: left;
-}
-```
-
-Note that the width has changed. Boxes are 100% width by default (they stretch to fill their container). Floating the collapsed element causes it to contract to contain its children.
-
-Since we want the `<ul>` to extend the width of the window let's fix the width and add a touch of space above.
-
-```css
-nav ul {
-  ... padding: 1rem 0 0 46px;
-  width: 100%;
-}
-```
-
-Note: when you float an element you usually have to specify a width.
-
-Extend the [background property](https://www.w3schools.com/css/css_background.asp) to add a background color and image to the `<ul>`.
-
-```css
-nav ul {
-  ... background-image: url(../img/nav_bg.gif);
-}
-```
-
-Aside: demo the background property using `img/pattern.gif`.
-
-Add positioning to the background.
-
-```css
-nav {
-  background-image: url(../img/nav_bg.gif);
-  background-repeat: repeat-x;
-  background-position: bottom left;
-  ...;
-}
-```
-
-Next we'll tackle the `<a>` tags. Add the following to our CSS block.
-
-Adding padding, margins to separate, and a border to make them more tab-like:
-
-```css
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-}
-```
-
-```css
-nav li {
-  margin: 0 6px 0 0;
-}
-```
-
-The same issue we had with collapsing earlier has occurred here as well with the anchor tags. The padding and border is hanging below the yellow area. We will use the same float method as before to make the container expand to fit its floated children. Let's remove the redundant border while we're at it.
-
-```css
-nav a {
-  border-bottom: none;
-  float: left;
-  ...;
-}
-```
-
-By floating the anchors we cause the `<li>`s to expand to contain their floated children.
-Now we add a background image to the `<a>`. Note the use of the background shortcut and that the image has a gradient and transparency.
-
-```css
-nav a {
-  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
-  ...;
-}
-```
-
-Note:
-
-- We are using the background shortcut
-- the background graphic we placed in the `<ul>` is obscured by the tabs.
-
-Now we create hover states for our tabs by swapping out the background image:
-
-```css
-nav a:hover {
-  background: #fff url(i/on_bg.gif) repeat-x top left;
-}
-```
-
-We will use padding to show or hide the background graphic running along the bottom of the `<ul>` - increasing the height by one pixel on hover to hide the image.
-
-Recall that the padding on the bottom of the anchor tags was 4px. Let's increase the padding on the hover state to 5px.
-
-```css
-nav a:hover {
-  ... padding-bottom: 5px;
-}
-```
-
-If you roll over the tabs now the height of the anchor increases by one pixel causing the containing `<ul>` to expand as well and thus showing the border along the bottom under the inactive tabs.
-
-Due to the fact that there is no selected tab (only hovered) the height of the ul jumps 1 pixel. Let's assume that one of the tabs will always be highlighted.
-
-Add a `active` class to the first link in the HTML.
-
-```css
-nav a:hover,
-nav a.active {
-  background: #fff url(../img/on_bg.gif) repeat-x top left;
-  padding-bottom: 5px;
-}
-```
-
-<!-- Create a second selector to highlight one of the anchors by adding `.t-cuisines a` as a second selector to the hover rule.
-
-Multiple selectors must be separated by a comma. Most prefer to keep the multiple selectors on separate lines like so:
-
-```css
-a:hover,
-.t-cuisines a {
-  ...;
-}
-```
-
-Now, if we add an id to the body tag we can edit the selector to make it page specific.
-
-Add `class="cuisines"` to the body tag.
-
-```html
-<body class="p-cuisines">
-```
-
-Edit the second selector to make the tab highlighting specific to this page.
-
-```css
-a:hover,
-.p-cuisines .t-cuisines a {
-  ...;
-}
-```
-
-Save a copy of `index.html` as `chefs.html` and add a class to the body tag:
-
-```html
-<body class="p-chefs"></body>
-```
-
-Add a new selector to the CSS:
-
-```css
-a:hover,
-.p-cuisines .t-cuisines a,
-.p-chefs .t-chefs a {
-  ...;
-}
-```
-
-Lighten the color of the text and the border-color in the inactive tabs:
-
-```css
-a {
-  ...
-  color: #777;
-}
-a:hover,
-.p-cuisines .t-cuisines a,
-.p-chefs .t-chefs a {
-  ...
-  color: #333;
-  border-color: #9b8748;
-}
-
-```
-
-Now when you navigate between the two pages you should see a friendly reminder of what page you are on courtesy of the CSS file. -->
-
-### Box Sizing
-
-Note the horizontal scrollbar.
-
-Add:
-
-```css
-nav {
-  box-sizing: border-box;
-  ...;
-}
-```
-
-We could also apply it to the entire project:
-
-```css
-* {
-  box-sizing: border-box;
-}
-```
-
-See [this article](https://dev.to/hankchizljaw/bite-sized-basics-box-sizing-4al2) on dev.to for a simple explanation of box sizing in HTML.
-
-### Float CSS with Images
-
-Here is the CSS complete using images:
-
-```css
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-  background-image: url(../img/nav_bg.gif);
-  background-repeat: repeat-x;
-  background-position: bottom left;
-  float: left;
-  padding: 1rem 0 0 46px;
-  width: 100%;
-}
-nav li {
-  float: left;
-}
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  border-bottom: none;
-  float: left;
-  background: #f9eaa9 url(../img/off_bg.gif) repeat-x top left;
-}
-nav a:hover,
-nav a.active {
-  background: #fff url(../img/on_bg.gif) repeat-x top left;
-  padding-bottom: 5px;
-}
-```
-
-### Removing the Images
-
-Images and externally linked assets are a factor contributing to the time it takes to download and render your page. It is considered a best practice to minimize the number of images whereever possible.
-
-- [Intro to gradients in css](https://css-tricks.com/css3-gradients/) has more information than you'll ever need
-- [Gradient editor](http://www.colorzilla.com/gradient-editor/) is the tool I used to create the gradients below
-
-Edit the background properties for the tabs:
-
-Normal anchor (eg. non-hovered) state:
-
-```css
-nav a {
-  ... background-color: #f9eaa9;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-}
-```
-
-Active and hovered states:
-
-```css
-nav a:hover,
-nav a.active {
-  padding-bottom: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-  border-bottom: none;
-}
-```
-
-And nav:
-
-```css
-nav {
-  ... background-color: #ffcb2d;
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-}
-```
-
-### Float CSS without Images
-
-Here is the float-based CSS without images complete up to this point:
-
-```css
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-  float: left;
-  padding: 1rem 0 0 46px;
-  width: 100%;
-}
-nav li {
-  float: left;
-}
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  border-bottom: none;
-  float: left;
-  background-color: #f9eaa9;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-}
-nav a:hover,
-nav a.active {
-  padding-bottom: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-}
-```
-
-## Flexbox
-
-[What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
-
-- A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
-- `flex` is a _display_ attribute like `block, inline, block-inline`
-- Do not confuse it with _positioning_ which we have looked at for absolute, relative and fixed positioning
-- Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
-
-### Flexbox in the Wild
-
-- nytimes.com main story on the front page
-- theguardian.com main story on the front page
-
-<hr />
-
-First - comment out the float properties in the CSS and add `display: flex` to the nav:
-
-```css
-nav {
-  /* float: left; */
-  ...;
-}
-
-li {
-  /*float: left;*/
-}
-```
-
-```css
-a {
-  /* float: left; */
-  ...;
-}
-```
-
-And add the flex display property:
-
-```css
-nav {
-  /* float: left; */
-  display: flex;
-  ...;
-}
-```
-
-```css
-nav li {
-  display: flex;
-  margin: 0 6px 0 0;
-}
-```
-
-`/* border-bottom: none; */`
-
-`opacity: 0.8;`
-
-See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
-
-We have a meta tag:
-
-```html
-<meta name="viewport" content="width=device-width" />
-```
-
-<!-- Expand the tabs on small screens:
-
-```css
-@media (max-width: 768px) {
-  nav li {
-    flex-grow: 1;
-  }
-  nav a {
-    flex-grow: 1;
-  }
-}
-``` -->
-
-Flex order property (demo only):
-
-```css
-nav :nth-child(2) {
-  order: 1;
-}
-```
-
-### Final Flexbox CSS
-
-Here's the final CSS with flexbox. I have left commented code in for comparison.
-
-Note the use of justify-content in the responsive deisgn.
-
-```css
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui;
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-nav ul {
-  list-style: none;
-  padding-top: 1rem;
-  display: flex;
-  justify-content: space-around;
-  /* float: left; */
-  /* width: 100%; */
-  /* background-color: #ffcb2d; */
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-}
-
-nav li {
-  /* float: left; */
-  display: flex;
-  /* margin: 0 6px 0 0; */
-}
-
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  /* float: left; */
-  /* border-bottom: none; */
-  background-color: #f9eaa9;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-  opacity: 0.8;
-}
-
-nav a:hover,
-nav .active {
-  padding-bottom: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-  border-bottom: none;
-  opacity: 1;
-}
-
-@media (min-width: 460px) {
-  nav ul {
-    padding-left: 1rem;
-    justify-content: flex-start;
-  }
-  nav li {
-    margin-right: 1rem;
-  }
-}
 ```
 
 ## JavaScript Navigation
+
+We will add an active class to the tabs when they are clicked on.
 
 Link the empty JavaScript file to index.html.
 
@@ -1014,20 +556,61 @@ function makeActive() {
 }
 ```
 
+### Aside: Prettier
+
+Install the Prettier Code Formatter extension in VS Code.
+
+Here are some sample VS Code configurations:
+
+```js
+"editor.formatOnSave": true,
+"[javascript]": {
+  "editor.formatOnSave": true
+},
+"[html]": {
+  "editor.formatOnSave": true
+},
+"[css]": {
+  "editor.formatOnSave": true
+},
+"editor.wordWrap": "on",
+"prettier.singleQuote": true,
+"prettier.trailingComma": "all",
+```
+Or, create `.prettierrc` in the app folder:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
+```
+
+And test:
+
+```html
+<script>
+  const test = 'boo'
+</script>
+```
+
+---
+
 Add some variables with content:
 
 ```js
 var cuisines =
-  'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.';
+  '<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>';
 
 var chefs =
-  'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.';
+  '<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>';
 
 var reviews =
-  'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.';
+  '<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>';
 
 var delivery =
-  'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.';
+  '<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>';
 ```
 
 Create an empty `div` with a class of `content` in the html:
