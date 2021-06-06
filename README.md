@@ -6,12 +6,10 @@
   - [The Terminal](#the-terminal)
     - [A Note For Windows Users](#a-note-for-windows-users)
   - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
-  - [Exercise: FlexNav](#exercise-flexnav)
-    - [Design Patterns](#design-patterns)
-    - [Aside - Emmet](#aside---emmet)
+  - [Design Patterns](#design-patterns)
+  - [Aside - Emmet](#aside---emmet)
   - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
-    - [Flexbox in the Wild](#flexbox-in-the-wild)
     - [Aside - attribute selectors](#aside---attribute-selectors)
     - [Aside: Flex Order](#aside-flex-order)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
@@ -83,34 +81,33 @@ Use `cd` or the copy and paste method to cd into today's exercise folder.
 
 ```sh
 $ git init
+$ touch .gitignore
 $ git add .
 $ git commit -m 'initial commit'
 $ git branch inclass
 $ git checkout inclass
 ```
 
-## Exercise: FlexNav
+## Design Patterns
 
 <img src="other/tabs-image.jpg">
 
-Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare in order that we may focus on the technique.
+Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare to keep things simple.
 
-### Design Patterns
-
-In `other/floatNav-design-patterns`
+Let's examine the samples in `other/design-patterns` (these are non-trivial examples, you do not need to understand everything, just the basic concepts - static, fragments and SPA or single page application):
 
 - `static/cuisines.html` - uses static HTML pages
 - `fragments/index-spa-fragments` - a single page application with scrolling
 - `spa/index-spa-js.html` - a single page application with JavaScript
 
-All three approaches are valid. For pedagogical purposes we will be modeling our design after the last one - a single page application with JavaScript.
+All three approaches are valid and common. For pedagogical purposes we will be modeling our design after the last one - a single page application with JavaScript.
 
-### Aside - Emmet
+## Aside - Emmet
 
 - An HTML plugin called [Emmet](https://emmet.io) is available in VS Code
 - Review [emmet syntax](http://docs.emmet.io/abbreviations/syntax/)
 
-Create a new `index.html` file in the `float-nav` folder.
+Create a new `index.html` file in the `app` folder. (Use touch if you want to be fancy.)
 
 Emmet samples to try in `index.html`:
 
@@ -174,22 +171,27 @@ We are going to recreate this file.
 
 1. Delete `package.json`
 2. `cd` to navigate to today's directory
-3. Then initialize npm and install browser sync
+3. Then initialize npm and install browser-sync:
 
 ```sh
 $ npm init
 $ npm install browser-sync
 ```
 
-Note the installed the software listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/)).
+Note:
 
-Note the addition of the installation folder: `node_modules` and [package-lock.json](https://docs.npmjs.com/files/package-lock.json).
+- the installed the software is listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/))
+- the addition of the installation folder: `node_modules` 
+- the new [package-lock.json](https://docs.npmjs.com/files/package-lock.json)
+- the `.gitignore` file (added by me) declares that the contents of the node_modules folder should not be tracked by git
 
 Examine the contents of `node_modules`.
 
 Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync).
 
-Note the `.gitignore` file.
+```sh
+$ npm install browser-sync
+```
 
 Add the script (`"browser-sync start --server 'app' --files 'app'"`) to package.json.
 
@@ -218,16 +220,7 @@ Restart the server with `$ npm run start`.
 - Do not confuse it with _positioning_ which we have looked at for absolute, relative, static and fixed positioning
 - Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
 
-### Flexbox in the Wild
-
-- nytimes.com main story on the front page
-- theguardian.com main story on the front page
-
-<hr />
-
-Open the file in Chrome and examine the default user agent styles using the inspector.
-
-Add and review some basic formatting in `styles.css`:
+Add and review some basic formatting in `app/styles.css`:
 
 ```css
 body {
