@@ -12,6 +12,7 @@
   - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
     - [Flexbox in the Wild](#flexbox-in-the-wild)
+    - [Aside - attribute selectors](#aside---attribute-selectors)
     - [Aside: Flex Order](#aside-flex-order)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
@@ -20,6 +21,8 @@
   - [Event Delegation](#event-delegation)
   - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
+  - [Extra Credit - refresh](#extra-credit---refresh)
+  - [Extra Credit - createElement](#extra-credit---createelement)
     - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
 
@@ -302,6 +305,14 @@ nav .active {
 }
 ```
 
+### Aside - attribute selectors
+
+A selector can use HTML tag attributes. `nav .active` could be written `nav a[class="active"]`
+
+See [https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
+
+---
+
 We have a meta tag:
 
 ```html
@@ -566,7 +577,6 @@ You can also add prettier preferences in VS Code:
 "[css]": {
   "editor.formatOnSave": true
 },
-"editor.wordWrap": "on",
 "prettier.singleQuote": true,
 "prettier.trailingComma": "all",
 ```
@@ -751,12 +761,12 @@ Change the href values to use hashes:
 
 Remove `event.preventDefault()` from the script. We no longer need it.
 
-Now we'll get the string from the URL sing a bit of JavaScript string manipulation: 
+Now we'll get the string from the URL sing a bit of JavaScript [string manipulation]((https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring)): 
 
 ```js
 console.log(window.location)
 var type = window.location.hash
-var type = window.location.hash.substr(1)
+var type = window.location.hash.substring(1)
 console.log(hash)
 ```
 
@@ -765,7 +775,7 @@ function makeActive(event) {
   if (!event.target.matches('a')) return
   makeInactive()
   event.target.classList.add('active')
-  const type = window.location.hash.substr(1)
+  const type = window.location.hash.substring(1)
   contentPara.innerHTML = data[type]
 }
 ```
@@ -794,7 +804,7 @@ function makeInactive() {
 }
 
 function setContentAccordingToHash() {
-  const type = window.location.hash.substr(1)
+  const type = window.location.hash.substring(1)
   contentPara.innerHTML = data[type]
 }
 
@@ -987,62 +997,73 @@ const data = [
 ];
 ```
 
-An array is commonly used in conjunction with loops:
+An array is commonly used in conjunction with loops. We will loop through our data array and se an if statement in order to find a match for our type variable.
 
 ```js
-function makeActive() {
-  if (!event.target.matches('nav ul a')) return;
-  makeInactive();
-  event.target.classList.add('active');
-  let activePage = document.querySelector('.active');
-  let storyRef = activePage.dataset.story;
-  // NEW
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].section === storyRef) {
-      // console.log(data[i].story);
-      contentPara.innerHTML = data[i].story;
+function setContentAccordingToHash() {
+  const type = window.location.hash.substring(1)
+  for (var i = 0; i < data.length; i++) {
+    console.log(i, data[i])
+    if (data[i].section === type) {
+      console.log(data[i].story)
+      contentPara.innerHTML = data[i].story
+    }
+  }
+}
+
+function initializePage() {
+  console.log(data[0].section)
+  document.querySelector('nav a').classList.add('active')
+  window.location.hash = 'cuisines'
+  setContentAccordingToHash()
+}
+```
+
+We could also use the array's `forEach` method instead of a for loop:
+
+```js
+function setContentAccordingToHash() {
+  const type = window.location.hash.substring(1)
+  data.forEach(function (item) {
+    if (item.section === type) {
+      contentPara.innerHTML = item.story
+    }
+  })
+```
+
+Or a `for ... of` loop:
+
+```js
+function setContentAccordingToHash() {
+  const type = window.location.hash.substring(1)
+
+  for (var item of data) {
+    if (item.section === type) {
+      contentPara.innerHTML = item.story
     }
   }
 }
 ```
 
-Reinitialize:
+## Extra Credit - refresh
 
-`contentPara.innerHTML = data[0].story;`
-
-We could also use the array's forEach method instead of a for loop:
+A solution for the refresh button:
 
 ```js
-function makeActive() {
-  if (!event.target.matches('nav ul a')) return;
-  makeInactive();
-  event.target.classList.add('active');
-  let activePage = document.querySelector('.active');
-  let storyRef = activePage.dataset.story;
-  data.forEach(function(item) {
-    if (item.section === storyRef) {
-      contentPara.innerHTML = item.story;
-    }
-  });
+function initializePage() {
+  if (!window.location.hash) {
+    window.location.hash = 'cuisines'
+    document.querySelector('a[href="#cuisines"]').classList.add('active')
+  } else {
+    document
+      .querySelector(`a[href="${window.location.hash}"]`)
+      .classList.add('active')
+  }
+  setContentAccordingToHash()
 }
 ```
 
-Here is the forEach callback function as an arrow function:
-
-```js
-function makeActive() {
-  if (!event.target.matches('nav ul a')) return;
-  makeInactive();
-  event.target.classList.add('active');
-  let activePage = document.querySelector('.active');
-  let storyRef = activePage.dataset.story;
-  data.forEach(item => {
-    if (item.section === storyRef) {
-      contentPara.innerHTML = item.story;
-    }
-  });
-}
-```
+## Extra Credit - createElement
 
 Finally, let's create a header for the content.
 
@@ -1104,41 +1125,160 @@ function setUp() {
 
 ## Notes
 
+similar. Nice use of callbacks:
+https://itnext.io/build-a-single-page-web-app-javascript-and-the-dom-90c99b08f8a9
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="icon" type="image//png" href="favicon.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#cuisines">cuisines</a></li>
+        <li><a href="#chefs">chefs</a></li>
+        <li><a href="#reviews">reviews</a></li>
+        <li><a href="#delivery">delivery</a></li>
+      </ul>
+    </nav>
+    <div class="content"></div>
+    <script src="js/data-array.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
+
+```
+
+```css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 1.25rem;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  opacity: 0.8;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(248, 236, 193) 0%,
+    rgb(245, 237, 213) 6%,
+    rgb(248, 219, 112) 94%,
+    rgb(247, 204, 51) 100%
+  );
+}
+
+nav li {
+  display: flex;
+}
+
+nav a:hover,
+nav a[class='active'] {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+  opacity: 1;
+}
+
+.content {
+  padding: 1rem;
+}
+
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+  nav li {
+    margin-right: 1rem;
+  }
+}
+
+```
+
 ```js
-function clickHandler() {
-  if (!event.target.matches('nav ul a')) return;
-  makeInactive();
-  makeActive();
-  let activePage = document.querySelector('.active');
-  let storyRef = activePage.dataset.story;
-  data.forEach(item => {
-    if (item.section === storyRef) {
-      contentPara.innerHTML = item.story;
+var contentPara = document.querySelector('.content')
+var tabs = document.querySelectorAll('nav a')
+
+function makeActive(event) {
+  if (!event.target.matches('a')) return
+  makeInactive()
+  event.target.classList.add('active')
+  setContentAccordingToHash()
+}
+
+function makeInactive() {
+  tabs.forEach(function (tab) {
+    tab.classList.remove('active')
+  })
+}
+
+function setContentAccordingToHash() {
+  var type = window.location.hash.substring(1)
+  for (var item of data) {
+    if (item.section === type) {
+      contentPara.innerHTML = item.story
     }
-  });
-  makeHeader(storyRef);
+  }
+  setActiveAccordingToHash(type)
 }
 
-function makeActive() {
-  console.log(event.target);
-  event.target.classList.add('active');
+function setActiveAccordingToHash(type) {
+  makeInactive()
+  document.querySelector(`a[href="#${type}"]`).classList.add('active')
 }
-```
 
-and
+function initializePage() {
+  if (!window.location.hash) {
+    window.location.hash = 'cuisines'
+    document.querySelector('[href="#cuisines"]').classList.add('active')
+  } else {
+    document
+      .querySelector(`[href="${window.location.hash}"]`)
+      .classList.add('active')
+  }
+  setContentAccordingToHash()
+}
 
-`document.addEventListener('click', clickHandler);`
+document.addEventListener('click', makeActive)
+window.addEventListener('hashchange', setContentAccordingToHash)
+window.addEventListener('load', initializePage)
 
-Git - remove existing origin:
-
-```sh
-git remote rm origin
-```
-
-Ternary
-
-```js
-data.forEach(item => {
-  item.section === storyRef ? (contentPara.innerHTML = item.story) : '';
-});
 ```
