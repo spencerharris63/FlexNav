@@ -99,9 +99,9 @@ Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/
 
 In `other/floatNav-design-patterns`
 
-- `cuisines.html` - uses static HTML pages
-- `index-spa-fragments` - a single page application with scrolling
-- `index-spa-js.html` - a single page application with JavaScript
+- `static/cuisines.html` - uses static HTML pages
+- `fragments/index-spa-fragments` - a single page application with scrolling
+- `spa/index-spa-js.html` - a single page application with JavaScript
 
 All three approaches are valid. For pedagogical purposes we will be modeling our design after the last one - a single page application with JavaScript.
 

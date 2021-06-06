@@ -1,4 +1,4 @@
-// one parameter
+// one argument
 function addFive(num) {
   num = num + 5;
   return num;
@@ -7,7 +7,7 @@ function addFive(num) {
 var newNum = addFive(3);
 console.log(newNum);
 
-// two parameters
+// two arguments
 function add(a, b) {
   return a + b;
 }
