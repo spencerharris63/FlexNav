@@ -3,11 +3,13 @@ let obj = {
   b: 2,
 };
 
-let newObj = {};
+console.log(obj["b"]);
 
 console.log(Object.keys(obj));
 console.log(Object.values(obj));
 console.log(Object.entries(obj));
+
+let newObj = {};
 console.log(Object.assign(newObj, obj));
 console.log(newObj);
 
@@ -24,11 +26,20 @@ for (let key in obj) {
   console.log(obj[key]);
 }
 
+funkyObject = {
+  a: "testing",
+  "not a variable": "but you can use it in an object",
+};
+
+console.log(funkyObject.a);
+// console.log( funkyObject.not a variable  ) // doesn't work
+console.log(funkyObject["not a variable"]);
+
 // NEW
 
 var data = {};
 
-var setData = function(obj) {
+var setData = function (obj) {
   for (var key in obj) {
     console.log(key);
     console.log(obj[key]);
@@ -36,5 +47,5 @@ var setData = function(obj) {
   }
 };
 
-setData({ listItems: 'itemOne' });
+setData({ listItems: "itemOne" });
 console.log(data);

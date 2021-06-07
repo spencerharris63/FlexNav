@@ -10,7 +10,7 @@
   - [Aside - Emmet](#aside---emmet)
   - [Node Package Manager (NPM)](#node-package-manager-npm)
   - [Flexbox](#flexbox)
-    - [Aside - attribute selectors](#aside---attribute-selectors)
+    - [Aside: Attribute Selectors](#aside-attribute-selectors)
     - [Aside: Flex Order](#aside-flex-order)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
@@ -298,7 +298,7 @@ nav .active {
 }
 ```
 
-### Aside - attribute selectors
+### Aside: Attribute Selectors
 
 A selector can use HTML tag attributes. `nav .active` could be written `nav a[class="active"]`
 
