@@ -75,11 +75,13 @@ Use `cd` or the copy and paste method to cd into today's exercise folder.
 
 ## Initialize GIT and Create a Branch
 
-Configure your installation of git:
+[Configure](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) your installation of git:
 
 ```sh
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
+$ git config --global init.defaultBranch main
+$ git config --list
 ```
 
 Initialize your repository:
