@@ -13,6 +13,7 @@
     - [Aside: Flex Order](#aside-flex-order)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
+    - [Aside: Prettier](#aside-prettier)
   - [Event Delegation](#event-delegation)
   - [Working with Objects](#working-with-objects)
   - [End](#end)
@@ -538,11 +539,25 @@ function makeInactive() {
 }
 ```
 
+<!--
+clone the branch into a new folder
+set up netlify:
+https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/
+view the main branch on Netlify
+merge the inclass branch into master
+commit and push
+view the main branch on Netlify
+-->
+
 ### Aside: Prettier
 
-Install the Prettier Code Formatter extension in VS Code.
+[Prettier](https://prettier.io/docs/en/index.html) is a code formatter.
 
-Create `.prettierrc` in the app folder:
+Install the Prettier extension in VS Code.
+
+`npm install -D prettier`
+
+Create `.prettierrc` in the app folder.
 
 ```js
 {
@@ -552,12 +567,23 @@ Create `.prettierrc` in the app folder:
 }
 ```
 
+<!-- ```js
+"scripts": {
+	"format": "prettier --write \"./**/*.{js,html,css}\""
+},
+```
+
+```sh
+$ npm run format
+``` -->
+
 And test.
 
-Note: you can also add prettier preferences in VS Code:
+Note: you can also [add prettier preferences](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS Code:
 
 ```js
 "editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode",
 "[javascript]": {
   "editor.formatOnSave": true
 },
