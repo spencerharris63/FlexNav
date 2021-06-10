@@ -629,6 +629,8 @@ var contentPara = document.querySelector('.content');
 contentPara.innerHTML = cuisines;
 ```
 
+<!-- textContent -->
+
 Style it using CSS:
 
 ```css
