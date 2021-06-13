@@ -17,12 +17,10 @@
     - [Aside: Prettier](#aside-prettier)
   - [Event Delegation](#event-delegation)
   - [Working with Objects](#working-with-objects)
-  - [Aside - Data Attributes](#aside---data-attributes)
-  - [END](#end)
   - [An Array of Objects](#an-array-of-objects)
-  - [Extra Credit - createElement](#extra-credit---createelement)
-    - [Initialize on Load](#initialize-on-load)
   - [Notes](#notes)
+    - [Initialize on Load](#initialize-on-load)
+  - [Notes II](#notes-ii)
 
 ## Homework
 
@@ -958,7 +956,45 @@ console.log("newschool ", newschool);
 .querySelector(`[href="${window.location.hash}"]`)
 ```
 
-## Aside - Data Attributes
+If we want to use the hash change to determine both the active tab and the content being displayed we can dispense with the click event listener. This also makes it easier to reset both the active state and content when the browers forward and back arrows are used:
+
+```js
+var tabs = document.querySelectorAll("nav a");
+contentPara = document.querySelector(".content");
+
+// when the hash changes
+function setActiveTabAccordingToHash(type) {
+  makeAllTabsInactive();
+  var tabToActivate = document.querySelector(`a[href="#${type}"]`);
+  tabToActivate.classList.add("active");
+}
+
+function makeAllTabsInactive() {
+  tabs.forEach((tab) => tab.classList.remove("active"));
+}
+
+// runs on page load and whenever the hash changes
+function setContentAccordingToHash() {
+  var type = window.location.hash.substring(1);
+  contentPara.innerHTML = data[type];
+  setActiveTabAccordingToHash(type);
+}
+
+// only runs once on page load
+function initializePage() {
+  if (!window.location.hash) {
+    window.location.hash = "cuisines";
+    document.querySelector('[href="#cuisines"]').classList.add("active");
+  }
+  setContentAccordingToHash();
+}
+
+window.addEventListener("hashchange", setContentAccordingToHash);
+
+initializePage();
+```
+
+<!-- ## Aside - Data Attributes
 
 Add [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) to the HTML:
 
@@ -990,7 +1026,7 @@ function makeActive() {
 }
 ```
 
-## END
+## END -->
 
 ## An Array of Objects
 
@@ -1035,10 +1071,9 @@ An array is commonly used in conjunction with loops. We will loop through our da
 function setContentAccordingToHash() {
   const type = window.location.hash.substring(1);
   for (var i = 0; i < data.length; i++) {
-    console.log(i, data[i]);
     if (data[i].section === type) {
-      console.log(data[i].story);
       contentPara.innerHTML = data[i].story;
+      setActiveTabAccordingToHash(type);
     }
   }
 }
@@ -1048,29 +1083,48 @@ We could also use the array's `forEach` method instead of a for loop:
 
 ```js
 function setContentAccordingToHash() {
-  const type = window.location.hash.substring(1)
+  const type = window.location.hash.substring(1);
   data.forEach(function (item) {
     if (item.section === type) {
-      contentPara.innerHTML = item.story
+      contentPara.innerHTML = item.story;
+      setActiveTabAccordingToHash(type);
     }
-  })
+  });
+}
 ```
 
-Or a `for ... of` loop:
+I prefer a `for ... of` loop ([documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)):
 
 ```js
 function setContentAccordingToHash() {
   const type = window.location.hash.substring(1);
-
   for (var item of data) {
     if (item.section === type) {
       contentPara.innerHTML = item.story;
+      setActiveTabAccordingToHash(type);
     }
   }
 }
 ```
 
-## Extra Credit - createElement
+We can use a template string (string literal) to create HTML that uses both the section and story elements:
+
+```js
+if (item.section === type) {
+  // contentPara.innerHTML = item.story
+  contentPara.innerHTML = `<h2>${item.section}</h2> <p>${item.story}</p>`;
+  setActiveTabAccordingToHash(type);
+}
+```
+
+And finally, use an [event](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event) to kick start our page:
+
+```js
+// initializePage()
+document.addEventListener("DOMContentLoaded", initializePage);
+```
+
+## Notes
 
 Finally, let's create a header for the content.
 
@@ -1130,7 +1184,7 @@ function setUp() {
 }
 ```
 
-## Notes
+## Notes II
 
 similar. Nice use of callbacks:
 https://itnext.io/build-a-single-page-web-app-javascript-and-the-dom-90c99b08f8a9
@@ -1239,50 +1293,37 @@ nav a[class="active"] {
 ```
 
 ```js
-var contentPara = document.querySelector(".content");
 var tabs = document.querySelectorAll("nav a");
+contentPara = document.querySelector(".content");
 
-function makeActive(event) {
-  if (!event.target.matches("a")) return;
-  makeInactive();
-  event.target.classList.add("active");
-  setContentAccordingToHash();
+function setActiveTabAccordingToHash(type) {
+  makeAllTabsInactive();
+  var tabToActivate = document.querySelector(`a[href="#${type}"]`);
+  tabToActivate.classList.add("active");
 }
 
-function makeInactive() {
-  tabs.forEach(function (tab) {
-    tab.classList.remove("active");
-  });
+function makeAllTabsInactive() {
+  tabs.forEach((tab) => tab.classList.remove("active"));
 }
 
 function setContentAccordingToHash() {
   var type = window.location.hash.substring(1);
   for (var item of data) {
     if (item.section === type) {
-      contentPara.innerHTML = item.story;
+      contentPara.innerHTML = `<h2>${item.section}</h2> <p>${item.story}</p>`;
+      setActiveTabAccordingToHash(type);
     }
   }
-  setActiveAccordingToHash(type);
-}
-
-function setActiveAccordingToHash(type) {
-  makeInactive();
-  document.querySelector(`a[href="#${type}"]`).classList.add("active");
 }
 
 function initializePage() {
   if (!window.location.hash) {
     window.location.hash = "cuisines";
     document.querySelector('[href="#cuisines"]').classList.add("active");
-  } else {
-    document
-      .querySelector(`[href="${window.location.hash}"]`)
-      .classList.add("active");
   }
   setContentAccordingToHash();
 }
 
-document.addEventListener("click", makeActive);
 window.addEventListener("hashchange", setContentAccordingToHash);
-window.addEventListener("load", initializePage);
+document.addEventListener("DOMContentLoaded", initializePage);
 ```
