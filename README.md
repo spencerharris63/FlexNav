@@ -3,11 +3,11 @@
 - [FlexNav](#flexnav)
   - [Homework](#homework)
   - [Reading](#reading)
-  - [The Terminal](#the-terminal)
-    - [A Note For Windows Users](#a-note-for-windows-users)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
-    - [Aside: Prettier](#aside-prettier)
+  - [Aside: Prettier](#aside-prettier)
+  - [Content](#content)
+  - [Aside - Design Patterns](#aside---design-patterns)
   - [Event Delegation](#event-delegation)
   - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
@@ -41,46 +41,35 @@ Send me a link to the Github repo as well as the Netlify site -->
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
 
-## The Terminal
-
-There are many good reasons to acquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
-
-<hr />
-
-### A Note For Windows Users
-
-A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the app that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows for this exercise.
-
----
-
 ## JavaScript Preview & Review - Boulevards de Paris
 
 <!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
 
-Recall `document.querySelector('<css selector>')` returns the first selected item.
+Recall: `document.querySelector('<css selector>')` returns the first selected item.
 
 Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
 
-Paste the following in the browser's console:
+Paste the following in the browser's console and test:
 
 ```js
-var test = document.querySelector("a");
+var first = document.querySelector("a");
 ```
 
 `document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
 
 ```js
-var test = document.querySelectorAll("a");
+var all = document.querySelectorAll("a");
 ```
 
-Inspect one of the listed boulevards to find `.mw-category` in the code.
-Note: You can reference the currently selected element using `$0` in the console.
+Demo: console history.
+
+Right click to inspect the first listed boulevard (Boulevard Auguste-Blanqui) and find `<div class="mw-category">` in the DOM. (Note: You can reference the currently selected element using `$0` in the console.)
 
 ```js
 var category = document.querySelector(".mw-category");
 ```
 
-We can use our `category` variable as the basis for a more targeted query:
+We can use our `category` variable as the basis for a subsequent, more targeted query:
 
 ```js
 var links = category.querySelectorAll("a");
@@ -95,13 +84,11 @@ var linksArray = Array.from(links);
 ```
 
 - Examine the methods on the resulting Array and compare them to the methods on a nodeList
-- Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property
-
-Here is a simple example showing how to call an array method and access an element from an array
+- Examine one of the anchor tags from the resulting array in the console:
 
 ```js
 linksArray[0];
-linksArray[0].textContent;
+linksArray[0].text;
 ```
 
 ### Arrays
@@ -112,12 +99,27 @@ Below we initialize an empty array `linkText` and then loop through the linksArr
 
 ```js
 var linkText = [];
+
 for (let i = 0; i < linksArray.length; i++) {
   linkText.push(linksArray[i].textContent);
 }
 ```
 
-Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+See [for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) on MDN.
+
+Note: another way to create our array of text items is:
+
+```js
+var linkText = [];
+
+for (let link of linksArray) {
+  linkText.push(link.text);
+}
+```
+
+See [for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) on MDN.
+
+Let's look at a couple of important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
 
@@ -163,7 +165,19 @@ var de = linkText.filter((streetName) => streetName.includes("de"));
 
 ---
 
-Some basic shell commands (the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
+## The Terminal
+
+There are many good reasons to acquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
+
+<hr />
+
+### A Note For Windows Users
+
+A rough equivalent to the Unix Terminal is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the app that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." _Unless you are very experienced with Windows, I suggest using Git Bash instead of Powershell on Windows._
+
+---
+
+Some basic shell commands (note: the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
 
 ```sh
 $ pwd  // print working directory
@@ -175,9 +189,11 @@ $ ls -l  // flags expand the command
 $ ls -al
 ```
 
-Demo: tab completion, history and copy paste.
+Demo: tab completion and history.
 
 Demo: on a mac you can `cd` into a folder via drag and drop or by copying and pasting a folder into the terminal.
+
+Before continuing we will run the following commands.
 
 ```sh
 $ node --version
@@ -202,6 +218,7 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 $ git config --global init.defaultBranch main
 $ git config --list
+$ :q
 ```
 
 Initialize your repository:
@@ -216,25 +233,17 @@ $ git branch inclass
 $ git checkout inclass
 ```
 
-Note the .gitignore
+Note the `.gitignore` file.
 
-## Aside - Design Patterns
+Exercise: make a small change to the `.gitignore` file and the `readme` and merge them into the main branch.
+
+## The Project
 
 <img src="other/tabs-image.jpg">
 
 Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare to keep things simple.
 
-Let's examine the samples in `other/design-patterns` (these are non-trivial examples, you do not need to understand everything, just the basic concepts - static, fragments and SPA or single page application):
-
-- `static/cuisines.html` - uses static HTML pages
-- `fragments/index-spa-fragments` - a single page application with scrolling
-- `spa/index-spa-js.html` - a single page application with JavaScript
-
-All three approaches are valid and common. For pedagogical purposes we will be modeling our design after the last one - a single page application with JavaScript.
-
----
-
-Add a link to `styles.css` in `index.html`:
+Create and `index.html` page in `app` and add a link to `styles.css` in `index.html`:
 
 ```html
 <link rel="stylesheet" href="css/styles.css" />
@@ -255,7 +264,7 @@ Add the following to index.html:
 
 ## Node Package Manager (NPM)
 
-[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install
+[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install.
 
 In order to familiarize you with node packages and to test your Node installation we will install a server with hot reloading - as opposed to using VS Code's GoLive extension.
 
@@ -282,7 +291,9 @@ Note the presence of `package.json` in today's folder. Examine it in VS Code.
 
 ```
 
-We are going to recreate this file.
+### NPM init
+
+We can easily recreate this file.
 
 1. Delete `package.json`
 2. `cd` to navigate to today's directory
@@ -397,7 +408,7 @@ nav li {
 }
 ```
 
-Add an `active` class to the first link in the HTML.
+Important: Add an `active` class to the first anchor tag in the navbar.
 
 ```css
 nav a:hover,
@@ -455,7 +466,7 @@ nav :nth-child(2) {
 
 We will add an active class to the tabs when they are clicked on.
 
-Link the empty JavaScript file to index.html.
+Link the empty JavaScript file in `index.html` above the closing body tag.
 
 `<script src="js/scripts.js"></script>`
 
@@ -558,11 +569,13 @@ commit and push
 view the main branch on Netlify
 -->
 
-### Aside: Prettier
+## Aside: Prettier
 
 [Prettier](https://prettier.io/docs/en/index.html) is a code formatter.
 
-Install the Prettier extension in VS Code.
+You can install and configure the Prettier extension in VSCode - but that will only work in VSCode.
+
+Lets install it using NPM:
 
 `npm install -D prettier`
 
@@ -576,19 +589,9 @@ Create `.prettierrc` in the app folder.
 }
 ```
 
-<!-- ```js
-"scripts": {
-	"format": "prettier --write \"./**/*.{js,html,css}\""
-},
-```
-
-```sh
-$ npm run format
-``` -->
-
 And test.
 
-Note: you can also [add prettier preferences](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS Code:
+If [using prettier preferences](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS Code:
 
 ```js
 "editor.formatOnSave": true,
@@ -608,7 +611,9 @@ Note: you can also [add prettier preferences](https://marketplace.visualstudio.c
 
 ---
 
-Add some variables with content:
+## Content
+
+Add some variables to the bottom of `scripts.js` with content:
 
 ```js
 var cuisines =
@@ -624,7 +629,7 @@ var delivery =
   "<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>";
 ```
 
-Create an empty `div` with a class of `content` in the html:
+Create an empty `div` with a class of `content` below the navbar in the html:
 
 ```html
 <div class="content"></div>
@@ -676,7 +681,7 @@ function makeActive(event) {
 Expand the conditions:
 
 ```js
-function makeActive() {
+function makeActive(event) {
   makeInactive();
   event.target.classList.add("active");
 
@@ -698,14 +703,27 @@ function makeActive() {
 
 In web development parlance this is something akin to what is known as a Single Page Application or "SPA".
 
+## Aside - Design Patterns
+
+Let's examine the samples in `other/design-patterns` (these are non-trivial examples, you do not need to understand everything, just the basic concepts - static, fragments and SPA or single page application):
+
+- `static/cuisines.html` - uses static HTML pages
+- `fragments/index-spa-fragments` - a single page application with scrolling
+- `spa/index-spa-js.html` - a single page application with JavaScript
+
+All three approaches are valid and common. For pedagogical purposes we have modeled our design after the last one - a single page application with JavaScript.
+
+---
+
 The problem with what we've built might be termed _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab. The page reinitializes to show the Cuisines tab and content.
 
-Not only is the refresh broken but the back and forward buttons don't work as expected either.
+Not only is the refresh broken but the back and forward buttons don't work as expected either. (And we cannot copy the URL for any of the sections, and our page doesn't work if JavaScript is disabled, and our SEO is nill...).
 
-NB: we have a sneaky bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true. Can you correct it?
+NB: we have a bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true.
 
-<!-- ANSWER
-<li><a href="cuisines.html" class="active">cuisines</a></li> -->
+```html
+<li><a href="cuisines.html" class="active">cuisines</a></li>
+```
 
 ## Event Delegation
 
@@ -789,7 +807,7 @@ contentPara.innerHTML = data.cuisines; // NEW
 And use the accessor in the makeActive function:
 
 ```js
-function makeActive() {
+function makeActive(event) {
   if (!event.target.matches("nav ul a")) return;
   makeInactive();
   event.target.classList.add("active");
@@ -819,12 +837,14 @@ document.querySelector("nav a").classList.add("active");
 Change the href values to use hashes:
 
 ```html
-<ul>
-  <li><a href="#cuisines">cuisines</a></li>
-  <li><a href="#chefs">chefs</a></li>
-  <li><a href="#reviews">reviews</a></li>
-  <li><a href="#delivery">delivery</a></li>
-</ul>
+<nav>
+  <ul>
+    <li><a href="#cuisines">cuisines</a></li>
+    <li><a href="#chefs">chefs</a></li>
+    <li><a href="#reviews">reviews</a></li>
+    <li><a href="#delivery">delivery</a></li>
+  </ul>
+</nav>
 ```
 
 Remove `event.preventDefault()` from the script. We no longer need it.
