@@ -2,16 +2,9 @@
 
 - [FlexNav](#flexnav)
   - [Homework](#homework)
-  - [Midterm](#midterm)
   - [Reading](#reading)
   - [The Terminal](#the-terminal)
     - [A Note For Windows Users](#a-note-for-windows-users)
-  - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
-  - [Aside - Design Patterns](#aside---design-patterns)
-  - [Node Package Manager (NPM)](#node-package-manager-npm)
-  - [Flexbox](#flexbox)
-    - [Aside: Attribute Selectors](#aside-attribute-selectors)
-    - [Aside: Flex Order](#aside-flex-order)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
     - [Aside: Prettier](#aside-prettier)
@@ -23,7 +16,7 @@
 
 Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` so it matches the goal.
 
-## Midterm
+<!-- ## Midterm
 
 Copy the `other/homework` folder from the previous section (Flexnav) into a stand alone project.
 
@@ -41,7 +34,7 @@ Make sure to create a local Git repo.
 
 When you are done push your local repo to Github and use Netlify to deploy your assignment.
 
-Send me a link to the Github repo as well as the Netlify site
+Send me a link to the Github repo as well as the Netlify site -->
 
 ## Reading
 
@@ -56,9 +49,119 @@ There are many good reasons to acquire a basic understanding of the command line
 
 ### A Note For Windows Users
 
-A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the shell that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows for this exercise.
+A rough equivalent to Mac's Terminal app is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the app that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." I suggest using Git Bash instead of Powershell on Windows for this exercise.
 
-<hr />
+---
+
+## JavaScript Preview & Review - Boulevards de Paris
+
+<!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
+
+Recall `document.querySelector('<css selector>')` returns the first selected item.
+
+Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
+
+Paste the following in the browser's console:
+
+```js
+var test = document.querySelector("a");
+```
+
+`document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
+
+```js
+var test = document.querySelectorAll("a");
+```
+
+Inspect one of the listed boulevards to find `.mw-category` in the code.
+Note: You can reference the currently selected element using `$0` in the console.
+
+```js
+var category = document.querySelector(".mw-category");
+```
+
+We can use our `category` variable as the basis for a more targeted query:
+
+```js
+var links = category.querySelectorAll("a");
+```
+
+Examine the methods on the resulting nodeList. Try `links.length` in the console.
+
+Our nodeList looks like an array but isn't. Let's convert the nodeList into an Array:
+
+```js
+var linksArray = Array.from(links);
+```
+
+- Examine the methods on the resulting Array and compare them to the methods on a nodeList
+- Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property
+
+Here is a simple example showing how to call an array method and access an element from an array
+
+```js
+linksArray[0];
+linksArray[0].textContent;
+```
+
+### Arrays
+
+We commonly use loops to iterate through an array and perform some action.
+
+Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
+
+```js
+var linkText = [];
+for (let i = 0; i < linksArray.length; i++) {
+  linkText.push(linksArray[i].textContent);
+}
+```
+
+Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
+
+```js
+var linkTextTwo = linksArray.map(function (link) {
+  return link.textContent;
+});
+```
+
+```js
+var linkTextTwo = linksArray
+  .map(function (link) {
+    return `${link.textContent} is in paree`;
+  })
+  .join(" AND ");
+```
+
+<!-- Here's an alternative form of the same thing using an arrow function:
+
+```js
+var linkText = linksArray.map((link) => link.textContent);
+```
+
+Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
+
+```js
+var linkText = linksArray.map((link) => link.textContent);
+``` -->
+
+Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
+
+```js
+var de = linkText.filter(function (streetName) {
+  return streetName.includes("de");
+});
+```
+
+<!-- Here's the same function as an arrow function:
+
+```js
+var de = linkText.filter((streetName) => streetName.includes("de"));
+``` -->
+
+---
 
 Some basic shell commands (the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
 
@@ -88,7 +191,7 @@ $ node
 $ clear // or command + k to clear the terminal
 ```
 
-Use `cd` or the copy and paste method to cd into today's exercise folder.
+Use `cd` or the copy and paste method to cd into today's folder.
 
 ## Initialize GIT and Create a Branch
 
@@ -347,116 +450,6 @@ nav :nth-child(2) {
   order: 1;
 }
 ```
-
----
-
-## JavaScript Preview & Review - Boulevards de Paris
-
-<!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
-
-Recall `document.querySelector('<css selector>')` returns the first selected item.
-
-Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
-
-Paste the following in the browser's console:
-
-```js
-var test = document.querySelector("a");
-```
-
-`document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
-
-```js
-var test = document.querySelectorAll("a");
-```
-
-Inspect one of the listed boulevards to find `.mw-category` in the code.
-Note: You can reference the currently selected element using `$0` in the console.
-
-```js
-var category = document.querySelector(".mw-category");
-```
-
-We can use our `category` variable as the basis for a more targeted query:
-
-```js
-var links = category.querySelectorAll("a");
-```
-
-Examine the methods on the resulting nodeList. Try `links.length` in the console.
-
-Our nodeList looks like an array but isn't. Let's convert the nodeList into an Array:
-
-```js
-var linksArray = Array.from(links);
-```
-
-- Examine the methods on the resulting Array and compare them to the methods on a nodeList
-- Examine one of the anchor tags from the resulting array in the console. Note the `textContent` property
-
-Here is a simple example showing how to call an array method and access an element from an array
-
-```js
-linksArray[0];
-linksArray[0].textContent;
-```
-
-### Arrays
-
-We commonly use loops to iterate through an array and perform some action.
-
-Below we initialize an empty array `linkText` and then loop through the linksArray using its length property. For every item in linksArray we use Array.push() to add it to linkText:
-
-```js
-var linkText = [];
-for (let i = 0; i < linksArray.length; i++) {
-  linkText.push(linksArray[i].textContent);
-}
-```
-
-Let's look at a couple important [array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array): [`array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
-
-Here's an example that uses the array's [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to isolate the text content from our linksArray:
-
-```js
-var linkTextTwo = linksArray.map(function (link) {
-  return link.textContent;
-});
-```
-
-```js
-var linkTextTwo = linksArray
-  .map(function (link) {
-    return `${link.textContent} is in paree`;
-  })
-  .join(" AND ");
-```
-
-<!-- Here's an alternative form of the same thing using an arrow function:
-
-```js
-var linkText = linksArray.map((link) => link.textContent);
-```
-
-Note that we use `=>` instead of the word `function`. Since we only have one variable, we could also remove the round braces:
-
-```js
-var linkText = linksArray.map((link) => link.textContent);
-``` -->
-
-Let's use another Array method, `filter`, to isolate only those boulevards that contain a specific string:
-
-```js
-var de = linkText.filter(function (streetName) {
-  return streetName.includes("de");
-});
-```
-
-<!-- Here's the same function as an arrow function:
-
-```js
-var de = linkText.filter((streetName) => streetName.includes("de"));
-``` -->
 
 ## JavaScript Navigation
 
@@ -949,11 +942,13 @@ console.log("newschool ", newschool);
 
 [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside placeholders - ${ ... }.
 
+// SUMMER 2021 - class five start here
+
 ```js
 .querySelector(`[href="${window.location.hash}"]`)
 ```
 
-If we want to use the hash change to determine both the active tab and the content being displayed we can dispense with the click event listener. This also makes it easier to reset both the active state and content when the browers forward and back arrows are used:
+If we want to use the hash change to determine both the active tab and the content being displayed we can dispense with the click event listener. This also makes it easier to reset both the active state and content when the browser's forward and back arrows are used:
 
 ```js
 var tabs = document.querySelectorAll("nav a");
