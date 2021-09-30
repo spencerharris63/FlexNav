@@ -1,7 +1,7 @@
 # FlexNav
 
 - [FlexNav](#flexnav)
-  - [Homework](#homework)
+  - [Homework Maybe](#homework-maybe)
   - [Reading](#reading)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
@@ -12,7 +12,7 @@
   - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
 
-## Homework
+## Homework Maybe
 
 Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` so it matches the goal.
 
@@ -379,12 +379,13 @@ nav ul {
   padding-top: 1rem;
   display: flex;
   justify-content: space-around;
-  /* background-image: linear-gradient(
+  /* boder on the bottom */
+  background-image: linear-gradient(
     to bottom,
     #ffcb2d 0%,
     #ffcb2d 95%,
     #9b8748 100%
-  ); */
+  );
 }
 
 nav a {
@@ -393,20 +394,23 @@ nav a {
   border-radius: 3px 3px 0 0;
   background-color: #f9eaa9;
   opacity: 0.8;
-  /* background-image: linear-gradient(
+
+  /* tab gradient */
+  background-image: linear-gradient(
     to bottom,
     rgba(255, 236, 165, 1) 0%,
     rgba(232, 213, 149, 1) 6%,
     rgba(253, 233, 162, 1) 94%,
     rgba(253, 233, 162, 1) 100%
-  ); */
-
+  );
 }
-
+/* prevents collapsing */
 nav li {
   display: flex;
 }
 ```
+
+Note: without `wrap` there is a horizontal scrollbar on very small screens: `flex-wrap: wrap;`
 
 Important: Add an `active` class to the first anchor tag in the navbar.
 
@@ -699,9 +703,9 @@ function makeActive(event) {
 }
 ```
 
-<!-- SWITCH https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch -->
+DOM manipulation: view source.
 
-In web development parlance this is something akin to what is known as a Single Page Application or "SPA".
+In web development parlance this is akin to what is known as a Single Page Application or "SPA".
 
 ## Aside - Design Patterns
 
@@ -711,13 +715,22 @@ Let's examine the samples in `other/design-patterns` (these are non-trivial exam
 - `fragments/index-spa-fragments` - a single page application with scrolling
 - `spa/index-spa-js.html` - a single page application with JavaScript
 
-All three approaches are valid and common. For pedagogical purposes we have modeled our design after the last one - a single page application with JavaScript.
+All three approaches are valid and common.
+For pedagogical purposes we have modeled our design after the last one - a single page application with JavaScript.
+
+Compare our current project with the static version above.
+
+We cannot:
+
+- refresh the page without losing context
+- copy and page a link to share with others
+- use back and forward buttons in the browser
+- we have very limited search engine optimization
+- our site will not work without JavaScript
+
+The problem with what we've built might be termed _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab the page reinitializes to show the Cuisines tab and content.
 
 ---
-
-The problem with what we've built might be termed _maintaining state_ and _routing_. If you refresh the browser while you are on the Reviews tab. The page reinitializes to show the Cuisines tab and content.
-
-Not only is the refresh broken but the back and forward buttons don't work as expected either. (And we cannot copy the URL for any of the sections, and our page doesn't work if JavaScript is disabled, and our SEO is nill...).
 
 NB: we have a bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true.
 
@@ -746,8 +759,8 @@ We will use an if statement and the JavaScript "not" (`!`) operator to ensure th
 
 ```js
 function makeActive(event) {
-  console.log(event.target);
   if (!event.target.matches("a")) return; // NEW
+  console.log(event.target);
   makeInactive();
   event.target.classList.add("active");
   if (event.target.href.includes("cuisines")) {
@@ -780,7 +793,7 @@ obj.c = 3;
 delete obj.a;
 ```
 
-Use `data-object.js` in `index.html`:
+Use `<script src="js/data-object.js"></script>` in `index.html`:
 
 ```js
 const data = {
@@ -831,7 +844,10 @@ Our page is pretty fragile. Hitting refresh still displays the cuisines page and
 Remove the hardcoded active class in the HTML and replace it with:
 
 ```js
-document.querySelector("nav a").classList.add("active");
+var tabs = document.querySelectorAll("nav a");
+var contentPara = document.querySelector(".content");
+
+document.querySelector("nav a").classList.add("active"); // NEW
 ```
 
 Change the href values to use hashes:
@@ -849,14 +865,20 @@ Change the href values to use hashes:
 
 Remove `event.preventDefault()` from the script. We no longer need it.
 
-Now we'll get the string from the URL using a bit of JavaScript [string manipulation](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring)>):
+Now we'll get the string from the URL using [substring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring):
 
 ```js
-console.log(window.location);
-var type = window.location.hash;
-// var type = window.location.hash.substring(1);
-console.log(type);
+function makeActive(event) {
+  if (!event.target.matches("a")) return;
+  makeInactive();
+  console.log(window.location);
+  var type = window.location.hash;
+  // var type = window.location.hash.substring(1);
+  console.log(type);
+}
 ```
+
+Use the substring to set the HTML:
 
 ```js
 function makeActive(event) {
@@ -868,7 +890,7 @@ function makeActive(event) {
 }
 ```
 
-Note the use of `data[type]` instead of `data.type.
+Note the use of `data[type]` instead of `data.type`.
 
 ```js
 var funkyObject = {
@@ -877,7 +899,7 @@ var funkyObject = {
 };
 
 console.log(funkyObject.a);
-console.log( funkyObject.not a variable  ) // doesn't work
+console.log( funkyObject.not a variable  ) // can't do this, doesn't work
 console.log(funkyObject["not a variable"]);
 ```
 
@@ -962,13 +984,13 @@ console.log("newschool ", newschool);
 
 [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside placeholders - ${ ... }.
 
-// SUMMER 2021 - class five start here
-
 ```js
 .querySelector(`[href="${window.location.hash}"]`)
 ```
 
-If we want to use the hash change to determine both the active tab and the content being displayed we can dispense with the click event listener. This also makes it easier to reset both the active state and content when the browser's forward and back arrows are used:
+If we want to use the hash change to determine both the active tab and the content being displayed we can dispense with the click event listener.
+
+This also makes it easier to reset both the active state and content when the browser's forward and back arrows are used:
 
 ```js
 var tabs = document.querySelectorAll("nav a");
@@ -1037,8 +1059,7 @@ function makeActive() {
   contentPara.innerHTML = data[storyRef];
 }
 ```
-
-## END -->
+ -->
 
 ## An Array of Objects
 
@@ -1077,7 +1098,9 @@ const data = [
 ];
 ```
 
-An array is commonly used in conjunction with loops. We will loop through our data array and se an if statement in order to find a match for our type variable.
+An array is commonly used in conjunction with loops.
+
+We will loop through our data array and se an if statement in order to find a match for our type variable.
 
 ```js
 function setContentAccordingToHash() {
@@ -1126,6 +1149,22 @@ if (item.section === type) {
   // contentPara.innerHTML = item.story
   contentPara.innerHTML = `<h2>${item.section}</h2> <p>${item.story}</p>`;
   setActiveTabAccordingToHash(type);
+}
+```
+
+e.g.:
+
+```js
+// runs on page load and whenever the hash changes
+function setContentAccordingToHash() {
+  const type = window.location.hash.substring(1);
+  for (var item of data) {
+    if (item.section === type) {
+      // contentPara.innerHTML = item.story
+      contentPara.innerHTML = `<h2>${item.section}</h2> <p>${item.story}</p>`;
+      setActiveTabAccordingToHash(type);
+    }
+  }
 }
 ```
 
