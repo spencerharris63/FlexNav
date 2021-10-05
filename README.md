@@ -221,6 +221,8 @@ $ git config --list
 $ :q
 ```
 
+[Create a personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
 Initialize your repository:
 
 ```sh
@@ -922,6 +924,39 @@ And then use another event listener `hashchange`:
 var tabs = document.querySelectorAll("nav a");
 var contentPara = document.querySelector(".content");
 
+document.querySelector("nav a").classList.add("active");
+
+// contentPara.innerHTML = data.cuisines
+document.addEventListener("click", makeActive);
+
+window.addEventListener("hashchange", setContentAccordingToHash);
+
+function makeActive(event) {
+  if (!event.target.matches("a")) return;
+
+  makeInactive();
+  event.target.classList.add("active");
+
+  // var type = window.location.hash.substring(1)
+  // contentPara.innerHTML = data[type]
+}
+
+function makeInactive() {
+  tabs.forEach((tab) => tab.classList.remove("active"));
+}
+
+function setContentAccordingToHash() {
+  const type = window.location.hash.substring(1);
+  contentPara.innerHTML = data[type];
+}
+```
+
+---
+
+```js
+var tabs = document.querySelectorAll("nav a");
+var contentPara = document.querySelector(".content");
+
 function makeActive(event) {
   if (!event.target.matches("nav a")) return;
   makeInactive();
@@ -994,7 +1029,7 @@ This also makes it easier to reset both the active state and content when the br
 
 ```js
 var tabs = document.querySelectorAll("nav a");
-contentPara = document.querySelector(".content");
+var contentPara = document.querySelector(".content");
 
 // when the hash changes
 function setActiveTabAccordingToHash(type) {
@@ -1065,9 +1100,11 @@ function makeActive() {
 
 This is an extremely common format for data to be sent from a server for use in a page.
 
-```html
-https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0`;
+```txt
+https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0
+
 https://pokeapi.co/api/v2/pokemon/
+
 https://www.reddit.com/r/BudgetAudiophile.json
 ```
 
@@ -1100,7 +1137,7 @@ const data = [
 
 An array is commonly used in conjunction with loops.
 
-We will loop through our data array and se an if statement in order to find a match for our type variable.
+We will loop through our data array using an if statement in order to find a match for our type variable.
 
 ```js
 function setContentAccordingToHash() {
