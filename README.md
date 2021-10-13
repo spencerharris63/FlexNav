@@ -2,6 +2,7 @@
 
 - [FlexNav](#flexnav)
   - [Homework Maybe](#homework-maybe)
+  - [Midterm](#midterm)
   - [Reading](#reading)
   - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
     - [Arrays](#arrays)
@@ -16,7 +17,7 @@
 
 Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` so it matches the goal.
 
-<!-- ## Midterm
+## Midterm
 
 Copy the `other/homework` folder from the previous section (Flexnav) into a stand alone project.
 
@@ -25,7 +26,9 @@ Copy the `other/homework` folder from the previous section (Flexnav) into a stan
 - edit `index.html` so it matches the goal
 - try not to copy directly, use `index-done.html` only when you get stuck
 
-One task you will have to perform is not in the `index-done.html` file. Using the notes in Basilica:
+One task you will have to perform is not in the `index-done.html` file.
+
+Using the notes in Basilica:
 
 - add an empty div to the page
 - use JavaScript to change the content of the div when the user clicks on the tabs
@@ -34,7 +37,7 @@ Make sure to create a local Git repo.
 
 When you are done push your local repo to Github and use Netlify to deploy your assignment.
 
-Send me a link to the Github repo as well as the Netlify site -->
+Send me a link to the Github repo as well as the Netlify site
 
 ## Reading
 
