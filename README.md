@@ -24,7 +24,19 @@
 
 ## Homework
 
-Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` so it matches the goal.
+Examine the files in the `other/homework` folder in your browser. `index.html` is your starting point and `index-done.html` your goal. Your assignment is to edit `index.html` so it matches the goal _without peeking at or inspecting the code in the done version_.
+
+The designs need not match _exactly_, don't get too hung up on making the heights and widths of tabs etc. exactly the same.
+
+That being said:
+
+- the buttons / tabs should have a active state that shows after being clicked on
+- use css flexbox and [this documentation]([start here](https://css-tricks.com/snippets/css/a-guide-to-flexbox/))
+- responsive design is a must
+- one tricky aspect of the responsive design is making the buttons drop below the logo and sign out link on small screens, research and use the `order` flex property to accomplish this
+- take some time to research Font Awesome, how it works and how it is being used
+- you shouldn't have to change the HTML but feel free to
+- brownie points for changing the visual design to make it your own
 
 <!-- ## Midterm
 
@@ -52,6 +64,7 @@ Send me a link to the Github repo as well as the Netlify site -->
 
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
+- The MDN links to JavaScript documentation below
 
 ---
 
@@ -1052,6 +1065,20 @@ const oldSchool =
 const newSchool = `My dog's name is ${name} and he is ${age * 7} years old.`;
 console.log("oldschool ", oldschool);
 console.log("newschool ", newschool);
+```
+
+```js
+var temp = {
+  section: "cuisines",
+  story: "Lorem ipsum dolor sit amet.",
+};
+
+var phraseOne = "<h1>" + temp.section + "</h1>" + "<p>" + temp.story + "</p>";
+
+var phraseTwo = `
+    <h1>${temp.section}</h1> 
+    <p>${temp.story}</p>
+`;
 ```
 
 [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside placeholders - ${ ... }.
