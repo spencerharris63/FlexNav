@@ -13,11 +13,11 @@
   - [Working with Objects](#working-with-objects)
   - [An Array of Objects](#an-array-of-objects)
 
-## Homework Maybe
+## Homework
 
 Examine the files in the `other/homework` folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to edit `index.html` so it matches the goal.
 
-## Midterm
+<!-- ## Midterm
 
 Copy the `other/homework` folder from the previous section (Flexnav) into a stand alone project.
 
@@ -37,7 +37,7 @@ Make sure to create a local Git repo.
 
 When you are done push your local repo to Github and use Netlify to deploy your assignment.
 
-Send me a link to the Github repo as well as the Netlify site
+Send me a link to the Github repo as well as the Netlify site -->
 
 ## Reading
 
@@ -230,8 +230,6 @@ Initialize your repository:
 
 ```sh
 $ git init
-# $ touch .gitignore
-# $ echo node_modules >> .gitignore
 $ git add .
 $ git commit -m 'initial commit'
 $ git branch inclass
