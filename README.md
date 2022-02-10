@@ -1,17 +1,26 @@
 # FlexNav
 
 - [FlexNav](#flexnav)
-  - [Homework Maybe](#homework-maybe)
-  - [Midterm](#midterm)
+  - [Homework](#homework)
   - [Reading](#reading)
-  - [JavaScript Preview & Review - Boulevards de Paris](#javascript-preview--review---boulevards-de-paris)
-    - [Arrays](#arrays)
-  - [Aside: Prettier](#aside-prettier)
-  - [Content](#content)
-  - [Aside - Design Patterns](#aside---design-patterns)
-  - [Event Delegation](#event-delegation)
-  - [Working with Objects](#working-with-objects)
-  - [An Array of Objects](#an-array-of-objects)
+  - [The Terminal](#the-terminal)
+    - [A Note For Windows Users](#a-note-for-windows-users)
+  - [Initialize GIT and Create a Branch](#initialize-git-and-create-a-branch)
+  - [The Project](#the-project)
+  - [Node Package Manager (NPM)](#node-package-manager-npm)
+    - [NPM Demos](#npm-demos)
+    - [NPM init](#npm-init)
+  - [Flexbox](#flexbox)
+    - [Aside: Flex Order](#aside-flex-order)
+  - [JavaScript](#javascript)
+    - [Preview & Review - Boulevards de Paris](#preview--review---boulevards-de-paris)
+      - [Arrays](#arrays)
+    - [Aside: Prettier](#aside-prettier)
+    - [Content](#content)
+    - [Aside - Design Patterns](#aside---design-patterns)
+    - [Event Delegation](#event-delegation)
+    - [Working with Objects](#working-with-objects)
+    - [An Array of Objects](#an-array-of-objects)
 
 ## Homework
 
@@ -44,7 +53,341 @@ Send me a link to the Github repo as well as the Netlify site -->
 - [What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 - See how far you can get on [Flexbox Froggy](http://flexboxfroggy.com/)
 
-## JavaScript Preview & Review - Boulevards de Paris
+---
+
+## The Terminal
+
+There are many good reasons to acquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
+
+<hr />
+
+### A Note For Windows Users
+
+A rough equivalent to the Unix Terminal is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the app that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." _Unless you are very experienced with Windows, I suggest using Git Bash instead of Powershell on Windows._
+
+---
+
+Some basic shell commands (note: the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
+
+```sh
+$ pwd  // print working directory
+$ cd <path-to-folder>
+$ cd .. // go up one level
+$ cd ~ // go to your home directory
+$ ls  // list files
+$ ls -l  // flags expand the command
+$ ls -al
+```
+
+Demo: tab completion and history.
+
+Demo: on a mac you can `cd` into a folder via drag and drop or by copying and pasting a folder into the terminal.
+
+Before continuing we will run the following commands.
+
+```sh
+$ node --version
+$ npm --version
+$ git --version
+$ node
+> var total = 12+12
+> total
+> var el = document.querySelector('.anything') // error
+> .exit // or control + c to exit node
+$ clear // or command + k to clear the terminal
+```
+
+Use `cd` or the copy and paste method to cd into today's folder.
+
+If you want to learn more about the terminal try reading [this article](https://www.git-tower.com/blog/more-productive-mastering-terminal/?vgo_ee=e7b8PdtP0aWH7ZIgym%2BTUayPUFd7JHyq9acdSgULWaM%3D).
+
+## Initialize GIT and Create a Branch
+
+[Configure](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) your installation of git:
+
+```sh
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+$ git config --global init.defaultBranch main
+$ git config --list
+$ :q
+```
+
+[Create a personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+Initialize your repository:
+
+```sh
+$ git init
+$ git add .
+$ git commit -m 'initial commit'
+$ git branch inclass
+$ git checkout inclass
+```
+
+Note the `.gitignore` file.
+
+Exercise: make a small change to the `.gitignore` file and the `readme` and merge them into the main branch.
+
+## The Project
+
+<img src="other/tabs-image.jpg">
+
+Today we will be building a single page application. See: https://flexnav-intro.netlify.app/#delivery.
+
+The UI is spare but the techniques and concepts employed are complex.
+
+You will be introduced to:
+
+- node package manager
+- css flexbox
+- css attribute selectors
+- js template strings
+- js data structures: arrays and objects
+- js flow control: looping with forEach and for...of
+- js DOM manipulation: innerHTML and classList
+- new js event listeners
+- working with routing, urls and hashes
+- web site design patterns
+
+Examine the `static` website in `other/design-patterns`.
+
+Create an `index.html` page in the `app` folder and scaffold it with Emmet's `html:5` macro.
+
+Add a link to `styles.css` in `index.html`:
+
+```html
+<link rel="stylesheet" href="css/styles.css" />
+```
+
+Add the following to index.html:
+
+```html
+<nav>
+  <ul>
+    <li><a href="index.html">cuisines</a></li>
+    <li><a href="chefs.html">chefs</a></li>
+    <li><a href="reviews.html">reviews</a></li>
+    <li><a href="delivery.html">delivery</a></li>
+  </ul>
+</nav>
+```
+
+## Node Package Manager (NPM)
+
+[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install.
+
+In order to familiarize you with node packages and to test your Node installation we will install a server with hot reloading - as opposed to using VS Code's GoLive extension.
+
+Note the presence of `package.json` in today's folder. Examine it in VS Code.
+
+[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a file format often used for transmitting data. It is ubiquitious in web development.
+
+```js
+{
+  "name": "flex-nav",
+  "version": "1.0.0",
+  "description": "A simple navbar",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server 'app' --files 'app'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.27.7"
+  }
+}
+```
+
+---
+
+### NPM Demos
+
+- demo installing dependencies. Note the `node_modules` folder and the "lock" file.
+
+Node modules are generally stored and developed on Github as repositories and registered as packages on a registry. The most common is [NPMJS](https://www.npmjs.com/).
+
+- demo running the script
+
+---
+
+### NPM init
+
+We will delete and recreate the `package.json`.
+
+1. Delete `package.json`
+2. `cd` to navigate to today's directory
+3. Then initialize npm and install browser-sync:
+
+```sh
+$ npm init
+$ npm install browser-sync
+```
+
+Note:
+
+- the installed the software is listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/))
+- the addition of the installation folder: `node_modules`
+- the new [package-lock.json](https://docs.npmjs.com/files/package-lock.json)
+- the `.gitignore` file (added by me) declares that the contents of the node_modules folder should not be tracked by git
+
+Examine the contents of `node_modules`.
+
+<!-- Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync). -->
+
+```sh
+$ npm install browser-sync
+```
+
+Add the script (`"browser-sync start --server 'app' --files 'app'"`) to package.json.
+
+This script is a command line. It was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
+
+Make a small change to the HTML and note the hot reloading.
+
+Use `ctrl-c` to shut down the server.
+
+Try editing the start script to specify the port number:
+
+```js
+"scripts": {
+  "start": "browser-sync start --port 1234 --server 'app' --files 'app'"
+},
+```
+
+Restart the server with `$ npm run start`.
+
+## Flexbox
+
+[What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
+
+- A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
+- `flex` is a _display_ attribute like `block, none, inline`
+- Do not confuse it with _positioning_ which we have looked at for absolute, relative, static and fixed positioning
+- Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
+
+Add and review some basic formatting in `app/styles.css`:
+
+```css
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  list-style: none;
+  background-color: #ffcb2d;
+}
+```
+
+Note the complex looking `font-family` value. It is quite common to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
+
+You could try `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
+
+```css
+nav ul {
+  ...
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  /* border on the bottom */
+  background-image: linear-gradient(
+    to bottom,
+    #ffcb2d 0%,
+    #ffcb2d 95%,
+    #9b8748 100%
+  );
+}
+
+nav a {
+  padding: 4px 8px;
+  border: 1px solid #9b8748;
+  border-radius: 3px 3px 0 0;
+  background-color: #f9eaa9;
+  opacity: 0.8;
+
+  /* tab gradient */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 236, 165, 1) 0%,
+    rgba(232, 213, 149, 1) 6%,
+    rgba(253, 233, 162, 1) 94%,
+    rgba(253, 233, 162, 1) 100%
+  );
+}
+```
+
+Note: without `wrap` there is a horizontal scrollbar on very small screens: `flex-wrap: wrap;`
+
+Important: Add an `active` class to the first anchor tag in the navbar.
+
+```css
+nav a:hover,
+nav .active {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(224, 226, 240, 1) 6%,
+    rgba(254, 254, 254, 1) 53%
+  );
+  border-bottom: none;
+  opacity: 1;
+}
+```
+
+```css
+/* prevents collapsing */
+nav li {
+  display: flex;
+}
+```
+
+---
+
+We have a meta tag:
+
+```html
+<meta name="viewport" content="width=device-width" />
+```
+
+```css
+@media (min-width: 460px) {
+  nav ul {
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+  nav li {
+    margin-right: 1rem;
+  }
+}
+```
+
+See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
+
+### Aside: Flex Order
+
+Flex order property (demo only):
+
+```css
+nav :nth-child(2) {
+  order: 1;
+}
+```
+
+## JavaScript
+
+### Preview & Review - Boulevards de Paris
 
 <!-- See `other/ARRAYS.js` (use Quokka extension for VS Code). -->
 
@@ -94,7 +437,7 @@ linksArray[0];
 linksArray[0].text;
 ```
 
-### Arrays
+#### Arrays
 
 We commonly use loops to iterate through an array and perform some action.
 
@@ -165,309 +508,6 @@ var de = linkText.filter(function (streetName) {
 ```js
 var de = linkText.filter((streetName) => streetName.includes("de"));
 ``` -->
-
----
-
-## The Terminal
-
-There are many good reasons to acquire a basic understanding of the command line terminal. In this class we will use the [Terminal](https://support.apple.com/guide/terminal/welcome/mac) app for GIT and GITHUB as well as for Node Package Manager (NPM).
-
-<hr />
-
-### A Note For Windows Users
-
-A rough equivalent to the Unix Terminal is [Powershell](https://docs.microsoft.com/en-us/powershell/) but there are important differences. Alternatives to Powershell include the app that comes with [Git for Windows](https://gitforwindows.org/) aka "Git Bash." _Unless you are very experienced with Windows, I suggest using Git Bash instead of Powershell on Windows._
-
----
-
-Some basic shell commands (note: the convention in documentation is to use `$` to indicate a prompt - do NOT include it when copying and pasting a command):
-
-```sh
-$ pwd  // print working directory
-$ cd <path-to-folder>
-$ cd .. // go up one level
-$ cd ~ // go to your home directory
-$ ls  // list files
-$ ls -l  // flags expand the command
-$ ls -al
-```
-
-Demo: tab completion and history.
-
-Demo: on a mac you can `cd` into a folder via drag and drop or by copying and pasting a folder into the terminal.
-
-Before continuing we will run the following commands.
-
-```sh
-$ node --version
-$ npm --version
-$ git --version
-$ node
-> var total = 12+12
-> total
-> var el = document.querySelector('.anything') // error
-> .exit // or control + c to exit node
-$ clear // or command + k to clear the terminal
-```
-
-Use `cd` or the copy and paste method to cd into today's folder.
-
-## Initialize GIT and Create a Branch
-
-[Configure](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) your installation of git:
-
-```sh
-$ git config --global user.name "John Doe"
-$ git config --global user.email johndoe@example.com
-$ git config --global init.defaultBranch main
-$ git config --list
-$ :q
-```
-
-[Create a personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-
-Initialize your repository:
-
-```sh
-$ git init
-$ git add .
-$ git commit -m 'initial commit'
-$ git branch inclass
-$ git checkout inclass
-```
-
-Note the `.gitignore` file.
-
-Exercise: make a small change to the `.gitignore` file and the `readme` and merge them into the main branch.
-
-## The Project
-
-<img src="other/tabs-image.jpg">
-
-Today we will be building [this simple page](http://oit2.scps.nyu.edu/~devereld/flexnav/#cuisines). The UI is spare to keep things simple.
-
-Create and `index.html` page in `app` and add a link to `styles.css` in `index.html`:
-
-```html
-<link rel="stylesheet" href="css/styles.css" />
-```
-
-Add the following to index.html:
-
-```html
-<nav>
-  <ul>
-    <li><a href="index.html">cuisines</a></li>
-    <li><a href="chefs.html">chefs</a></li>
-    <li><a href="reviews.html">reviews</a></li>
-    <li><a href="delivery.html">delivery</a></li>
-  </ul>
-</nav>
-```
-
-## Node Package Manager (NPM)
-
-[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem. [Node](https://nodejs.org/en/) includes NPM as part of its install.
-
-In order to familiarize you with node packages and to test your Node installation we will install a server with hot reloading - as opposed to using VS Code's GoLive extension.
-
-Note the presence of `package.json` in today's folder. Examine it in VS Code.
-
-[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a file format often used for transmitting data. It is ubiquitious in web development.
-
-```js
-{
-  "name": "flex-nav",
-  "version": "1.0.0",
-  "description": "A simple navbar",
-  "main": "index.js",
-  "scripts": {
-    "start": "browser-sync start --server 'app' --files 'app'"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "browser-sync": "^2.26.0"
-  }
-}
-
-```
-
-### NPM init
-
-We can easily recreate this file.
-
-1. Delete `package.json`
-2. `cd` to navigate to today's directory
-3. Then initialize npm and install browser-sync:
-
-```sh
-$ npm init
-$ npm install browser-sync
-```
-
-Note:
-
-- the installed the software is listed in package.json dependencies ([Browser Sync](https://www.browsersync.io/))
-- the addition of the installation folder: `node_modules`
-- the new [package-lock.json](https://docs.npmjs.com/files/package-lock.json)
-- the `.gitignore` file (added by me) declares that the contents of the node_modules folder should not be tracked by git
-
-Examine the contents of `node_modules`.
-
-Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync).
-
-```sh
-$ npm install browser-sync
-```
-
-Add the script (`"browser-sync start --server 'app' --files 'app'"`) to package.json.
-
-This script is a command line. It was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
-
-Make a small change to the HTML and note the hot reloading.
-
-Use `ctrl-c` to shut down the server.
-
-Try editing the start script to specify the port number:
-
-```js
-"scripts": {
-  "start": "browser-sync start --port 1234 --server 'app' --files 'app'"
-},
-```
-
-Restart the server with `$ npm run start`.
-
-## Flexbox
-
-[What is Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)?
-
-- A good [reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) cheat sheet
-- `flex` is a _display_ attribute like `block, none, inline`
-- Do not confuse it with _positioning_ which we have looked at for absolute, relative, static and fixed positioning
-- Get familiar with [Can I Use](https://caniuse.com/#feat=flexbox) and [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection)
-
-Add and review some basic formatting in `app/styles.css`:
-
-```css
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-a {
-  text-decoration: none;
-  color: #333;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul {
-  list-style: none;
-  background-color: #ffcb2d;
-}
-```
-
-Note the complex looking `font-family` value. It is quite common to use a _system font stack_ that allows each operating system to use its native font. [Google](https://bit.ly/2kYnnOV) it.
-
-You could try `font-family: system-ui;` but that only works in certain browsers. Consult [caniuse](https://caniuse.com/#feat=font-family-system-ui).
-
-```css
-nav ul {
-  ...
-  padding-top: 1rem;
-  display: flex;
-  justify-content: space-around;
-  /* boder on the bottom */
-  background-image: linear-gradient(
-    to bottom,
-    #ffcb2d 0%,
-    #ffcb2d 95%,
-    #9b8748 100%
-  );
-}
-
-nav a {
-  padding: 4px 8px;
-  border: 1px solid #9b8748;
-  border-radius: 3px 3px 0 0;
-  background-color: #f9eaa9;
-  opacity: 0.8;
-
-  /* tab gradient */
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 236, 165, 1) 0%,
-    rgba(232, 213, 149, 1) 6%,
-    rgba(253, 233, 162, 1) 94%,
-    rgba(253, 233, 162, 1) 100%
-  );
-}
-/* prevents collapsing */
-nav li {
-  display: flex;
-}
-```
-
-Note: without `wrap` there is a horizontal scrollbar on very small screens: `flex-wrap: wrap;`
-
-Important: Add an `active` class to the first anchor tag in the navbar.
-
-```css
-nav a:hover,
-nav .active {
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(224, 226, 240, 1) 6%,
-    rgba(254, 254, 254, 1) 53%
-  );
-  border-bottom: none;
-  opacity: 1;
-}
-```
-
-### Aside: Attribute Selectors
-
-A selector can use HTML tag attributes. `nav .active` could be written `nav a[class="active"]` or just `[class="active"]`
-
-See [https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
-
----
-
-We have a meta tag:
-
-```html
-<meta name="viewport" content="width=device-width" />
-```
-
-```css
-@media (min-width: 460px) {
-  nav ul {
-    padding-left: 1rem;
-    justify-content: flex-start;
-  }
-  nav li {
-    margin-right: 1rem;
-  }
-}
-```
-
-See [this Pen](https://codepen.io/DannyBoyNYC/pen/dawPQz) for some basic info on how to control flexbox responsively.
-
-### Aside: Flex Order
-
-Flex order property (demo only):
-
-```css
-nav :nth-child(2) {
-  order: 1;
-}
-```
 
 ## JavaScript Navigation
 
@@ -576,7 +616,7 @@ commit and push
 view the main branch on Netlify
 -->
 
-## Aside: Prettier
+### Aside: Prettier
 
 [Prettier](https://prettier.io/docs/en/index.html) is a code formatter.
 
@@ -618,7 +658,7 @@ If [using prettier preferences](https://marketplace.visualstudio.com/items?itemN
 
 ---
 
-## Content
+### Content
 
 Add some variables to the bottom of `scripts.js` with content:
 
@@ -706,13 +746,19 @@ function makeActive(event) {
 }
 ```
 
+NB: we have a bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true.
+
+```html
+<li><a href="cuisines" class="active">cuisines</a></li>
+```
+
 DOM manipulation: view source.
 
 In web development parlance this is akin to what is known as a Single Page Application or "SPA".
 
-## Aside - Design Patterns
+### Aside - Design Patterns
 
-Let's examine the samples in `other/design-patterns` (these are non-trivial examples, you do not need to understand everything, just the basic concepts - static, fragments and SPA or single page application):
+Let's examine the samples in `other/design-patterns` (these are non-trivial examples, you do not need to understand everything, just the basic concepts - static, fragments and SPA - single page application):
 
 - `static/cuisines.html` - uses static HTML pages
 - `fragments/index-spa-fragments` - a single page application with scrolling
@@ -726,7 +772,7 @@ Compare our current project with the static version above.
 We cannot:
 
 - refresh the page without losing context
-- copy and page a link to share with others
+- copy and paste a link to share with others
 - use back and forward buttons in the browser
 - we have very limited search engine optimization
 - our site will not work without JavaScript
@@ -735,13 +781,7 @@ The problem with what we've built might be termed _maintaining state_ and _routi
 
 ---
 
-NB: we have a bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true.
-
-```html
-<li><a href="cuisines.html" class="active">cuisines</a></li>
-```
-
-## Event Delegation
+### Event Delegation
 
 Instead of listening for clicks on each individual tab:
 
@@ -779,7 +819,7 @@ function makeActive(event) {
 }
 ```
 
-## Working with Objects
+### Working with Objects
 
 <!-- (See `other/OBJECTS.js` using Quokka in VS Code.) -->
 
@@ -888,7 +928,7 @@ function makeActive(event) {
   if (!event.target.matches("a")) return;
   makeInactive();
   event.target.classList.add("active");
-  const type = window.location.hash.substring(1);
+  var type = window.location.hash.substring(1);
   contentPara.innerHTML = data[type];
 }
 ```
@@ -926,18 +966,14 @@ var tabs = document.querySelectorAll("nav a");
 var contentPara = document.querySelector(".content");
 
 document.querySelector("nav a").classList.add("active");
-
-// contentPara.innerHTML = data.cuisines
 document.addEventListener("click", makeActive);
 
 window.addEventListener("hashchange", setContentAccordingToHash);
 
 function makeActive(event) {
   if (!event.target.matches("a")) return;
-
   makeInactive();
   event.target.classList.add("active");
-
   // var type = window.location.hash.substring(1)
   // contentPara.innerHTML = data[type]
 }
@@ -962,8 +998,8 @@ function makeActive(event) {
   if (!event.target.matches("nav a")) return;
   makeInactive();
   event.target.classList.add("active");
-  const type = window.location.hash.substring(1);
-  contentPara.innerHTML = data[type];
+  // const type = window.location.hash.substring(1);
+  // contentPara.innerHTML = data[type];
 }
 
 function makeInactive() {
@@ -1097,7 +1133,7 @@ function makeActive() {
 ```
  -->
 
-## An Array of Objects
+### An Array of Objects
 
 This is an extremely common format for data to be sent from a server for use in a page.
 

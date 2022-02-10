@@ -10,6 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.26.0"
+    "browser-sync": "^2.27.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/front-end-foundations/FlexNav.git"
+  },
+  "bugs": {
+    "url": "https://github.com/front-end-foundations/FlexNav/issues"
+  },
+  "homepage": "https://github.com/front-end-foundations/FlexNav#readme",
+  "devDependencies": {
+    "prettier": "^2.5.1"
   }
 }
