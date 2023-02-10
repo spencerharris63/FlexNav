@@ -1,5 +1,7 @@
 # FlexNav
 
+<!-- background-size: 300px 100px; -->
+
 - [FlexNav](#flexnav)
   - [Homework](#homework)
   - [Reading](#reading)
@@ -123,7 +125,7 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 $ git config --global init.defaultBranch main
 $ git config --list
-$ :q
+# $ :q
 ```
 
 [Create a personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
@@ -146,8 +148,6 @@ Exercise: make a small change to the `.gitignore` file and the `readme` and merg
 
 <img src="other/tabs-image.jpg">
 
-Today we will be building a single page application. See: https://flexnav-intro.netlify.app/#delivery.
-
 The UI is spare but the techniques and concepts employed are complex.
 
 You will be introduced to:
@@ -163,7 +163,11 @@ You will be introduced to:
 - working with routing, urls and hashes
 - web site design patterns
 
-Examine the `static` website in `other/design-patterns`.
+---
+
+Examine the `static` website in `other/design-patterns`. This is a static website that uses multiple HTML files.
+
+Today we will be building a single page application - there is only one HTML page and JavaScript creates "the illusion" of multiple pages.
 
 Create an `index.html` page in the `app` folder and scaffold it with Emmet's `html:5` macro.
 
@@ -185,6 +189,8 @@ Add the following to index.html:
   </ul>
 </nav>
 ```
+
+We will open the file in a brower using the HTTP (as opposed to File://) protocol.
 
 ## Node Package Manager (NPM)
 
@@ -220,7 +226,7 @@ Note the presence of `package.json` in today's folder. Examine it in VS Code.
 
 - demo installing dependencies. Note the `node_modules` folder and the "lock" file.
 
-Node modules are generally stored and developed on Github as repositories and registered as packages on a registry. The most common is [NPMJS](https://www.npmjs.com/).
+Node modules are generally stored and developed on Github as repositories and registered as packages on a registry. The most common registry is [NPMJS](https://www.npmjs.com/).
 
 - demo running the script
 
@@ -250,11 +256,17 @@ Examine the contents of `node_modules`.
 
 <!-- Browser Sync is an [NPM Package](https://www.npmjs.com/package/browser-sync) that is developed by a team using [Github](https://github.com/BrowserSync/browser-sync). -->
 
-```sh
+<!-- ```sh
 $ npm install browser-sync
-```
+``` -->
 
-Add the script (`"browser-sync start --server 'app' --files 'app'"`) to package.json.
+Add to the scripts section of package.json. This will allow us to start the server with `$ npm run start`.
+
+```json
+"scripts": {
+  "start": "browser-sync start --server 'app' --files 'app'"
+},
+```
 
 This script is a command line. It was written by consulting the command line [documentation](https://browsersync.io/docs/command-line).
 
@@ -286,9 +298,9 @@ Add and review some basic formatting in `app/styles.css`:
 ```css
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 a {
   text-decoration: none;
@@ -321,6 +333,8 @@ nav ul {
     #ffcb2d 95%,
     #9b8748 100%
   );
+  /* background: url(../img/bg.png) repeat-x bottom; */
+  /* border-bottom: 1px solid #000; */
 }
 
 nav a {
@@ -343,7 +357,13 @@ nav a {
 
 Note: without `wrap` there is a horizontal scrollbar on very small screens: `flex-wrap: wrap;`
 
-Important: Add an `active` class to the first anchor tag in the navbar.
+Add an `active` class to the first anchor tag in the navbar:
+
+```html
+<li><a class="active" href="index.html">cuisines</a></li>
+```
+
+Format the active link and the hover state:
 
 ```css
 nav a:hover,
@@ -408,16 +428,18 @@ Recall: `document.querySelector('<css selector>')` returns the first selected it
 
 Navigate to this [Wikipedia](https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris) article.
 
+Our goal is to capture all the boulevards in Paris the contain "de" and store them in an array. I will introduce you to some of the JavaScript we will be using later on our page.
+
 Paste the following in the browser's console and test:
 
 ```js
-var first = document.querySelector("a");
+var first = document.querySelector('a');
 ```
 
 `document.querySelectorAll()` returns a collection (`nodeList`) of the items on the page:
 
 ```js
-var all = document.querySelectorAll("a");
+var all = document.querySelectorAll('a');
 ```
 
 Demo: console history.
@@ -425,13 +447,13 @@ Demo: console history.
 Right click to inspect the first listed boulevard (Boulevard Auguste-Blanqui) and find `<div class="mw-category">` in the DOM. (Note: You can reference the currently selected element using `$0` in the console.)
 
 ```js
-var category = document.querySelector(".mw-category");
+var category = document.querySelector('.mw-category');
 ```
 
 We can use our `category` variable as the basis for a subsequent, more targeted query:
 
 ```js
-var links = category.querySelectorAll("a");
+var links = category.querySelectorAll('a');
 ```
 
 Examine the methods on the resulting nodeList. Try `links.length` in the console.
@@ -493,7 +515,7 @@ var linkTextTwo = linksArray
   .map(function (link) {
     return `${link.textContent} is in paree`;
   })
-  .join(" AND ");
+  .join(' AND ');
 ```
 
 <!-- Here's an alternative form of the same thing using an arrow function:
@@ -512,9 +534,11 @@ Let's use another Array method, `filter`, to isolate only those boulevards that 
 
 ```js
 var de = linkText.filter(function (streetName) {
-  return streetName.includes("de");
+  return streetName.includes('de');
 });
 ```
+
+Above we are using Array.filter. The filter method takes a function as an argument. The function is called for each item in the array. If the function returns true, the item is added to the new array. If the function returns false, the item is not added to the new array.
 
 <!-- Here's the same function as an arrow function:
 
@@ -533,14 +557,14 @@ Link the empty JavaScript file in `index.html` above the closing body tag.
 Add to scripts.js:
 
 ```js
-var tabs = document.querySelector("nav a");
+var tabs = document.querySelector('nav a');
 console.log(tabs);
 ```
 
 We need to use `querySelectorAll` because we are gathering more than one item:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
+var tabs = document.querySelectorAll('nav a');
 console.log(tabs);
 console.log(tabs.length);
 ```
@@ -548,10 +572,10 @@ console.log(tabs.length);
 Now we need to attach an eventListener to each of the tabs. `addEventListener()` requires you to pass in a specific, individual element to listen to. You cannot pass in an array or node list of matching elements.
 
 ```js
-var tabs = document.querySelectorAll("nav a");
+var tabs = document.querySelectorAll('nav a');
 
 for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener("click", makeActive);
+  tabs[i].addEventListener('click', makeActive);
 }
 
 function makeActive(event) {
@@ -564,25 +588,25 @@ Since NodeLists have a forEach method we can also do this:
 
 ```js
 tabs.forEach(function (tab) {
-  tab.addEventListener("click", makeActive);
+  tab.addEventListener('click', makeActive);
 });
 ```
 
 Using an Arrow function shortcut (for anonymous functions):
 
 ```js
-tabs.forEach((tab) => tab.addEventListener("click", makeActive));
+tabs.forEach((tab) => tab.addEventListener('click', makeActive));
 ```
 
 Let's use `classList` again to add a class to the link we click on:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
+var tabs = document.querySelectorAll('nav a');
 
-tabs.forEach((tab) => tab.addEventListener("click", makeActive));
+tabs.forEach((tab) => tab.addEventListener('click', makeActive));
 
 function makeActive(event) {
-  event.target.classList.add("active");
+  event.target.classList.add('active');
   event.preventDefault();
 }
 ```
@@ -590,32 +614,32 @@ function makeActive(event) {
 Lets remove the class from all tabs before we add it so that only one is active at a time:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
+var tabs = document.querySelectorAll('nav a');
 
-tabs.forEach((tab) => tab.addEventListener("click", makeActive));
+tabs.forEach((tab) => tab.addEventListener('click', makeActive));
 
 function makeActive(event) {
-  tabs.forEach((tab) => tab.classList.remove("active"));
-  event.target.classList.add("active");
+  tabs.forEach((tab) => tab.classList.remove('active'));
+  event.target.classList.add('active');
   event.preventDefault();
 }
 ```
 
-We can separate the class removal out into its own function and then call that function (`makeInactive();`):
+We can separate the classList removal out into its own function and then call that function (`makeInactive();`):
 
 ```js
-var tabs = document.querySelectorAll("nav a");
+var tabs = document.querySelectorAll('nav a');
 
-tabs.forEach((tab) => tab.addEventListener("click", makeActive));
+tabs.forEach((tab) => tab.addEventListener('click', makeActive));
 
 function makeActive(event) {
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
   event.preventDefault();
 }
 
 function makeInactive() {
-  tabs.forEach((tab) => tab.classList.remove("active"));
+  tabs.forEach((tab) => tab.classList.remove('active'));
 }
 ```
 
@@ -633,9 +657,7 @@ view the main branch on Netlify
 
 [Prettier](https://prettier.io/docs/en/index.html) is a code formatter.
 
-You can install and configure the Prettier extension in VSCode - but that will only work in VSCode.
-
-Lets install it using NPM:
+Install and configure the Prettier extension in VSCode using NPM:
 
 `npm install -D prettier`
 
@@ -649,9 +671,7 @@ Create `.prettierrc` in the app folder.
 }
 ```
 
-And test.
-
-If [using prettier preferences](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS Code:
+Set [prettier preferences](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS Code:
 
 ```js
 "editor.formatOnSave": true,
@@ -669,6 +689,8 @@ If [using prettier preferences](https://marketplace.visualstudio.com/items?itemN
 "prettier.trailingComma": "all",
 ```
 
+And test.
+
 ---
 
 ### Content
@@ -677,16 +699,16 @@ Add some variables to the bottom of `scripts.js` with content:
 
 ```js
 var cuisines =
-  "<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>";
+  '<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>';
 
 var chefs =
-  "<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>";
+  '<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>';
 
 var reviews =
-  "<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>";
+  '<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>';
 
 var delivery =
-  "<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>";
+  '<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>';
 ```
 
 Create an empty `div` with a class of `content` below the navbar in the html:
@@ -728,9 +750,9 @@ So let's make the content of the `.content` div depend on the link's href. We wi
 function makeActive(event) {
   console.log(event.target.href);
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
 
-  if (event.target.href.includes("chefs")) {
+  if (event.target.href.includes('chefs')) {
     contentPara.innerHTML = chefs;
   }
 
@@ -743,15 +765,15 @@ Expand the conditions:
 ```js
 function makeActive(event) {
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
 
-  if (event.target.href.includes("cuisines")) {
+  if (event.target.href.includes('cuisines')) {
     contentPara.innerHTML = cuisines;
-  } else if (event.target.href.includes("chefs")) {
+  } else if (event.target.href.includes('chefs')) {
     contentPara.innerHTML = chefs;
-  } else if (event.target.href.includes("reviews")) {
+  } else if (event.target.href.includes('reviews')) {
     contentPara.innerHTML = reviews;
-  } else if (event.target.href.includes("delivery")) {
+  } else if (event.target.href.includes('delivery')) {
     contentPara.innerHTML = delivery;
   }
 
@@ -761,11 +783,13 @@ function makeActive(event) {
 
 NB: we have a bug in our code. Everything works but `if (event.target.href.includes('cuisines'))` will _never_ be true.
 
+Change the link:
+
 ```html
 <li><a href="cuisines" class="active">cuisines</a></li>
 ```
 
-DOM manipulation: view source.
+Demo: DOM manipulation: view source.
 
 In web development parlance this is akin to what is known as a Single Page Application or "SPA".
 
@@ -806,7 +830,7 @@ Use:
 
 ```js
 // tabs.forEach((tab) => tab.addEventListener("click", makeActive));
-document.addEventListener("click", makeActive);
+document.addEventListener('click', makeActive);
 ```
 
 Everything works but try clicking on the paragraph and the yellow background.
@@ -815,17 +839,17 @@ We will use an if statement and the JavaScript "not" (`!`) operator to ensure th
 
 ```js
 function makeActive(event) {
-  if (!event.target.matches("a")) return; // NEW
+  if (!event.target.matches('a')) return; // NEW
   console.log(event.target);
   makeInactive();
-  event.target.classList.add("active");
-  if (event.target.href.includes("cuisines")) {
+  event.target.classList.add('active');
+  if (event.target.href.includes('cuisines')) {
     contentPara.innerHTML = cuisines;
-  } else if (event.target.href.includes("chefs")) {
+  } else if (event.target.href.includes('chefs')) {
     contentPara.innerHTML = chefs;
-  } else if (event.target.href.includes("reviews")) {
+  } else if (event.target.href.includes('reviews')) {
     contentPara.innerHTML = reviews;
-  } else if (event.target.href.includes("delivery")) {
+  } else if (event.target.href.includes('delivery')) {
     contentPara.innerHTML = delivery;
   }
   event.preventDefault();
@@ -836,34 +860,42 @@ function makeActive(event) {
 
 <!-- (See `other/OBJECTS.js` using Quokka in VS Code.) -->
 
+Use the browser's console to enter the following:
+
 ```js
 let obj = {
   a: 1,
   b: 2,
 };
 
-console.log(obj.a);
+obj.a;
+
+obj['a'];
 
 obj.c = 3;
 
 delete obj.a;
 ```
 
-Use `<script src="js/data-object.js"></script>` in `index.html`:
+We will switch to using objects to store our data using the file `data-object.js` which is already in the `js` directory.
+
+Add `<script src="js/data-object.js"></script>` to `index.html`.
+
+Here are the contents of that file:
 
 ```js
 const data = {
   cuisines:
-    "<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>",
+    '<h1>Cuisines</h1> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.</p>',
 
   chefs:
-    "<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>",
+    '<h1>Chefs</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.<p>',
 
   reviews:
-    "<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>",
+    '<h1>Reviews</h1> <p>Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.</p>',
 
   delivery:
-    "<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>",
+    '<h1>Delivery</h1> <p>Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.</p>',
 };
 ```
 
@@ -895,15 +927,15 @@ function makeActive(event) {
 contentPara.innerHTML = data.cuisines;
 ```
 
-Our page is pretty fragile. Hitting refresh still displays the cuisines page and the back button doesn't work. Let's fix it by getting the page contents based on the address in the browser's address bar.
+Our page is still pretty fragile. Hitting refresh still displays the cuisines page and the back button doesn't work. Let's fix it by getting the page contents based on the address in the browser's address bar.
 
 Remove the hardcoded active class in the HTML and replace it with:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
-var contentPara = document.querySelector(".content");
+var tabs = document.querySelectorAll('nav a');
+var contentPara = document.querySelector('.content');
 
-document.querySelector("nav a").classList.add("active"); // NEW
+document.querySelector('nav a').classList.add('active'); // NEW
 ```
 
 Change the href values to use hashes:
@@ -925,7 +957,7 @@ Now we'll get the string from the URL using [substring](https://developer.mozill
 
 ```js
 function makeActive(event) {
-  if (!event.target.matches("a")) return;
+  if (!event.target.matches('a')) return;
   makeInactive();
   console.log(window.location);
   var type = window.location.hash;
@@ -938,9 +970,9 @@ Use the substring to set the HTML:
 
 ```js
 function makeActive(event) {
-  if (!event.target.matches("a")) return;
+  if (!event.target.matches('a')) return;
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
   var type = window.location.hash.substring(1);
   contentPara.innerHTML = data[type];
 }
@@ -960,7 +992,7 @@ console.log(funkyObject["not a variable"]);
 ```
 
 ```js
-var propertyToCheck = prompt("What do you want to get?");
+var propertyToCheck = prompt('What do you want to get?');
 console.log(propertyToCheck);
 funkyObject.propertyToCheck; // doesn't work
 funkyObject[propertyToCheck];
@@ -975,24 +1007,24 @@ See [https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event](h
 And then use another event listener `hashchange`:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
-var contentPara = document.querySelector(".content");
+var tabs = document.querySelectorAll('nav a');
+var contentPara = document.querySelector('.content');
 
-document.querySelector("nav a").classList.add("active");
-document.addEventListener("click", makeActive);
+document.querySelector('nav a').classList.add('active');
+document.addEventListener('click', makeActive);
 
-window.addEventListener("hashchange", setContentAccordingToHash);
+window.addEventListener('hashchange', setContentAccordingToHash);
 
 function makeActive(event) {
-  if (!event.target.matches("a")) return;
+  if (!event.target.matches('a')) return;
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
   // var type = window.location.hash.substring(1)
   // contentPara.innerHTML = data[type]
 }
 
 function makeInactive() {
-  tabs.forEach((tab) => tab.classList.remove("active"));
+  tabs.forEach((tab) => tab.classList.remove('active'));
 }
 
 function setContentAccordingToHash() {
@@ -1004,19 +1036,19 @@ function setContentAccordingToHash() {
 ---
 
 ```js
-var tabs = document.querySelectorAll("nav a");
-var contentPara = document.querySelector(".content");
+var tabs = document.querySelectorAll('nav a');
+var contentPara = document.querySelector('.content');
 
 function makeActive(event) {
-  if (!event.target.matches("nav a")) return;
+  if (!event.target.matches('nav a')) return;
   makeInactive();
-  event.target.classList.add("active");
+  event.target.classList.add('active');
   // const type = window.location.hash.substring(1);
   // contentPara.innerHTML = data[type];
 }
 
 function makeInactive() {
-  tabs.forEach((tab) => tab.classList.remove("active"));
+  tabs.forEach((tab) => tab.classList.remove('active'));
 }
 
 function setContentAccordingToHash() {
@@ -1025,13 +1057,13 @@ function setContentAccordingToHash() {
 }
 
 function initializePage() {
-  document.querySelector("nav a").classList.add("active");
-  window.location.hash = "cuisines";
+  document.querySelector('nav a').classList.add('active');
+  window.location.hash = 'cuisines';
   setContentAccordingToHash();
 }
 
-document.addEventListener("click", makeActive);
-window.addEventListener("hashchange", setContentAccordingToHash);
+document.addEventListener('click', makeActive);
+window.addEventListener('hashchange', setContentAccordingToHash);
 
 initializePage();
 ```
@@ -1041,12 +1073,12 @@ Now that we are using a hash we can look for it when the page loads and then der
 ```js
 function initializePage() {
   if (!window.location.hash) {
-    window.location.hash = "cuisines";
-    document.querySelector('[href="#cuisines"]').classList.add("active");
+    window.location.hash = 'cuisines';
+    document.querySelector('[href="#cuisines"]').classList.add('active');
   } else {
     document
       .querySelector('[href="' + window.location.hash + '"] ')
-      .classList.add("active");
+      .classList.add('active');
   }
   setContentAccordingToHash();
 }
@@ -1057,23 +1089,23 @@ Note the use of [attribute selectors](https://developer.mozilla.org/en-US/docs/W
 We'll replace our concatination with template strings (aka string literals).
 
 ```js
-const name = "Yorik";
+const name = 'Yorik';
 const age = 2;
 const oldSchool =
-  "My dog's name is " + name + " and he is " + age * 7 + " years old.";
+  "My dog's name is " + name + ' and he is ' + age * 7 + ' years old.';
 
 const newSchool = `My dog's name is ${name} and he is ${age * 7} years old.`;
-console.log("oldschool ", oldschool);
-console.log("newschool ", newschool);
+console.log('oldschool ', oldschool);
+console.log('newschool ', newschool);
 ```
 
 ```js
 var temp = {
-  section: "cuisines",
-  story: "Lorem ipsum dolor sit amet.",
+  section: 'cuisines',
+  story: 'Lorem ipsum dolor sit amet.',
 };
 
-var phraseOne = "<h1>" + temp.section + "</h1>" + "<p>" + temp.story + "</p>";
+var phraseOne = '<h1>' + temp.section + '</h1>' + '<p>' + temp.story + '</p>';
 
 var phraseTwo = `
     <h1>${temp.section}</h1> 
@@ -1092,18 +1124,18 @@ If we want to use the hash change to determine both the active tab and the conte
 This also makes it easier to reset both the active state and content when the browser's forward and back arrows are used:
 
 ```js
-var tabs = document.querySelectorAll("nav a");
-var contentPara = document.querySelector(".content");
+var tabs = document.querySelectorAll('nav a');
+var contentPara = document.querySelector('.content');
 
 // when the hash changes
 function setActiveTabAccordingToHash(type) {
   makeAllTabsInactive();
   var tabToActivate = document.querySelector(`a[href="#${type}"]`);
-  tabToActivate.classList.add("active");
+  tabToActivate.classList.add('active');
 }
 
 function makeAllTabsInactive() {
-  tabs.forEach((tab) => tab.classList.remove("active"));
+  tabs.forEach((tab) => tab.classList.remove('active'));
 }
 
 // runs on page load and whenever the hash changes
@@ -1116,13 +1148,13 @@ function setContentAccordingToHash() {
 // only runs once on page load
 function initializePage() {
   if (!window.location.hash) {
-    window.location.hash = "cuisines";
-    document.querySelector('[href="#cuisines"]').classList.add("active");
+    window.location.hash = 'cuisines';
+    document.querySelector('[href="#cuisines"]').classList.add('active');
   }
   setContentAccordingToHash();
 }
 
-window.addEventListener("hashchange", setContentAccordingToHash);
+window.addEventListener('hashchange', setContentAccordingToHash);
 
 initializePage();
 ```
@@ -1177,24 +1209,24 @@ Examine `data-array.js`:
 ```js
 const data = [
   {
-    section: "cuisines",
+    section: 'cuisines',
     story:
-      "Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.",
+      'Cuisines. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio, consequuntur nihil voluptatibus expedita quia vero perferendis, deserunt et incidunt eveniet temporibus doloremque possimus facilis.',
   },
   {
-    section: "chefs",
+    section: 'chefs',
     story:
-      "Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.",
+      'Chefs. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
   },
   {
-    section: "reviews",
+    section: 'reviews',
     story:
-      "Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.",
+      'Reviews. Asperiores laudantium, rerum ratione consequatur, culpa consectetur possimus atque ab tempore illum non dolor nesciunt. Neque, rerum. A vel non incidunt, quod doloremque dignissimos necessitatibus aliquid laboriosam architecto at cupiditate commodi expedita in, quae blanditiis.',
   },
   {
-    section: "delivery",
+    section: 'delivery',
     story:
-      "Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.",
+      'Delivery. Possimus labore, officia dolore! Eaque ratione saepe, alias harum laboriosam deserunt laudantium blanditiis eum explicabo placeat reiciendis labore iste sint. Consectetur expedita dignissimos, non quos distinctio, eos rerum facilis eligendi.',
   },
 ];
 ```
@@ -1273,5 +1305,5 @@ And finally, use an [event](https://developer.mozilla.org/en-US/docs/Web/API/Doc
 
 ```js
 // initializePage()
-document.addEventListener("DOMContentLoaded", initializePage);
+document.addEventListener('DOMContentLoaded', initializePage);
 ```
