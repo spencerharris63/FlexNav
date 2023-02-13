@@ -209,7 +209,7 @@ Note the presence of `package.json` in today's folder. Examine it in VS Code.
   "description": "A simple navbar",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server 'app' --files 'app'"
+    "start": "browser-sync app -w --port 1234"
   },
   "keywords": [],
   "author": "",
@@ -264,7 +264,7 @@ Add to the scripts section of package.json. This will allow us to start the serv
 
 ```json
 "scripts": {
-  "start": "browser-sync start --server 'app' --files 'app'"
+  "start": "browser-sync app -w"
 },
 ```
 
@@ -276,9 +276,9 @@ Use `ctrl-c` to shut down the server.
 
 Try editing the start script to specify the port number:
 
-```js
+```json
 "scripts": {
-  "start": "browser-sync start --port 1234 --server 'app' --files 'app'"
+  "start": "browser-sync app -w --port 1234"
 },
 ```
 
