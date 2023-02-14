@@ -1,15 +1,22 @@
 {
-  "name": "flex-nav",
+  "name": "flexnav",
   "version": "1.0.0",
-  "description": "A simple navbar",
+  "description": "just lernin",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server 'app' --files 'app'"
+    "start": "browser-sync app -w"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/front-end-foundations/FlexNav.git"
+  },
+  "author": "Daniel",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/front-end-foundations/FlexNav/issues"
+  },
+  "homepage": "https://github.com/front-end-foundations/FlexNav#readme",
   "dependencies": {
-    "browser-sync": "^2.26.0"
+    "browser-sync": "^2.27.11"
   }
 }
