@@ -62,6 +62,10 @@ nav li {
   display: flex;
 }
 
+.content {
+  padding: 1rem;
+}
+
 @media (min-width: 460px) {
   nav ul {
     justify-content: flex-start;
