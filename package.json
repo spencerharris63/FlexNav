@@ -1,15 +1,17 @@
 {
-  "name": "flex-nav",
+  "name": "flexnav",
   "version": "1.0.0",
-  "description": "A simple navbar",
+  "description": "test",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server 'app' --files 'app'"
+    "start": "browser-sync app -w --port 1234"
   },
-  "keywords": [],
+  "keywords": [
+    "Spencer"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.26.0"
+    "browser-sync": "^2.29.3"
   }
 }
